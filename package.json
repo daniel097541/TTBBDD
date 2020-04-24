@@ -1,0 +1,12 @@
+{
+  "name": "ttbbdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "full-install": "cd backend && npm i && cd ../frontend && npm i"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
