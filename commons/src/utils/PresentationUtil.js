@@ -9,8 +9,8 @@ class PresentationUtil {
         return instance;
     }
 
-    initMsg() {
-        figlet('TTBBDD - DUMPER', function (err, data) {
+    initMsg(msg) {
+        figlet(msg, function (err, data) {
             if (err) {
                 console.log('Something went wrong...');
                 console.dir(err);

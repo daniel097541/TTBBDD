@@ -1,5 +1,5 @@
 const DataReader = require('./src/utils/DataReader');
-const PresentationUtil = require('./src/utils/PresentationUtil');
+const PresentationUtil = require('../commons/src/utils/PresentationUtil');
 const reader = DataReader.getInstance();
 const presentationUtil = PresentationUtil.getInstance();
 
