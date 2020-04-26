@@ -1,15 +1,11 @@
-const DataReader = require('./src/utils/DataReader');
 const PresentationUtil = require('../commons/src/utils/PresentationUtil');
-
-const reader = DataReader.getInstance();
+const DataConversor = require('./src/conversor/DataConversor');
 const presentationUtil = PresentationUtil.getInstance();
+const conversor = DataConversor.getInstance();
 
+const init = new Date().getTime();
 presentationUtil.initMsg('TTBBDD - DUMPER');
-reader.readFiles(`data/`, (fileName, content) => {
+const convertedData = conversor.convertData();
+const end = new Date().getTime();
 
-    // here do stuff with data
-    console.log(fileName);
-
-    }, (error) => {
-    console.log(error);
-});
+console.log(`Time to dump data: ${end - init}`);
