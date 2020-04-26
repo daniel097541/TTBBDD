@@ -1,5 +1,5 @@
 const Client = require('mongodb').MongoClient;
-const uri = "mongodb+srv://mongo:mongo@ttbbdd-fgu5s.mongodb.net/test?retryWrites=true&w=majority";
+const config = require('../../config/config');
 
 // every dao class should extend this
 class MongoDBDAO {
@@ -12,7 +12,7 @@ class MongoDBDAO {
     }
 
     connect(callback, onError) {
-        Client.connect(uri, (err, db) => {
+        Client.connect(config.db_url, (err, db) => {
             if (err) {
                 onError(err);
             } else {
