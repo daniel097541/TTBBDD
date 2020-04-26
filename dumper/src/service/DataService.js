@@ -14,6 +14,16 @@ class DataService {
         return this.dataManager.getData();
     }
 
+    getAllCharacters() {
+        return this.getData()
+            .characters;
+    }
+
+    getAllComics() {
+        return this.getData()
+            .comics;
+    }
+
     getCharacterById(id) {
         return this.getData().characters
             .find(c => c.characterID === id);

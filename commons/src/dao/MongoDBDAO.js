@@ -1,30 +1,26 @@
-const MongoClient = require('../mongo/MongoDBClient');
+const Client = require('mongodb').MongoClient;
+const uri = "mongodb+srv://mongo:mongo@ttbbdd-fgu5s.mongodb.net/test?retryWrites=true&w=majority";
 
 // every dao class should extend this
 class MongoDBDAO {
 
     constructor() {
-        this.client = MongoClient.getInstance();
-        this.connection = null;
-        this.connect();
     }
 
-    static getInstance(){
+    static getInstance() {
         return instance;
     }
 
-    connect(){
-        const url = 'asd';
-        console.log('Connecting dao');
-        this.client.getConnection(url, (connection) => {
-            this.connection = connection;
-            console.log('Successfully connected to mongo!');
-        }, (error) => {
-            console.log('Error connecting to mongo!');
-            console.log(error);
+    connect(callback, onError) {
+        Client.connect(uri, (err, db) => {
+            if (err) {
+                onError(err);
+            } else {
+                this.connection = db;
+                callback(db);
+            }
         });
     }
-
 }
 
 const instance = new MongoDBDAO();
