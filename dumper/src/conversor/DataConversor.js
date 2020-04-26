@@ -5,7 +5,7 @@ const Character = require('../../../commons/src/model/character/Character');
 const CharacterInfo = require('../../../commons/src/model/character/CharacterInfo');
 const CharacterStats = require('../../../commons/src/model/character/CharactersStats');
 const CharacterToComic = require('../../../commons/src/model/character/CharacterToComic');
-const Appearances = require('../../../commons/src/model/comic/Appearances');
+const Appearance = require('../../../commons/src/model/character/Appearance');
 const Comic = require('../../../commons/src/model/comic/Comic');
 const SuperPowers = require('../../../commons/src/model/comic/SuperPowers');
 
@@ -28,7 +28,8 @@ class DataConversor {
         while (line = liner.next()) {
             const lineStr = line.toString('utf-8').replace('\r', '');
             if (firstLine) {
-                fieldNames = lineStr.replace(/ /g, '').split(',');
+                fieldNames = lineStr.split(',');
+                fieldNames = fieldNames.map(fn => fn.replace(/ /g, '').trim());
                 firstLine = false;
             }
             else {
@@ -70,11 +71,11 @@ class DataConversor {
         });
     }
 
-    convertAppearancesData() {
-        const fileName = Types.APPEARANCES;
+    convertAppearancesInfoData() {
+        const fileName = Types.CHARACTER_UNIVERSE;
         return this.readFileLineByLine(fileName, (line, fieldNames) => {
             const spitedData = line.split(',');
-            return new Appearances(fieldNames, spitedData);
+            return new Appearance(fieldNames, spitedData);
         });
     }
 
@@ -99,7 +100,7 @@ class DataConversor {
         const charactersInfo = this.convertCharactersInfoData();
         const charactersStats = this.convertCharacterStatsData();
         const characterToComic = this.convertCharacterToComicData();
-        const appearances = this.convertAppearancesData();
+        const appearancesInfo = this.convertAppearancesInfoData();
         const comics = this.convertComicData();
         const powers = this.convertSuperPowersData();
 
@@ -108,7 +109,7 @@ class DataConversor {
             charactersInfo: charactersInfo,
             charactersStats: charactersStats,
             characterToComic: characterToComic,
-            appearances: appearances,
+            appearancesInfo: appearancesInfo,
             comics: comics,
             powers: powers
         };

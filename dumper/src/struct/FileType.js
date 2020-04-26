@@ -4,7 +4,7 @@ const FILE_TYPE = {
     CHARACTERS_STATS: 'characters_stats.csv',
     CHARACTERS_TO_COMICS: 'charactersToComics.csv',
     COMICS: 'comics.csv',
-    APPEARANCES: 'marvel_dc_characters.csv',
+    CHARACTER_UNIVERSE: 'marvel_dc_characters.csv',
     POWERS: 'superheroes_power_matrix.csv'
 };
 

@@ -1,11 +1,22 @@
 const PresentationUtil = require('../commons/src/utils/PresentationUtil');
-const DataConversor = require('./src/conversor/DataConversor');
+const DataService = require('./src/service/DataService');
 const presentationUtil = PresentationUtil.getInstance();
-const conversor = DataConversor.getInstance();
+const service = DataService.getInstance();
 
-const init = new Date().getTime();
 presentationUtil.initMsg('TTBBDD - DUMPER');
-const convertedData = conversor.convertData();
-const end = new Date().getTime();
 
-console.log(`Time to dump data: ${end - init}`);
+const heroName = 'Captain America';
+
+const hero = service.getCharacterByName(heroName);
+const heroInfo = service.getCharacterInfo(heroName);
+const heroStats = service.getCharacterStats(heroName);
+const comicsWhereAppears = service.getComicsWhereCharacterAppears(heroName);
+const superPowersOfHero = service.getSuperPowersOfCharacter(heroName);
+const universeInfo = service.getCharacterAppearancesInfo(heroName);
+
+console.log(hero);
+console.log(heroStats);
+console.log(heroInfo);
+console.log(comicsWhereAppears.length);
+console.log(superPowersOfHero);
+console.log(universeInfo);
