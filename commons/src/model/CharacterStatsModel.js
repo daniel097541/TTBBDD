@@ -8,5 +8,9 @@ class CharacterStatsModel {
         this.pow = pow;
         this.com = com;
     }
+
+    getTotal(){
+        return this.int + this.str + this.spd + this.dur + this.pow + this.com;
+    }
 }
 module.exports = CharacterStatsModel;

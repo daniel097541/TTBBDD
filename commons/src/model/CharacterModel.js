@@ -8,5 +8,9 @@ class CharacterModel {
         this.comics = comics;
         this.powers = powers;
     }
+
+    getTotalStats(){
+        return this.stats.getTotal();
+    }
 }
 module.exports = CharacterModel;

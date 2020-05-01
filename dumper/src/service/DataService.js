@@ -71,28 +71,42 @@ class DataService {
             .filter(ui => ui.Name.startsWith(characterName));
     }
 
-    craftHeroesData(){
+    craftHeroesData() {
         const heroesData = [];
-        for(const character of this.getAllCharacters()){
+        for (const character of this.getAllCharacters()) {
 
             const info = this.getCharacterInfo(character.name);
             const stats = this.getCharacterStats(character.name);
             const comics = this.getComicsWhereCharacterAppears(character.name).map(c => c.comicID);
             const powers = this.getSuperPowersOfCharacter(character.name);
             const powersModel = [];
-            for(const key of Object.keys(powers)){
-                const value = powers[key];
-                if(value.toLowerCase() === 'true'){
-                    powersModel.push(key);
+            let infoModel = null;
+            let statsModel = null;
+
+
+            // craft powers
+            if (powers) {
+                for (const key of Object.keys(powers)) {
+                    const value = powers[key];
+                    if (value.toLowerCase() === 'true') {
+                        powersModel.push(key);
+                    }
                 }
             }
 
-            const infoModel = new CharacterInfoModel(info.Alignment, info.Gender, info.EyeColor, info.HairColor, info.Publisher, info.SkinColor, info.Height, info.Weight);
-            const statsModel = new CharacterStatsModel(stats.Intelligence, stats.Strength, stats.Speed, stats.Durability, stats.Power, stats.Combat);
-            const characterModel = new CharacterModel(character.characterID, character.name, infoModel, statsModel, comics, powersModel);
+            // craft character info
+            if (info) {
+                infoModel = new CharacterInfoModel(info.Alignment, info.Gender, info.EyeColor, info.HairColor, info.Publisher, info.SkinColor, info.Height, info.Weight);
+            }
 
+            // craft stats
+            if (stats) {
+                statsModel = new CharacterStatsModel(stats.Intelligence, stats.Strength, stats.Speed, stats.Durability, stats.Power, stats.Combat);
+            }
+
+            // return characters model
+            const characterModel = new CharacterModel(character.characterID, character.name, infoModel, statsModel, comics, powersModel);
             heroesData.push(characterModel);
-            break;
         }
         return heroesData;
     }

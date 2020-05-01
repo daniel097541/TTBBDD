@@ -15,5 +15,9 @@ const comicsWhereAppears = service.getComicsWhereCharacterAppears(heroName);
 const superPowersOfHero = service.getSuperPowersOfCharacter(heroName);
 const universeInfo = service.getCharacterAppearancesInfo(heroName);
 
+const init = new Date().getTime();
 const heroesData = service.craftHeroesData();
+const end = new Date().getTime();
+
+console.log(`Time to craft data: ${end - init}`);
 console.log(heroesData);

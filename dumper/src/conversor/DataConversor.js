@@ -11,9 +11,6 @@ const SuperPowers = require('../model/comic/SuperPowers');
 
 class DataConversor {
 
-    constructor() {
-    }
-
     static getInstance() {
         return instance;
     }
