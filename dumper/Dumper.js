@@ -8,11 +8,12 @@ presentationUtil.initMsg('TTBBDD - DUMPER');
 const heroName = 'Captain America';
 const dao = MongoDBDAO.getInstance();
 
-dao.test();
-
 const hero = service.getCharacterByName(heroName);
 const heroInfo = service.getCharacterInfo(heroName);
 const heroStats = service.getCharacterStats(heroName);
 const comicsWhereAppears = service.getComicsWhereCharacterAppears(heroName);
 const superPowersOfHero = service.getSuperPowersOfCharacter(heroName);
 const universeInfo = service.getCharacterAppearancesInfo(heroName);
+
+const heroesData = service.craftHeroesData();
+console.log(heroesData);

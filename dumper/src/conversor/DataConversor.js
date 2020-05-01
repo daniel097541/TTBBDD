@@ -1,13 +1,13 @@
 const lineByLine = require('n-readlines');
 const FileType = require('../struct/FileType');
 const Types = FileType.FILE_TYPE;
-const Character = require('../../../commons/src/model/character/Character');
-const CharacterInfo = require('../../../commons/src/model/character/CharacterInfo');
-const CharacterStats = require('../../../commons/src/model/character/CharactersStats');
-const CharacterToComic = require('../../../commons/src/model/character/CharacterToComic');
-const Appearance = require('../../../commons/src/model/character/Appearance');
-const Comic = require('../../../commons/src/model/comic/Comic');
-const SuperPowers = require('../../../commons/src/model/comic/SuperPowers');
+const Character = require('../model/character/Character');
+const CharacterInfo = require('../model/character/CharacterInfo');
+const CharacterStats = require('../model/character/CharactersStats');
+const CharacterToComic = require('../model/character/CharacterToComic');
+const Appearance = require('../model/character/Appearance');
+const Comic = require('../model/comic/Comic');
+const SuperPowers = require('../model/comic/SuperPowers');
 
 class DataConversor {
 
