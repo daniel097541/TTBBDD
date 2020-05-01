@@ -10,5 +10,6 @@ const init = new Date().getTime();
 service.dumpData(() => {
     const end = new Date().getTime();
     console.log(`Time to dump all data: ${end - init} ms`);
+    service.disconnect();
 });
 

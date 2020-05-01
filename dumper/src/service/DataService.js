@@ -16,6 +16,10 @@ class DataService {
         this.connect();
     }
 
+    disconnect(){
+        mongoose.connection.close();
+    }
+
     connect(){
         mongoose.connect(config.db_url, {useNewUrlParser: true});
         const db = mongoose.connection;
