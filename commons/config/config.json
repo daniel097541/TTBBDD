@@ -1,3 +1,5 @@
 {
-  "db_url": "mongodb+srv://mongo:mongo@ttbbdd-fgu5s.mongodb.net/test?retryWrites=true&w=majority"
+  "db_url": "mongodb+srv://mongo:mongo@ttbbdd-fgu5s.mongodb.net/test?retryWrites=true&w=majority",
+  "comics_batch_size": 5000,
+  "characters_batch_size": 200
 }

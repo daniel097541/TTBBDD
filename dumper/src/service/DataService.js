@@ -1,7 +1,9 @@
 const DataManager = require('../manager/DataManager');
-const CharacterModel = require('../../../commons/src/model/CharacterModel');
-const CharacterInfoModel = require('../../../commons/src/model/CharacterInfoModel');
-const CharacterStatsModel = require('../../../commons/src/model/CharacterStatsModel');
+const Character = require('../../../commons/src/model/CharacterModel');
+const config = require('../../../commons/config/config.json');
+const Comic = require('../../../commons/src/model/ComicModel');
+const ArrayUtil = require('../../../commons/src/utils/ArrayUtil');
+const mongoose = require('mongoose');
 
 class DataService {
 
@@ -11,6 +13,17 @@ class DataService {
 
     constructor() {
         this.dataManager = DataManager.getInstance();
+        this.connect();
+    }
+
+    connect(){
+        mongoose.connect(config.db_url, {useNewUrlParser: true});
+        const db = mongoose.connection;
+        db.on('error', console.error.bind(console, 'connection error:'));
+        db.once('open', function() {
+            // we're connected!
+            console.log('Successfully connected to mongo!');
+        });
     }
 
     getData() {
@@ -71,17 +84,82 @@ class DataService {
             .filter(ui => ui.Name.startsWith(characterName));
     }
 
-    craftHeroesData() {
-        const heroesData = [];
-        for (const character of this.getAllCharacters()) {
+    dumpData(callback) {
+
+        const comicsBatchSize = config.comics_batch_size;
+        const allComics = ArrayUtil.unique(this.getAllComics(), 'comicID');
+        const batchedComics = ArrayUtil.chunkArray(allComics, comicsBatchSize);
+
+        console.log(`Dumping comics data to mongo!`);
+        this.recursiveDumpComics(0, batchedComics, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(`Successfully dumped ${allComics.length} comics!`);
+
+                const charactersBatchSize = config.characters_batch_size;
+                const allCharacters = ArrayUtil.unique(this.getAllCharacters(), 'characterID');
+                const batchedCharacters = ArrayUtil.chunkArray(allCharacters, charactersBatchSize);
+
+                console.log(`Dumping characters data to mongo!`);
+                this.recursiveDumpCharacters(0, batchedCharacters, (err) => {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        console.log(`Successfully dumped ${allCharacters.length} characters!`);
+                        callback();
+                    }
+                })
+            }
+        })
+    }
+
+    recursiveDumpComics(index, batches, callback) {
+
+        const batch = batches[index];
+        const comics = [];
+        console.log(`Dumping batch ${index} of comics!`);
+
+        for (const comic of batch) {
+            const comicModel = new Comic({
+                _id: comic.comicID,
+                name: comic.title,
+                issue: comic.issueNumber
+            });
+            comics.push(comicModel);
+        }
+
+        Comic.collection.insert(comics, (err, resp) => {
+            if (err) {
+                callback(err);
+            }
+            if (resp) {
+                if (index >= batches.length - 1) {
+                    callback();
+                } else {
+                    this.recursiveDumpComics(index + 1, batches, callback);
+                }
+            }
+        });
+    }
+
+
+
+    recursiveDumpCharacters(index, batches, callback) {
+        const heroesBatch = [];
+        const batch = batches[index];
+        console.log(`Dumping batch ${index} of characters!`);
+
+        for (const character of batch) {
 
             const info = this.getCharacterInfo(character.name);
             const stats = this.getCharacterStats(character.name);
             const comics = this.getComicsWhereCharacterAppears(character.name).map(c => c.comicID);
             const powers = this.getSuperPowersOfCharacter(character.name);
             const powersModel = [];
-            let infoModel = null;
-            let statsModel = null;
+            let infoModel = {};
+            let statsModel = {};
 
 
             // craft powers
@@ -96,19 +174,63 @@ class DataService {
 
             // craft character info
             if (info) {
-                infoModel = new CharacterInfoModel(info.Alignment, info.Gender, info.EyeColor, info.HairColor, info.Publisher, info.SkinColor, info.Height, info.Weight);
+                infoModel = {
+                    alignment: info.Alignment,
+                    gender: info.Gender,
+                    eye_color: info.EyeColor,
+                    hair_color: info.HairColor,
+                    publisher: info.Publisher,
+                    skin_color: info.SkinColor,
+                    height: info.Height,
+                    weight: info.Weight
+                };
             }
 
             // craft stats
             if (stats) {
-                statsModel = new CharacterStatsModel(stats.Intelligence, stats.Strength, stats.Speed, stats.Durability, stats.Power, stats.Combat);
+                statsModel = {
+                    intelligence: stats.Intelligence,
+                    strength: stats.Strength,
+                    speed: stats.Speed,
+                    durability: stats.Durability,
+                    power: stats.Power,
+                    combat: stats.Combat
+                };
             }
 
             // return characters model
-            const characterModel = new CharacterModel(character.characterID, character.name, infoModel, statsModel, comics, powersModel);
-            heroesData.push(characterModel);
+            const characterModel = new Character({
+                _id: character.characterID,
+                name: character.name,
+                info: infoModel,
+                stats: statsModel,
+                comics: comics,
+                powers: powersModel
+            });
+
+
+            heroesBatch.push(characterModel);
         }
-        return heroesData;
+
+        Character.collection.insert(heroesBatch, (err, resp) => {
+
+            if(err){
+                callback(err);
+            }
+            if(resp){
+
+                // get out
+                if(index >= batches.length - 1){
+                    callback();
+                }
+
+                // recursive call
+                else{
+                    this.recursiveDumpCharacters(index + 1, batches, callback);
+                }
+            }
+        });
+
     }
 
 }
