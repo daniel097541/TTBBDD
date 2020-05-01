@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "full-install": "cd backend && npm i && cd ../frontend && npm i",
+    "full-install": "npm install && cd backend && npm i && cd ../frontend && npm i",
     "start-backend": "cd backend && npm start",
     "start-frontend": "cd frontend && ng serve",
     "dump-data": "cd dumper && npm i && npm run start",
@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "figlet": "^1.4.0",
     "mongoose": "^5.9.11"
   }
 }
