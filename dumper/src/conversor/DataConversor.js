@@ -23,13 +23,20 @@ class DataConversor {
         let fieldNames = [];
 
         while (line = liner.next()) {
-            const lineStr = line.toString('utf-8').replace('\r', '');
+            let lineStr = line.toString('utf-8').replace('\r', '');
             if (firstLine) {
                 fieldNames = lineStr.split(',');
                 fieldNames = fieldNames.map(fn => fn.replace(/ /g, '').trim());
                 firstLine = false;
-            }
-            else {
+            } else {
+                if (lineStr.includes('"')) {
+
+                    lineStr.match(/"(.*?)"/g).forEach(function (val) {
+                        const replaced = val.replace(/,/g, '');
+                        lineStr = lineStr.replace(val, replaced);
+                        lineStr = lineStr.replace(/"/g, '');
+                    });
+                }
                 result.push(lineConversor(lineStr, fieldNames));
             }
         }
