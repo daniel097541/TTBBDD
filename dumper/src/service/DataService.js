@@ -16,15 +16,15 @@ class DataService {
         this.connect();
     }
 
-    disconnect(){
+    disconnect() {
         mongoose.connection.close();
     }
 
-    connect(){
+    connect() {
         mongoose.connect(config.db_url, {useNewUrlParser: true});
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
-        db.once('open', function() {
+        db.once('open', function () {
             // we're connected!
             console.log('Successfully connected to mongo!');
         });
@@ -83,9 +83,9 @@ class DataService {
             .find(p => p.Name === characterName);
     }
 
-    getCharacterAppearancesInfo(characterName) {
-        return this.getData().appearancesInfo
-            .filter(ui => ui.Name.startsWith(characterName));
+    getCharacterCrossOversInfo(characterName) {
+        return this.getData().crossOvers
+            .filter(ui => ui.Name === characterName);
     }
 
     dumpData(callback) {
@@ -107,10 +107,9 @@ class DataService {
 
                 console.log(`Dumping characters data to mongo!`);
                 this.recursiveDumpCharacters(0, batchedCharacters, (err) => {
-                    if(err){
+                    if (err) {
                         console.log(err);
-                    }
-                    else{
+                    } else {
                         console.log(`Successfully dumped ${allCharacters.length} characters!`);
                         callback();
                     }
@@ -149,7 +148,6 @@ class DataService {
     }
 
 
-
     recursiveDumpCharacters(index, batches, callback) {
         const heroesBatch = [];
         const batch = batches[index];
@@ -161,10 +159,12 @@ class DataService {
             const stats = this.getCharacterStats(character.name);
             const comics = this.getComicsWhereCharacterAppears(character.name).map(c => c.comicID);
             const powers = this.getSuperPowersOfCharacter(character.name);
+            const crossOvers = this.getCharacterCrossOversInfo(character.name);
+
             const powersModel = [];
             let infoModel = {};
             let statsModel = {};
-
+            let crossOversModels = [];
 
             // craft powers
             if (powers) {
@@ -202,6 +202,23 @@ class DataService {
                 };
             }
 
+            if (crossOvers) {
+                for(const crossOver of crossOvers) {
+                    const crossOversModel = {
+                        identity: crossOver.Identity,
+                        alignment: crossOver.Alignment,
+                        status: crossOver.Status,
+                        appearances: crossOver.Appearances,
+                        firstAppearance: crossOver.FirstAppearance,
+                        year: crossOver.Year,
+                        universe: crossOver.Universe,
+                        extraInfo: crossOver.extraInfo
+                    };
+                    crossOversModels.push(crossOversModel);
+                }
+            }
+
+
             // return characters model
             const characterModel = new Character({
                 _id: character.characterID,
@@ -209,27 +226,28 @@ class DataService {
                 info: infoModel,
                 stats: statsModel,
                 comics: comics,
-                powers: powersModel
+                powers: powersModel,
+                crossovers: crossOversModels
             });
-
 
             heroesBatch.push(characterModel);
         }
 
+
         Character.collection.insert(heroesBatch, (err, resp) => {
 
-            if(err){
+            if (err) {
                 callback(err);
             }
-            if(resp){
+            if (resp) {
 
                 // get out
-                if(index >= batches.length - 1){
+                if (index >= batches.length - 1) {
                     callback();
                 }
 
                 // recursive call
-                else{
+                else {
                     this.recursiveDumpCharacters(index + 1, batches, callback);
                 }
             }

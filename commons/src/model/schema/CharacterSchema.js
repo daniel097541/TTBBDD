@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const InfoSchema = require('./CharacterInfoSchema');
 const StatsSchema = require('./CharacterStatsSchema');
+const CrossOver = require('./CrossOverSchema');
 
 const characterSchema = new mongoose.Schema({
     _id: Number,
@@ -8,7 +9,8 @@ const characterSchema = new mongoose.Schema({
     info: InfoSchema,
     stats: StatsSchema,
     comics: [Number],
-    powers: [String]
+    powers: [String],
+    crossovers: [CrossOver]
 });
 
 characterSchema.methods.getTotalStats = function () {

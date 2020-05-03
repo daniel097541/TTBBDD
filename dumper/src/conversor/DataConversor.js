@@ -5,7 +5,7 @@ const Character = require('../model/character/Character');
 const CharacterInfo = require('../model/character/CharacterInfo');
 const CharacterStats = require('../model/character/CharactersStats');
 const CharacterToComic = require('../model/character/CharacterToComic');
-const Appearance = require('../model/character/Appearance');
+const CrossOver = require('../model/character/CrossOver');
 const Comic = require('../model/comic/Comic');
 const SuperPowers = require('../model/comic/SuperPowers');
 
@@ -75,11 +75,11 @@ class DataConversor {
         });
     }
 
-    convertAppearancesInfoData() {
+    convertCrossoversInfoData() {
         const fileName = Types.CHARACTER_UNIVERSE;
         return this.readFileLineByLine(fileName, (line, fieldNames) => {
             const spitedData = line.split(',');
-            return new Appearance(fieldNames, spitedData);
+            return new CrossOver(fieldNames, spitedData);
         });
     }
 
@@ -104,7 +104,7 @@ class DataConversor {
         const charactersInfo = this.convertCharactersInfoData();
         const charactersStats = this.convertCharacterStatsData();
         const characterToComic = this.convertCharacterToComicData();
-        const appearancesInfo = this.convertAppearancesInfoData();
+        const crossOvers = this.convertCrossoversInfoData();
         const comics = this.convertComicData();
         const powers = this.convertSuperPowersData();
 
@@ -113,7 +113,7 @@ class DataConversor {
             charactersInfo: charactersInfo,
             charactersStats: charactersStats,
             characterToComic: characterToComic,
-            appearancesInfo: appearancesInfo,
+            crossOvers: crossOvers,
             comics: comics,
             powers: powers
         };
