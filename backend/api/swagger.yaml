@@ -1,0 +1,231 @@
+---
+swagger: "2.0"
+info:
+  description: "TTBBDD API"
+  version: "1.0.0"
+  title: "TTBBDD API"
+host: "localhost:3000"
+tags:
+- name: "characters"
+  description: "Charcters API"
+- name: "comics"
+  description: "Comics API"
+schemes:
+- "http"
+paths:
+  /characters:
+    get:
+      tags:
+      - "characters"
+      summary: "Get all characters"
+      description: "Get all characters"
+      operationId: "getAll"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Character"
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "Characters"
+  /characters/findByName:
+    get:
+      tags:
+      - "characters"
+      summary: "Finds characters by name"
+      description: "Multiple name values can be provided with comma separated strings"
+      operationId: "findCharactersByName"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "Name values that need to be considered for filter"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Character"
+        "400":
+          description: "Invalid status value"
+      x-swagger-router-controller: "Characters"
+definitions:
+  CharacterInfo:
+    type: "object"
+    properties:
+      alignment:
+        type: "string"
+      gender:
+        type: "string"
+      eye_color:
+        type: "string"
+      hair_color:
+        type: "string"
+      publisher:
+        type: "string"
+      skin_color:
+        type: "string"
+      height:
+        type: "string"
+      weight:
+        type: "string"
+    example:
+      eye_color: "eye_color"
+      gender: "gender"
+      skin_color: "skin_color"
+      publisher: "publisher"
+      weight: "weight"
+      alignment: "alignment"
+      hair_color: "hair_color"
+      height: "height"
+  CharacterStats:
+    type: "object"
+    properties:
+      intelligence:
+        type: "number"
+      strength:
+        type: "number"
+      speed:
+        type: "number"
+      durability:
+        type: "number"
+      power:
+        type: "number"
+      combat:
+        type: "number"
+    example:
+      strength: 1.46581298050294517310021547018550336360931396484375
+      durability: 5.63737665663332876420099637471139430999755859375
+      combat: 7.061401241503109105224211816675961017608642578125
+      power: 2.3021358869347654518833223846741020679473876953125
+      speed: 5.962133916683182377482808078639209270477294921875
+      intelligence: 6.02745618307040320615897144307382404804229736328125
+  CrossOver:
+    type: "object"
+    properties:
+      identity:
+        type: "string"
+      alignment:
+        type: "string"
+      status:
+        type: "string"
+      appearances:
+        type: "number"
+      firstAppearance:
+        type: "string"
+      year:
+        type: "number"
+      universe:
+        type: "string"
+      extraInfo:
+        type: "string"
+    example:
+      appearances: 3.61607674925191080461672754609026014804840087890625
+      firstAppearance: "firstAppearance"
+      year: 2.027123023002321833274663731572218239307403564453125
+      identity: "identity"
+      universe: "universe"
+      alignment: "alignment"
+      status: "status"
+      extraInfo: "extraInfo"
+  Character:
+    type: "object"
+    properties:
+      _id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      info:
+        $ref: "#/definitions/CharacterInfo"
+      stats:
+        $ref: "#/definitions/CharacterStats"
+      comics:
+        type: "array"
+        items:
+          type: "number"
+      powers:
+        type: "array"
+        items:
+          type: "string"
+      crossOvers:
+        type: "array"
+        items:
+          $ref: "#/definitions/CrossOver"
+    example:
+      crossOvers:
+      - appearances: 3.61607674925191080461672754609026014804840087890625
+        firstAppearance: "firstAppearance"
+        year: 2.027123023002321833274663731572218239307403564453125
+        identity: "identity"
+        universe: "universe"
+        alignment: "alignment"
+        status: "status"
+        extraInfo: "extraInfo"
+      - appearances: 3.61607674925191080461672754609026014804840087890625
+        firstAppearance: "firstAppearance"
+        year: 2.027123023002321833274663731572218239307403564453125
+        identity: "identity"
+        universe: "universe"
+        alignment: "alignment"
+        status: "status"
+        extraInfo: "extraInfo"
+      stats:
+        strength: 1.46581298050294517310021547018550336360931396484375
+        durability: 5.63737665663332876420099637471139430999755859375
+        combat: 7.061401241503109105224211816675961017608642578125
+        power: 2.3021358869347654518833223846741020679473876953125
+        speed: 5.962133916683182377482808078639209270477294921875
+        intelligence: 6.02745618307040320615897144307382404804229736328125
+      comics:
+      - 9.301444243932575517419536481611430644989013671875
+      - 9.301444243932575517419536481611430644989013671875
+      name: "name"
+      _id: 0
+      powers:
+      - "powers"
+      - "powers"
+      info:
+        eye_color: "eye_color"
+        gender: "gender"
+        skin_color: "skin_color"
+        publisher: "publisher"
+        weight: "weight"
+        alignment: "alignment"
+        hair_color: "hair_color"
+        height: "height"
+  Comic:
+    type: "object"
+    properties:
+      _id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      issue:
+        type: "number"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
