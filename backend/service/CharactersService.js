@@ -22,11 +22,10 @@ class CharactersService {
     findCharactersByName(name) {
         console.log(name)
         return new Promise(((resolve, reject) => {
-            this.dao.getByName(name,(err, characters) => {
-                if(err){
+            this.dao.getByName(name, (err, characters) => {
+                if (err) {
                     reject(err);
-                }
-                else if(characters){
+                } else if (characters) {
                     resolve(characters);
                 }
             })
@@ -43,15 +42,36 @@ class CharactersService {
     getAll() {
         return new Promise((resolve, reject) => {
             this.dao.getALl((err, characters) => {
-                if(err){
+                if (err) {
                     reject(err);
-                }
-                else if(characters){
+                } else if (characters) {
                     resolve(characters);
                 }
             });
         })
     }
+
+
+    /**
+     * Finds characters matching name
+     *
+     *
+     * name String Name value that need to be considered for filter
+     * returns List
+     **/
+    findCharactersMatchingName(name) {
+        return new Promise((resolve, reject) => {
+           this.dao.getMatchingName(name, (err, characters) => {
+               if(err){
+                   reject(err);
+               }
+               else if (characters){
+                   resolve(characters);
+               }
+           });
+        });
+    }
+
 
 }
 

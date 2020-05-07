@@ -25,3 +25,15 @@ module.exports.getAll = function getAll (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+
+module.exports.findCharactersMatchingName = function findCharactersMatchingName (req, res, next) {
+  const name = req.swagger.params['name'].value;
+  service.findCharactersMatchingName(name)
+      .then(function (response) {
+        utils.writeJson(res, response);
+      })
+      .catch(function (response) {
+        utils.writeJson(res, response);
+      });
+};

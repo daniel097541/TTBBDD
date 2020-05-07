@@ -16,21 +16,31 @@ class CharactersDAO extends BasicDAO {
 
     getALl(callback) {
         CharacterModel.find({}, (err, characters) => {
-            if(err){
+            if (err) {
                 callback(err, null);
-            }
-            else{
+            } else {
                 callback(null, characters);
             }
         });
     }
 
-    getByName(names, callback){
-        CharacterModel.find({'name': { $in: names}}, (err, characters) => {
-            if(err){
+    getByName(names, callback) {
+        CharacterModel.find({'name': {$in: names}}, (err, characters) => {
+            if (err) {
                 callback(err, null);
+            } else {
+                callback(null, characters);
             }
-            else{
+        })
+    }
+
+
+    getMatchingName(name, callback) {
+        const regex = new RegExp(name, 'i');
+        CharacterModel.find({'name': regex}, (err, characters) => {
+            if (err) {
+                callback(err, null);
+            } else {
                 callback(null, characters);
             }
         })
