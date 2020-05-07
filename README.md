@@ -13,6 +13,10 @@ Partiendo siempre de la raiz del proyecto.
 
 ## QUERIES
 
+* **Did you just assume my gender?:** ``Dame el genero de un personaje``
+* **Quien es Red Barclay:** ``Dame el personaje mas gordo de todos``
+* **Quien es peter petrelli?:** ``Dame el heroe con mas poderes``
+* **El mejor:** ``Cual es el heroe con mejores stats de un comic``
 * **Buscador de villanos:** ```Busca todos los villanos (alineacion bad) que comparten comic con un personaje```
 * **Lista de malos heroes:** ```Busca todos los heroes que hayan sido villanos en un crossover```
 * **1 pa 1 sin camiseta:** ```Quién ganaría si el villano mas poderoso se enfrentase al heroe mas poderoso```
