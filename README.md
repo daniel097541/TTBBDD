@@ -17,3 +17,4 @@ Partiendo siempre de la raiz del proyecto.
 * **Lista de malos heroes:** ```Busca todos los heroes que hayan sido villanos en un crossover```
 * **1 pa 1 sin camiseta:** ```Quién ganaría si el villano mas poderoso se enfrentase al heroe mas poderoso```
 * **Couple goals:** ``Cual es el personaje que mas se ha encontrado con un heroe``
+* **Stalker:** ``Cuales son los amigos (misma alineacion) que tiene un personaje en un comic``
