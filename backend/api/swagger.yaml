@@ -38,7 +38,7 @@ paths:
       tags:
       - "characters"
       summary: "Finds characters by name"
-      description: "Multiple name values can be provided with comma separated strings"
+      description: "Multiple name values can be provided as array of string"
       operationId: "findCharactersByName"
       produces:
       - "application/json"
@@ -50,7 +50,6 @@ paths:
         type: "array"
         items:
           type: "string"
-        collectionFormat: "multi"
       responses:
         "200":
           description: "successful operation"

@@ -20,6 +20,7 @@ class CharactersService {
      * returns List
      **/
     findCharactersByName(name) {
+        console.log(name)
         return new Promise(((resolve, reject) => {
             this.dao.getByName(name,(err, characters) => {
                 if(err){
