@@ -13,6 +13,7 @@ schemes:
   - "http"
 paths:
   /characters:
+    x-swagger-router-controller: "Characters"
     get:
       tags:
         - "characters"
@@ -56,6 +57,7 @@ paths:
         "400":
           description: "Invalid status value"
   /characters/findByName:
+    x-swagger-router-controller: "Characters"
     get:
       tags:
         - "characters"

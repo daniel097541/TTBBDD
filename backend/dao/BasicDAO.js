@@ -15,6 +15,20 @@ connect();
 class BasicDAO {
 
 
+    constructor(model) {
+        this.model = model;
+    }
+
+    aggregate(pipeline, callback){
+        this.model.aggregate(pipeline, (err, data) => {
+            if(err){
+                callback(err, null);
+            }
+            else if(data){
+                callback(null, data);
+            }
+        })
+    }
 
 }
 module.exports = BasicDAO;

@@ -10,7 +10,7 @@ class CharactersDAO extends BasicDAO {
 
 
     constructor() {
-        super();
+        super(CharacterModel);
     }
 
 
@@ -46,6 +46,25 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
+    findPeterPetrelli(callback) {
+        console.log(`Executing peter petrelli query!`)
+        const pipeline = [
+            {$project: {_id: "$$ROOT", len: {"$size": "$powers"}}},
+            {$sort: {len: -1}},
+            {$limit: 1}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    findRedBarclay(callback) {
+        console.log(`Running query to find red barclay!`)
+        const pipeline = [
+            {$group: {_id: "$$ROOT", weight: {$max: "$info.weight"}}},
+            {$sort: {weight: -1}},
+            {$limit: 1}
+        ];
+        this.aggregate(pipeline, callback);
+    }
 }
 
 const instance = new CharactersDAO();
