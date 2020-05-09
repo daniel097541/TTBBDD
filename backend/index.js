@@ -8,6 +8,7 @@ var app = require('connect')();
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var serverPort = 3000;
+const cors = require('cors');
 
 // swaggerRouter configuration
 var options = {
@@ -25,6 +26,9 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
   app.use(middleware.swaggerMetadata());
+
+  // Enable cors
+  app.use(cors());
 
   // Validate Swagger requests
   app.use(middleware.swaggerValidator());
