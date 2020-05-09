@@ -14,6 +14,9 @@ import { ComponentsComponent } from './components.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NgbdModalComponent } from './modal/modal.component';
 import { NgbdModalContent } from './modal/modal.component';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
     imports: [
@@ -22,7 +25,10 @@ import { NgbdModalContent } from './modal/modal.component';
         NgbModule,
         NouisliderModule,
         RouterModule,
-        JwBootstrapSwitchNg2Module
+        JwBootstrapSwitchNg2Module,
+        NgxDatatableModule,
+        MatTableModule,
+        MatPaginatorModule
     ],
     declarations: [
         ComponentsComponent,

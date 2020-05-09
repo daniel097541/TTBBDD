@@ -11,8 +11,13 @@ import { FooterComponent } from './shared/footer/footer.component';
 
 import { ComponentsModule } from './components/components.module';
 import { ExamplesModule } from './examples/examples.module';
+import {ColumnMode} from '@swimlane/ngx-datatable';
+import {CharacterService} from './services/character.service';
+import {HttpClientModule} from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,8 +32,10 @@ import { ExamplesModule } from './examples/examples.module';
     ComponentsModule,
     ExamplesModule,
     AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [CharacterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
