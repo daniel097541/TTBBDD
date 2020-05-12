@@ -17,6 +17,8 @@ import { NgbdModalContent } from './modal/modal.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -28,7 +30,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         JwBootstrapSwitchNg2Module,
         NgxDatatableModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSortModule,
+        MatButtonModule
     ],
     declarations: [
         ComponentsComponent,

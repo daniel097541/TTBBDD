@@ -15,6 +15,9 @@ import {ColumnMode} from '@swimlane/ngx-datatable';
 import {CharacterService} from './services/character.service';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
 
 
 // @ts-ignore
@@ -34,6 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatSortModule,
+    MatTableModule,
+    MatButtonModule
   ],
   providers: [CharacterService],
   bootstrap: [AppComponent]

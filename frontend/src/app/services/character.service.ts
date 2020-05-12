@@ -19,4 +19,8 @@ export class CharacterService {
         return this.httpClient.get<any[]>(this.url + 'characters');
     }
 
+    public getCharactersByNombre(nombre:string) {
+        return this.httpClient.get<any[]>(this.url + 'characters'+'/findMatchingName?name='+nombre);
+    }
+
 }

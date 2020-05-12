@@ -194,6 +194,14 @@
             <h2>Consultas</h2>
         </div>
 
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Introduce nombre personaje" [(ngModel)]='nombreCharacter' >
+        </mat-form-field>
+&nbsp;
+        <button mat-raised-button color="primary" (click)="mostararCharactersByName()">Buscar</button>
+
+        <p>{{nombreCharacter}}</p>
+
         <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
                style="width: 100%;text-align: center">
 
