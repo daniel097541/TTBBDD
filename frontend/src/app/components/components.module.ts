@@ -19,6 +19,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import {MatButtonModule} from '@angular/material/button';
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
-        MatButtonModule
+        MatButtonModule,
+        MatSelectModule
     ],
     declarations: [
         ComponentsComponent,

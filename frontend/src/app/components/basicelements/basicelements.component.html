@@ -193,29 +193,60 @@
         <div class="tim-title">
             <h2>Consultas</h2>
         </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Seleccione Consulta</mat-label>
+                <mat-select [(ngModel)]="consultaSeleccionada" (ngModelChange)="llamarConsulta()">
+                    <mat-option *ngFor="let consulta of consultas" [value]="consulta">
+                        {{consulta}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div  *ngIf="consultaSeleccionada=='Consulta 1'">
+            <h2  style="text-align: center">Esta es la consulta de todos los superheroes</h2>
 
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Introduce nombre personaje" [(ngModel)]='nombreCharacter' >
-        </mat-form-field>
-&nbsp;
-        <button mat-raised-button color="primary" (click)="mostararCharactersByName()">Buscar</button>
+            <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
+                   style="width: 100%;text-align: center">
 
-        <p>{{nombreCharacter}}</p>
-
-        <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
-               style="width: 100%;text-align: center">
-
-            <ng-container matColumnDef="nombre">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center">Nombre</th>
-                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-            </ng-container>
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center">Nombre</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef=" let row; columns: displayedColumns"></tr>
-        </table>
-        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]" showFirstLastButtons>
-        </mat-paginator>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef=" let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                           showFirstLastButtons>
+            </mat-paginator>
 
+        </div>
+        <div *ngIf="consultaSeleccionada=='Consulta 2'">
+            <h2  style="text-align: center">Esta es la consulta de los superheroes filtrada por nombre</h2>
+
+            <input  atInput placeholder="Introduce nombre personaje" [(ngModel)]='nombreCharacter'>
+            &nbsp;
+            <button  mat-raised-button color="primary" (click)="mostararCharactersByName()">Buscar</button>
+
+
+            <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
+                   style="width: 100%;text-align: center">
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center">Nombre</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef=" let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                           showFirstLastButtons>
+            </mat-paginator>
+
+        </div>
     </div>
 </div>
