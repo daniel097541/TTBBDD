@@ -2,7 +2,6 @@ const PresentationUtil = require('../commons/src/utils/PresentationUtil');
 const DataService = require('./src/service/DataService');
 const presentationUtil = PresentationUtil.getInstance();
 const service = DataService.getInstance();
-const fs  = require('fs');
 presentationUtil.initMsg('TTBBDD - DUMPER');
 
 const init = new Date().getTime();

@@ -127,7 +127,7 @@ class DataService {
         for (const comic of batch) {
             const comicModel = new Comic({
                 _id: comic.comicID,
-                name: comic.title,
+                name: comic.title.trim(),
                 issue: comic.issueNumber
             });
             comics.push(comicModel);
@@ -147,6 +147,22 @@ class DataService {
         });
     }
 
+
+    checkField(field, trim, lower){
+        if(field) {
+            if(field !== '' && field !== ' '){
+                if(trim){
+                    field = field.trim();
+                }
+                if(lower){
+                    field = field.toLowerCase();
+                }
+
+                return field;
+            }
+        }
+        return null;
+    }
 
     recursiveDumpCharacters(index, batches, callback) {
         const heroesBatch = [];
@@ -179,12 +195,12 @@ class DataService {
             // craft character info
             if (info) {
                 infoModel = {
-                    alignment: info.Alignment,
-                    gender: info.Gender,
-                    eye_color: info.EyeColor,
-                    hair_color: info.HairColor,
-                    publisher: info.Publisher,
-                    skin_color: info.SkinColor,
+                    alignment: this.checkField(info.Alignment, true, true),
+                    gender: this.checkField(info.Gender, true, true),
+                    eye_color: this.checkField(info.EyeColor, true, true),
+                    hair_color: this.checkField(info.HairColor, true, true),
+                    publisher: this.checkField(info.Publisher, true, true),
+                    skin_color: this.checkField(info.SkinColor, true, true),
                     height: info.Height,
                     weight: info.Weight
                 };
@@ -205,14 +221,14 @@ class DataService {
             if (crossOvers) {
                 for(const crossOver of crossOvers) {
                     const crossOversModel = {
-                        identity: crossOver.Identity,
-                        alignment: crossOver.Alignment,
-                        status: crossOver.Status,
+                        identity: this.checkField(crossOver.Identity, true, false),
+                        alignment: this.checkField(crossOver.Alignment, true, true),
+                        status: this.checkField(crossOver.Status, true, true),
                         appearances: crossOver.Appearances,
                         firstAppearance: crossOver.FirstAppearance,
                         year: crossOver.Year,
-                        universe: crossOver.Universe,
-                        extraInfo: crossOver.extraInfo
+                        universe: this.checkField(crossOver.Universe, true, false),
+                        extraInfo: this.checkField(crossOver.extraInfo, true, false)
                     };
                     crossOversModels.push(crossOversModel);
                 }
@@ -222,7 +238,7 @@ class DataService {
             // return characters model
             const characterModel = new Character({
                 _id: character.characterID,
-                name: character.name,
+                name: this.checkField(character.name, true, false),
                 info: infoModel,
                 stats: statsModel,
                 comics: comics,

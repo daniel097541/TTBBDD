@@ -59,12 +59,34 @@ class CharactersDAO extends BasicDAO {
     findRedBarclay(callback) {
         console.log(`Running query to find red barclay!`)
         const pipeline = [
-            {$group: {_id: "$$ROOT", weight: {$max: "$info.weight"}}},
-            {$sort: {weight: -1}},
-            {$limit: 1}
+            {
+                $group: {_id: "$$ROOT", weight: {$max: "$info.weight"}}},
+            {
+                $sort: {weight: -1}},
+            {
+                $limit: 1}
         ];
         this.aggregate(pipeline, callback);
     }
+
+    findBadHeroes(callback) {
+        const pipeline = [
+            {
+                $match: {
+                    'info.alignment': 'good'
+                }
+            },
+            {
+                $match: {
+                    crossovers: {
+                        $elemMatch: {alignment: 'bad'}
+                    }
+                }
+            }
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
 }
 
 const instance = new CharactersDAO();
