@@ -1,10 +1,10 @@
 # TTBBDD
-Practica de tecnologias de bases de datos, grupo 6
+Práctica de Tecnologías de Bases de Datos. Grupo 6.
 
 
 ## HOW TO
 
-Partiendo siempre de la raiz del proyecto.
+Partiendo siempre de la raíz del proyecto.
 
 * **Instalar dependencias:**: `npm run full-install`
 * **Levantar backend**: `npm run start-backend`
