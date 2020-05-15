@@ -42,25 +42,6 @@ class CharactersService {
      * returns List
      **/
     getAll() {
-        // this.dao.findPeterPetrelli((err, data) => {
-        //     console.log(err);
-        //     console.log(data);
-        // })
-        // this.dao.findRedBarclay((err, data) => {
-        //     console.log(err);
-        //     console.log(data);
-        // })
-        //
-        // this.comicsDao.findTwoBestInComic((err, data) => {
-        //     console.log(err);
-        //     console.log(data);
-        // })
-
-        this.dao.findBadHeroes((err, data) => {
-            console.log(err);
-            console.log(data);
-        })
-
         return new Promise((resolve, reject) => {
             this.dao.getALl((err, characters) => {
                 if (err) {
