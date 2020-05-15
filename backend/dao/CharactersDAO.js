@@ -218,6 +218,20 @@ class CharactersDAO extends BasicDAO {
             }
         });
     }
+
+    findDoctors(callback){
+        console.log('Running query to find characters that have DOCTOR in the name')
+        CharacterModel.find({"name":/.*doctor.*$/i}, (err, data) => {
+
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
 }
 
 const instance = new CharactersDAO();
