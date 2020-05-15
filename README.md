@@ -1,10 +1,10 @@
 # TTBBDD
-Practica de tecnologias de bases de datos, grupo 6
+Práctica de Tecnologías de Bases de Datos. Grupo 6.
 
 
 ## HOW TO
 
-Partiendo siempre de la raiz del proyecto.
+Partiendo siempre de la raíz del proyecto.
 
 * **Instalar dependencias:**: `npm run full-install`
 * **Levantar backend**: `npm run start-backend`
@@ -19,10 +19,10 @@ Partiendo siempre de la raiz del proyecto.
 * **¿Quién es el más gordo?:** ``Dame el personaje mas gordo de todos``
 * **¿Quién es el más alto?:** ``Dame el personaje mas alto de todos``
 
-* **¿Quién nos salvara del Coronavirus?:** ``Busca todos los personajes que tienen DOCTOR en el nombre``
+* **¿Quién nos salvará del Coronavirus?:** ``Busca todos los personajes que tienen DOCTOR en el nombre``
 * **Las chicas son guerreras:** ``Busca todas las heroínas ordenadas por la cantidad de poderes que tienen``
 * **Buscador de villanos:** ``Busca todos los villanos que comparten comic con un personaje``
-* **Lista de malos heroes:** ``Busca todos los heroes que hayan sido villanos en un crossover``
+* **Lista de malos héroes:** ``Busca todos los heroes que hayan sido villanos en un crossover``
 
 * **Mejor héroe vs mejor villano:** ``¿Quién ganaría si el villano mas poderoso se enfrentase al heroe mas poderoso?``
 * **Couple goals:** ``¿Quién es el personaje que más se ha encontrado con un héroe?``
