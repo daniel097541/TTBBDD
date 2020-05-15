@@ -13,12 +13,37 @@ Partiendo siempre de la raiz del proyecto.
 
 ## QUERIES
 
-* **Did you just assume my gender?:** ``Dame todas las heroinas ordenadas por la cantidad de poderes que tienen``
-* **Quien es Red Barclay:** ``Dame el personaje mas gordo de todos``
-* **Quien es peter petrelli?:** ``Dame el heroe con mas poderes``
-* **El mejor:** ``Cual es el heroe con mejores stats de un comic``
-* **Buscador de villanos:** ```Busca todos los villanos (alineacion bad) que comparten comic con un personaje```
-* **Lista de malos heroes:** ```Busca todos los heroes que hayan sido villanos en un crossover```
-* **1 pa 1 sin camiseta:** ```Quién ganaría si el villano mas poderoso se enfrentase al heroe mas poderoso```
-* **Couple goals:** ``Cual es el personaje que mas se ha encontrado con un heroe``
-* **Stalker:** ``Cuales son los amigos (misma alineacion) que tiene un personaje en un comic``
+### GENERAL QUERIES
+* **¿Quién es el héroe más poderoso?:** ``Dame el héroe con más poderes``
+* **¿Quién es el héroe con mejores estadísticas?:** ``Dame el héroe con mejores estadísticas de un comic``
+* **¿Quién es el más gordo?:** ``Dame el personaje mas gordo de todos``
+* **¿Quién es el más alto?:** ``Dame el personaje mas alto de todos``
+
+* **¿Quién nos salvara del Coronavirus?:** ``Busca todos los personajes que tienen DOCTOR en el nombre``
+* **Las chicas son guerreras:** ``Busca todas las heroínas ordenadas por la cantidad de poderes que tienen``
+* **Buscador de villanos:** ``Busca todos los villanos que comparten comic con un personaje``
+* **Lista de malos heroes:** ``Busca todos los heroes que hayan sido villanos en un crossover``
+
+* **Mejor héroe vs mejor villano:** ``¿Quién ganaría si el villano mas poderoso se enfrentase al heroe mas poderoso?``
+* **Couple goals:** ``¿Quién es el personaje que más se ha encontrado con un héroe?``
+* **Amigos para siempre:** ``Dame los amigos (misma alineacion) que tiene un personaje en un comic``
+
+
+### RANKING QUERIES
+* **Top 10: Los personajes con más poderes:** ``Top 5 de personajes con más número de poderes ``
+* **Top 10: Las chicas más populares:** ``Top 10 de personajes femeninos con más apariciones``
+* **Top 5: Los héroes más populares:** ``Top 5 de héroes con más apariciones``
+* **Top 5: Los villanos más populares:** ``Top 5 de villanos con más apariciones``
+* **Top 5: Ni héroes ni villanos más populares:** ``Top 5 de personajes con alignment neutro con más apariciones``
+
+
+### METADATA QUERIES
+* **Número de personajes:** ``Número de personajes en BD ``
+* **Número de comics:** ``Número de comics en BD``
+* **Número de personajes con "crossover" info:** ``Número de personajes que no tienen el campo crossover vacío``
+* **Número de personajes con "info" info:** ``Número de personajes que tienen información extra en el campo info``
+* **Número de personajes con "powers" info:** ``Número de personajes que tienen información sobre sus poderes``
+* **Número de perosonajes con "stats" info:** ``Número de personajes que tienen información sobre sus características de batalla``
+* **Promedio de poderes por personaje:** ``Media de número de poderes por personajes``
+* **Promedio de apariciones por personaje:** ``Media de número de apariciones por personaje``
+
