@@ -14,7 +14,6 @@ class CharactersDAO extends BasicDAO {
         super(CharacterModel);
     }
 
-
     getALl(callback) {
         CharacterModel.find({}, (err, characters) => {
             if (err) {
@@ -47,6 +46,41 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
+
+    didYouJustAssumeMyGender(callback) {
+        console.log(`Did you just assume my gender?`);
+        const pipeline = [
+
+            // 1 - Filter by gender == female
+            {
+                $match: {
+                    'info.gender': 'female',
+                }
+            },
+
+            // 2 - Project to retrieve only id, name and power amount
+            {
+                $project: {
+                    _id: '$_id',
+                    name: '$name',
+                    powers_amount: {
+                        $size: {
+                            $ifNull: ['$powers', []]
+                        }
+                    }
+                }
+            },
+
+            // 3 - Sort by amount of powers, descending
+            {
+                $sort: {
+                    'powers_amount': -1
+                }
+            }
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
     findPeterPetrelli(callback) {
         console.log(`Executing peter petrelli query!`)
         const pipeline = [
@@ -61,11 +95,14 @@ class CharactersDAO extends BasicDAO {
         console.log(`Running query to find red barclay!`)
         const pipeline = [
             {
-                $group: {_id: "$$ROOT", weight: {$max: "$info.weight"}}},
+                $group: {_id: "$$ROOT", weight: {$max: "$info.weight"}}
+            },
             {
-                $sort: {weight: -1}},
+                $sort: {weight: -1}
+            },
             {
-                $limit: 1}
+                $limit: 1
+            }
         ];
         this.aggregate(pipeline, callback);
     }
@@ -160,13 +197,26 @@ class CharactersDAO extends BasicDAO {
         ];
 
         ComicsModel.aggregate(pipeline, (err, data) => {
-            if(err){
+            if (err) {
                 callback(err, null);
-            }
-            else if(data){
+            } else if (data) {
                 callback(null, data);
             }
         })
+    }
+
+
+    findTwoBestInComic(comicId, callback) {
+
+        const pipeline = [];
+
+        ComicsModel.aggregate(pipeline, (err, data) => {
+            if (err) {
+                callback(err);
+            } else if (data) {
+                callback(null, data);
+            }
+        });
     }
 }
 

@@ -13,7 +13,7 @@ Partiendo siempre de la raiz del proyecto.
 
 ## QUERIES
 
-* **Did you just assume my gender?:** ``Dame el genero de un personaje``
+* **Did you just assume my gender?:** ``Dame todas las heroinas ordenadas por la cantidad de poderes que tienen``
 * **Quien es Red Barclay:** ``Dame el personaje mas gordo de todos``
 * **Quien es peter petrelli?:** ``Dame el heroe con mas poderes``
 * **El mejor:** ``Cual es el heroe con mejores stats de un comic``

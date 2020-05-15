@@ -10,12 +10,6 @@ class ComicsDAO extends BasicDAO {
     constructor() {
         super(ComicsModel);
     }
-
-    findTwoBestInComic(callback) {
-        console.log('Running query to find hero and villain');
-        const pipeline = [];
-        this.aggregate(pipeline, callback);
-    }
 }
 
 const instance = new ComicsDAO();
