@@ -426,6 +426,89 @@ class CharactersDAO extends BasicDAO {
         this.aggregate(pipeline, callback);
     }
 
+    // RANKING QUERIES
+
+    rankingTop10Women(callback){
+        console.log('Ranking - Running query to find top 10 women chars with more appearances in comics')
+        const pipeline = [
+            { $match: {"info.gender": {$eq:"female"}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
+                }
+            },
+            { $sort: { numberOfAppearances: -1}},
+            { $limit: 10}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    rankingTop10Powerful(callback){
+        console.log('Ranking - Running query to find Top 10 more powerful characters')
+        const pipeline = [
+            { $match: {powers: {$ne: []}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfPowers: {$cond: {if: {$isArray: "$powers"}, then: {$size: "$powers"}, else: 0}}
+                }
+            },
+            { $sort: { numberOfPowers: -1}},
+            { $limit: 10}
+        ];
+
+        this.aggregate(pipeline, callback);
+    }
+
+    rankingTop5BadGuysMoreAppearances(callback){
+        console.log('Ranking - Running query to find Top 5 chars with BAD alignment with more appearances in comics')
+        const pipeline = [
+            { $match: {"info.alignment": {$eq:"bad"}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
+                }
+            },
+            { $sort: { numberOfAppearances: -1}},
+            { $limit: 5}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    rankingTop5GoodGuysMoreAppearances(callback){
+        console.log('Ranking - Running query to find Top 5 chars with GOOD alignment with more appearances in comics')
+        const pipeline = [
+            { $match: {"info.alignment": {$eq:"good"}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
+                }
+            },
+            { $sort: { numberOfAppearances: -1}},
+            { $limit: 5}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    rankingTop5NeutralGuysMoreAppearances(callback){
+        console.log('Ranking - Running query to find Top 5 chars with NEUTRAL alignment with more appearances in comics')
+        const pipeline = [
+            { $match: {"info.alignment": {$eq:"neutral"}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
+                }
+            },
+            { $sort: { numberOfAppearances: -1}},
+            { $limit: 5}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
 }
 
 const instance = new CharactersDAO();
