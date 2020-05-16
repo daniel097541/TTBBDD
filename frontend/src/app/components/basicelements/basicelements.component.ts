@@ -18,11 +18,9 @@ export class BasicelementsComponent implements OnInit {
     state_default: boolean = true;
     focus: any;
     data: Array<any> = [];
-    data2: Array<any> = [];
     rows: Array<Character> = [];
     ColumnMode = ColumnMode;
     public dataSourceFront: MatTableDataSource<Character>;
-    public dataSourceFront2: MatTableDataSource<Character>;
     nombreCharacter: string;
     consultas: Array<string>;
     consultaSeleccionada;
@@ -31,11 +29,10 @@ export class BasicelementsComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     // Columnas de las Tablas LVs
-    public displayedColumns: string[] = ['nombre'];
+    public displayedColumns: string[] = ['nombre','naparicionesComics', 'cantidadPoderes', 'numeroCrossovers'];
 
     constructor(private _characterService: CharacterService) {
          this.dataSourceFront = new MatTableDataSource();
-         this.dataSourceFront2 = new MatTableDataSource();
 
 
     }
@@ -49,10 +46,12 @@ export class BasicelementsComponent implements OnInit {
 
     mostararCharacters() {
         this.dataSourceFront.data = []
+        this.rows=[];
         this._characterService.getCharacters().subscribe(data => {
+            console.log(data)
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name))
+                this.rows.push(new Character(c.name,c.comics.length,c.powers.length,c.crossovers.length))
             })
             this.dataSourceFront.sort = this.sort;
 
@@ -63,21 +62,22 @@ export class BasicelementsComponent implements OnInit {
     }
 
     mostararCharactersByName() {
-        this.dataSourceFront2.data = []
+        this.dataSourceFront.data = []
+        this.rows=[];
         this._characterService.getCharactersByNombre(this.nombreCharacter).subscribe(data => {
             console.log(data)
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name))
+                this.rows.push(new Character(c.name,c.comics.length,c.powers.length,c.crossovers.length))
             })
-            this.dataSourceFront2.sort = this.sort;
+            this.dataSourceFront.sort = this.sort;
 
             const sortState: Sort = {active: 'nombre', direction: 'asc'};
             this.sort.active = sortState.active;
             this.sort.direction = sortState.direction;
             this.sort.sortChange.emit(sortState);
-            this.dataSourceFront2.data = this.rows;
-            this.dataSourceFront2.paginator = this.paginator;
+            this.dataSourceFront.data = this.rows;
+            this.dataSourceFront.paginator = this.paginator;
         })
     }
 
@@ -85,7 +85,7 @@ export class BasicelementsComponent implements OnInit {
         if (this.consultaSeleccionada=='Consulta 1'){
             this.mostararCharacters();
         }else if (this.consultaSeleccionada=='Consulta 2'){
-            this.dataSourceFront2.data=[]
+            this.mostararCharactersByName();
         }
     }
 
