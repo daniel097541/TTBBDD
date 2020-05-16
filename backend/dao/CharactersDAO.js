@@ -390,6 +390,42 @@ class CharactersDAO extends BasicDAO {
                 }
             });
     }
+
+    // TODO DIVIDE totalPower/countCharsWithPowers
+    findAveragePowersPerChar(callback){
+        console.log('Metadata - Running query to find average number of powers per char')
+        const pipeline = [
+            // First stage: Filter the chars that have powers
+            { $match: {powers: {$ne: []}}},
+            // Second stage: count the number of chars with powers and sum the number of powers
+            { $group:
+                    {
+                        _id: {},
+                        totalPower: {$sum: {$cond: {if: {$isArray: "$powers"}, then: {$size: "$powers"}, else: 0}}},
+                        countCharsWithPowers: {$sum: 1},
+                    }}
+            ];
+
+        this.aggregate(pipeline, callback);
+    }
+
+    // TODO DIVIDE totalAppearances/countAppearances
+    findAverageAppearancesPerChar(callback){
+        console.log('Metadata - Running query to find average number of appearances per char')
+        const pipeline = [
+            // First stage: count the number of chars with appearances and sum the number of appearances
+            { $group:
+                    {
+                        _id: {},
+                        totalAppearances: {$sum: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}},
+                        countAppearances: {$sum: 1},
+                    }
+            }
+        ];
+
+        this.aggregate(pipeline, callback);
+    }
+
 }
 
 const instance = new CharactersDAO();
