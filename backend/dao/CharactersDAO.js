@@ -285,6 +285,111 @@ class CharactersDAO extends BasicDAO {
         });
     }
 
+    // METADATA QUERIES
+
+    metadataNumberCharacters(callback){
+        console.log('Metadata - Running query to find number of characters in DB')
+        CharacterModel.count({}, (err,data) => {
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
+    metadataNumberComics(callback){
+        console.log('Metadata - Running query to find number of comics in DB')
+        ComicsModel.count({}, (err,data) => {
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
+    metadataCharsCrossoverInfo(callback){
+        console.log('Metadata - Running query to find number of chars with crossover info in DB')
+        CharacterModel.count({crossovers: {$ne: []}}, (err,data) => {
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
+    metadataCharsCrossoverInfo(callback){
+        console.log('Metadata - Running query to find number of chars with crossover info in DB')
+        CharacterModel.count({crossovers: {$ne: []}}, (err,data) => {
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
+    metadataCharsPersonalInfo(callback){
+        console.log('Metadata - Running query to find number of chars with personal info in DB')
+        CharacterModel.count(
+            {$or: [
+                    {"info.alignment": { "$exists": true }},
+                    {"info.gender":{"$exists": true}},
+                    {"info.hair_color":{"$exists": true}},
+                    {"info.height":{"$exists": true}},
+                    {"info.publisher":{"$exists": true}},
+                    {"info.skin_color":{"$exists": true}},
+                    {"info.weight":{"$exists": true}},
+                    {"info.eye_color":{"$exists": true}}]
+            }
+            , (err,data) => {
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
+    metadataCharsPowersInfo(callback){
+        console.log('Metadata - Running query to find number of chars with powers info in DB')
+        CharacterModel.count({powers: {$ne: []}}, (err,data) => {
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
+    metadataCharsStatsInfo(callback){
+        console.log('Metadata - Running query to find number of chars with stats info in DB')
+        CharacterModel.count(
+            {$or: [
+                    {"stats.combat": { "$exists": true }},
+                    {"stats.durability":{"$exists": true}},
+                    {"stats.intelligence":{"$exists": true}},
+                    {"stats.power":{"$exists": true}},
+                    {"stats.speed":{"$exists": true}},
+                    {"stats.strength":{"$exists": true}}]
+            }
+            , (err,data) => {
+                if(err){
+                    callback(err);
+                }
+                else if (data){
+                    callback(null, data);
+                }
+            });
+    }
 }
 
 const instance = new CharactersDAO();
