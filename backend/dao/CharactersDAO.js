@@ -46,6 +46,22 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
+    findDoctors(callback){
+        console.log(`Running query to find characters that have DOCTOR in the name`)
+
+        CharacterModel.find({"name":/.doctor.$/i}, (err, data) => {
+
+            // si hay error, devuelvo el error solo
+            if(err){
+                callback(err);
+            }
+            // si hay datos devuelvo el error en null y los datos en el segundo argumento
+            else if (data){
+                callback(null, data);
+            }
+        })
+    }
+
 
     didYouJustAssumeMyGender(callback) {
         console.log(`Did you just assume my gender?`);
@@ -205,18 +221,55 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
-
-    findTwoBestInComic(comicId, callback) {
-
-        const pipeline = [];
-
-        ComicsModel.aggregate(pipeline, (err, data) => {
-            if (err) {
-                callback(err);
-            } else if (data) {
-                callback(null, data);
+    findSmartestVillain(callback){
+        const pipeline = [
+            {
+                $match: {
+                    'info.alignment': 'bad'
+                }
+            },
+            {
+                $sort: {
+                    'stats.intelligence': -1
+                }
+            },
+            {
+                $limit: 1
+            },
+            {
+                $project:{
+                    _id: '$_id',
+                    name: '$name'
+                }
             }
-        });
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    findDumbestHero(callback){
+        const pipeline = [
+            {
+                $match: {
+                    'info.alignment': 'good'
+                }
+            },
+            {
+                $sort: {
+                    'stats.intelligence': 1,
+                }
+            },
+            {
+                $limit: 1
+            },
+            {
+                $project:{
+                    _id: '$_id',
+                    name: '$name'
+                }
+            }
+        ];
+
+        this.aggregate(pipeline, callback);
     }
 }
 

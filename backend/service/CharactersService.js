@@ -42,6 +42,11 @@ class CharactersService {
      * returns List
      **/
     getAll() {
+
+        this.comicsDao.findComicWithStrongestHeroes((err, data) => {
+            console.log(data)
+        })
+
         return new Promise((resolve, reject) => {
             this.dao.getALl((err, characters) => {
                 if (err) {

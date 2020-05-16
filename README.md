@@ -22,3 +22,6 @@ Partiendo siempre de la raiz del proyecto.
 * **1 pa 1 sin camiseta:** ```Quién ganaría si el villano mas poderoso se enfrentase al heroe mas poderoso```
 * **Couple goals:** ``Cual es el personaje que mas se ha encontrado con un heroe``
 * **Stalker:** ``Cuales son los amigos (misma alineacion) que tiene un personaje en un comic``
+* **El malo mas listo:** ``Encuentra al malo mas listo de todos (inteligencia alta)``
+* **El bueno mas tonto:** ``Encuentra al bueno mas tonto de todos (inteligencia baja)``
+* **El comic con los mas fuertes:** ``Encuentra el comic con los heroes (alignment = good) mas fuertes de una muestra aleatoria de 1000 comics``
