@@ -12,11 +12,15 @@ export class InterceptorService implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (environment.production) {
-            req = req.clone({
-                url: environment.API_URL + req.url
-            });
-        }
+        // if (environment.production) {
+        //     req = req.clone({
+        //         url: environment.API_URL + req.url
+        //     });
+        // }
+        req = req.clone({
+            url: environment.API_URL + req.url
+        });
         return next.handle(req);
     }
 }
+

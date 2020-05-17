@@ -5,6 +5,7 @@ import {Character} from '../../models/Character';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Character2 } from 'app/models/Character2';
 
 
 @Component({
@@ -19,8 +20,10 @@ export class BasicelementsComponent implements OnInit {
     focus: any;
     data: Array<any> = [];
     rows: Array<Character> = [];
+    rows2: Array<Character2> = [];
     ColumnMode = ColumnMode;
     public dataSourceFront: MatTableDataSource<Character>;
+    public dataSourceFront2: MatTableDataSource<Character2>;
     nombreCharacter: string;
     consultas: Array<string>;
     consultaSeleccionada;
@@ -30,9 +33,11 @@ export class BasicelementsComponent implements OnInit {
 
     // Columnas de las Tablas LVs
     public displayedColumns: string[] = ['nombre','naparicionesComics', 'cantidadPoderes', 'numeroCrossovers'];
+    public displayedColumns2: string[] = ['nombre','cantidadPoderes'];
 
     constructor(private _characterService: CharacterService) {
          this.dataSourceFront = new MatTableDataSource();
+         this.dataSourceFront2 = new MatTableDataSource();
 
 
     }
@@ -81,11 +86,31 @@ export class BasicelementsComponent implements OnInit {
         })
     }
 
+    mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes() {
+        this.dataSourceFront2.data = []
+        this.rows2=[];
+        this._characterService.getPersonajesFemeninosOrdenadosPorPoderes().subscribe(data => {
+            console.log(data)
+            this.data = data;
+            this.data.forEach(c => {
+                this.rows2.push(new Character2(c.name,c.powers_amount))
+            })
+            this.dataSourceFront.sort = this.sort;
+
+            const sortState: Sort = {active: 'nombre', direction: 'asc'};
+            this.dataSourceFront2.data = this.rows2;
+            this.dataSourceFront2.paginator = this.paginator;
+        })
+    }
+
+
     llamarConsulta() {
         if (this.consultaSeleccionada=='Consulta 1'){
             this.mostararCharacters();
         }else if (this.consultaSeleccionada=='Consulta 2'){
             this.mostararCharactersByName();
+        }else if(this.consultaSeleccionada=='Consulta 3'){
+            this.mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes()
         }
     }
 

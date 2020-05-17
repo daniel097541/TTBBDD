@@ -12,11 +12,15 @@ export class CharacterService {
     }
 
     public getCharacters() {
-        return this.httpClient.get<any[]>('characters');
+        return this.httpClient.get<any[]>('/characters');
     }
 
     public getCharactersByNombre(nombre: string) {
-        return this.httpClient.get<any[]>('characters' + '/findMatchingName?name=' + nombre);
+        return this.httpClient.get<any[]>('/characters' + '/findMatchingName?name=' + nombre);
+    }
+
+    public getPersonajesFemeninosOrdenadosPorPoderes() {
+        return this.httpClient.get<any[]>( '/characters'+'/didYouJustAssumeMyGender');
     }
 
 }
