@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
@@ -22,6 +22,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {InterceptorService} from './services/interceptor.service';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 
 // @ts-ignore
@@ -47,7 +48,8 @@ import {InterceptorService} from './services/interceptor.service';
         MatInputModule,
         MatFormFieldModule,
         MatSelectModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxSpinnerModule
     ],
     providers: [CharacterService,
         {
@@ -56,7 +58,8 @@ import {InterceptorService} from './services/interceptor.service';
             multi: true
         }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {
 }

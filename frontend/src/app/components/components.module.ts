@@ -20,6 +20,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import {MatSelectModule} from '@angular/material/select';
         MatPaginatorModule,
         MatSortModule,
         MatButtonModule,
-        MatSelectModule
+        MatSelectModule,
+        NgxSpinnerModule
     ],
     declarations: [
         ComponentsComponent,

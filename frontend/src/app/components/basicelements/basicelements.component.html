@@ -190,6 +190,8 @@
     <!--    </div>-->
 
     <div class="container" align="center">
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Cargando datos... </p></ngx-spinner>
+
         <div class="tim-title">
             <h2>Consultas</h2>
         </div>
@@ -206,6 +208,7 @@
             <br><br><br>
         </div>
         <div *ngIf="consultaSeleccionada=='Consulta 1' || consultaSeleccionada=='Consulta 2'">
+
 
             <h2 *ngIf="consultaSeleccionada=='Consulta 1'" style="text-align: center">Esta es la consulta de todos los
                 superheroes</h2>
@@ -274,6 +277,21 @@
                            showFirstLastButtons>
             </mat-paginator>
         </div>
+
+        <div *ngIf="consultaSeleccionada=='Consulta 4'">
+            <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
+
+            <h4>El personaje con un total de <span style="color: red">{{cantidadPoderesPersonajeMasPoderes}}</span> poderes es <span style="color: red">{{nombrePersonajeMasPoderes}}</span> el cual tiene un colo de ojos <span style="color: blue">{{colorOjosPersonajeMasPoderes}}</span>, aparece en un total de <span style="color: red">{{cantidadComicsPersonajeMasPoderes}}</span> comics, perteneciente a la editorial <span style="color: red">{{editorialPersonajeMasPoderes}}</span></h4>
+
+        </div>
+
+        <div *ngIf="consultaSeleccionada=='Consulta 5'">
+            <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
+
+            <h4>El personaje con mas peso es <span style="color: red">{{nombrePersonajeConMasPeso}}</span> con un peso de  <span style="color: red">{{pesoPersonajeConMasPeso}}</span>, tiene un color de ojos <span style="color: blue">{{colorOjosPersonajeConMasPeso}}</span>, y aparece en un total de <span style="color: red">{{cantidadComicsPersonajeConMasPeso}}</span> comics.</h4>
+
+        </div>
+
 
     </div>
 </div>

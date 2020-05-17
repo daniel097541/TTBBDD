@@ -23,4 +23,13 @@ export class CharacterService {
         return this.httpClient.get<any[]>( '/characters'+'/didYouJustAssumeMyGender');
     }
 
+    public getPersonajeConMasPoderes() {
+        return this.httpClient.get<any[]>( '/characters'+'/whoIsPeterPetrelli');
+    }
+
+    public getPersonajeMasGordo() {
+        return this.httpClient.get<any[]>( '/characters'+'/whoIsRedBarclay');
+    }
+
+
 }
