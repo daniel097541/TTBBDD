@@ -1,25 +1,26 @@
 'use strict';
 
-var fs = require('fs'),
+const fs = require('fs'),
     path = require('path'),
     http = require('http');
 
-var app = require('connect')();
-var swaggerTools = require('swagger-tools');
-var jsyaml = require('js-yaml');
-var serverPort = 3000;
+const app = require('connect')();
+const swaggerTools = require('swagger-tools');
+const jsyaml = require('js-yaml');
+const serverPort = 3000;
 const cors = require('cors');
+const express = require('express');
 
 // swaggerRouter configuration
-var options = {
+const options = {
   swaggerUi: path.join(__dirname, '/swagger.json'),
   controllers: path.join(__dirname, './controllers'),
   useStubs: process.env.NODE_ENV === 'development' // Conditionally turn on stubs (mock mode)
 };
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
-var spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
-var swaggerDoc = jsyaml.safeLoad(spec);
+const spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
+const swaggerDoc = jsyaml.safeLoad(spec);
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
@@ -38,6 +39,9 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Serve the Swagger documents and Swagger UI
   app.use(middleware.swaggerUi());
+
+  // Serve angular app
+  app.use(express.static(__dirname + '/public/dist'));
 
   // Start the server
   http.createServer(app).listen(serverPort, function () {

@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {Character} from '../models/Character';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 
 @Injectable({
@@ -9,18 +8,28 @@ import {Character} from '../models/Character';
 
 export class CharacterService {
 
-    public url: string;
-
     constructor(private httpClient: HttpClient) {
-        this.url = 'http://localhost:3000/'
     }
 
     public getCharacters() {
-        return this.httpClient.get<any[]>(this.url + 'characters');
+        return this.httpClient.get<any[]>('/characters');
     }
 
-    public getCharactersByNombre(nombre:string) {
-        return this.httpClient.get<any[]>(this.url + 'characters'+'/findMatchingName?name='+nombre);
+    public getCharactersByNombre(nombre: string) {
+        return this.httpClient.get<any[]>('/characters' + '/findMatchingName?name=' + nombre);
     }
+
+    public getPersonajesFemeninosOrdenadosPorPoderes() {
+        return this.httpClient.get<any[]>( '/characters'+'/didYouJustAssumeMyGender');
+    }
+
+    public getPersonajeConMasPoderes() {
+        return this.httpClient.get<any[]>( '/characters'+'/whoIsPeterPetrelli');
+    }
+
+    public getPersonajeMasGordo() {
+        return this.httpClient.get<any[]>( '/characters'+'/whoIsRedBarclay');
+    }
+
 
 }

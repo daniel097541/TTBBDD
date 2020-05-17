@@ -2,6 +2,9 @@
 Práctica de Tecnologías de Bases de Datos. Grupo 6.
 
 
+# Preview de la practica
+http://ec2-15-236-90-35.eu-west-3.compute.amazonaws.com:3000/#/home
+
 ## HOW TO
 
 Partiendo siempre de la raíz del proyecto.
@@ -28,6 +31,7 @@ Partiendo siempre de la raíz del proyecto.
 * **Couple goals:** ``¿Quién es el personaje que más se ha encontrado con un héroe?``
 * **Amigos para siempre:** ``Dame los amigos (misma alineacion) que tiene un personaje en un comic``
 
+* **El comic de los vigorexicos:** ``Saca de una muestra aleatoria de 1000 comics, el que tiene los personajes con mas fuerza``
 
 ### RANKING QUERIES
 * **Top 10: Los personajes con más poderes:** ``Top 5 de personajes con más número de poderes ``

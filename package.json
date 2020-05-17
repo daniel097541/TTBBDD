@@ -8,7 +8,8 @@
     "start-backend": "cd backend && npm start",
     "start-frontend": "cd frontend && ng serve",
     "dump-data": "cd dumper && npm i && npm run start",
-    "build-start": "cd frontend && npm run build && cd ../backend && npm run start"
+    "build-start": "cd frontend && npm run build && cd ../backend && npm run start",
+    "start": "cd backend && node index.js"
   },
   "keywords": [],
   "author": "",

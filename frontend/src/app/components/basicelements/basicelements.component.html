@@ -190,6 +190,8 @@
     <!--    </div>-->
 
     <div class="container" align="center">
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Cargando datos... </p></ngx-spinner>
+
         <div class="tim-title">
             <h2>Consultas</h2>
         </div>
@@ -205,15 +207,21 @@
 
             <br><br><br>
         </div>
-        <div  *ngIf="consultaSeleccionada=='Consulta 1' || consultaSeleccionada=='Consulta 2'">
+        <div *ngIf="consultaSeleccionada=='Consulta 1' || consultaSeleccionada=='Consulta 2'">
 
-            <h2 *ngIf="consultaSeleccionada=='Consulta 1'" style="text-align: center">Esta es la consulta de todos los superheroes</h2>
 
-            <h2 *ngIf="consultaSeleccionada=='Consulta 2'" style="text-align: center">Esta es la consulta de los superheroes filtrada por nombre</h2>
+            <h2 *ngIf="consultaSeleccionada=='Consulta 1'" style="text-align: center">Esta es la consulta de todos los
+                superheroes</h2>
 
-            <input *ngIf="consultaSeleccionada=='Consulta 2'" atInput placeholder="Introduce nombre personaje" [(ngModel)]='nombreCharacter'>
+            <h2 *ngIf="consultaSeleccionada=='Consulta 2'" style="text-align: center">Esta es la consulta de los
+                superheroes filtrada por nombre</h2>
+
+            <input *ngIf="consultaSeleccionada=='Consulta 2'" atInput placeholder="Introduce nombre personaje"
+                   [(ngModel)]='nombreCharacter'>
             &nbsp;
-            <button  style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Consulta 2'" mat-raised-button color="primary" (click)="mostararCharactersByName()">Buscar</button>
+            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Consulta 2'" mat-raised-button
+                    color="primary" (click)="mostararCharactersByName()">Buscar
+            </button>
 
 
             <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
@@ -224,15 +232,15 @@
                     <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
                 </ng-container>
                 <ng-container matColumnDef="naparicionesComics">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Cantidad de Apariciones en comics</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de Apariciones en comics</th>
                     <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
                 </ng-container>
                 <ng-container matColumnDef="cantidadPoderes">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header >numero total de poderes</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>numero total de poderes</th>
                     <td mat-cell *matCellDef="let element"> {{element.numeroPoderes}} </td>
                 </ng-container>
                 <ng-container matColumnDef="numeroCrossovers">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Cantidad de crossovers</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de crossovers</th>
                     <td mat-cell *matCellDef="let element"> {{element.numeroCrossovers}} </td>
                 </ng-container>
 
@@ -245,6 +253,45 @@
             </mat-paginator>
 
         </div>
+
+        <div *ngIf="consultaSeleccionada=='Consulta 3'">
+            <h2 style="text-align: center">Esta es la consulta donde se muestran personajes femeninos ordenados por
+                cantidad de poderes</h2>
+
+            <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
+                   style="width: 100%">
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cantidadPoderes">
+                    <th mat-header-cell *matHeaderCellDef >Cantidad de poderes</th>
+                    <td mat-cell *matCellDef="let element"> {{element.powers_amount}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef=" let row; columns: displayedColumns2"></tr>
+            </table>
+            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                           showFirstLastButtons>
+            </mat-paginator>
+        </div>
+
+        <div *ngIf="consultaSeleccionada=='Consulta 4'">
+            <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
+
+            <h4>El personaje con un total de <span style="color: red">{{cantidadPoderesPersonajeMasPoderes}}</span> poderes es <span style="color: red">{{nombrePersonajeMasPoderes}}</span> el cual tiene un colo de ojos <span style="color: blue">{{colorOjosPersonajeMasPoderes}}</span>, aparece en un total de <span style="color: red">{{cantidadComicsPersonajeMasPoderes}}</span> comics, perteneciente a la editorial <span style="color: red">{{editorialPersonajeMasPoderes}}</span></h4>
+
+        </div>
+
+        <div *ngIf="consultaSeleccionada=='Consulta 5'">
+            <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
+
+            <h4>El personaje con mas peso es <span style="color: red">{{nombrePersonajeConMasPeso}}</span> con un peso de  <span style="color: red">{{pesoPersonajeConMasPeso}}</span>, tiene un color de ojos <span style="color: blue">{{colorOjosPersonajeConMasPeso}}</span>, y aparece en un total de <span style="color: red">{{cantidadComicsPersonajeConMasPeso}}</span> comics.</h4>
+
+        </div>
+
 
     </div>
     <div class="container" align="center">
