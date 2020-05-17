@@ -31,5 +31,19 @@ export class CharacterService {
         return this.httpClient.get<any[]>( '/characters'+'/whoIsRedBarclay');
     }
 
+    public getHeroesMalos() {
+        return this.httpClient.get<any[]>( '/characters'+'/findBadHeroes');
+    }
 
+    public getHeroesPoderosoComic(comicId: string) {
+        return this.httpClient.get<any[]>( '/characters' + '/findBestInComic?comicId=' + comicId);
+    }
+
+    public getVillanoMasListo() {
+        return this.httpClient.get<any[]>( '/characters' + '/findSmartestVillain');
+    }
+
+    public getHeroeMasTonto() {
+        return this.httpClient.get<any[]>( '/characters' + '/findDumbestHero');
+    }
 }

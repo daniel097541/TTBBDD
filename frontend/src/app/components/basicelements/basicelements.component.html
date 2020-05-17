@@ -207,7 +207,7 @@
 
             <br><br><br>
         </div>
-        <div *ngIf="consultaSeleccionada=='Consulta 1' || consultaSeleccionada=='Consulta 2'">
+        <div *ngIf="consultaSeleccionada=='Consulta 1' || consultaSeleccionada=='Consulta 2' || consultaSeleccionada=='Consulta 6'">
 
 
             <h2 *ngIf="consultaSeleccionada=='Consulta 1'" style="text-align: center">Esta es la consulta de todos los
@@ -215,6 +215,9 @@
 
             <h2 *ngIf="consultaSeleccionada=='Consulta 2'" style="text-align: center">Esta es la consulta de los
                 superheroes filtrada por nombre</h2>
+            
+            <h2 *ngIf="consultaSeleccionada=='Consulta 6'" style="text-align: center">Heroes con mas apariciones como 
+                villanos</h2>
 
             <input *ngIf="consultaSeleccionada=='Consulta 2'" atInput placeholder="Introduce nombre personaje"
                    [(ngModel)]='nombreCharacter'>
@@ -292,7 +295,28 @@
 
         </div>
 
+        <div *ngIf="consultaSeleccionada=='Consulta 7'">
+            <h2 style="text-align: center">Encuentra al mejor heroe de un comic (ej: 17486)</h2>
+            
+            <input atInput placeholder="Introduce id del comic"
+                   [(ngModel)]='buscadorComic'>
+            &nbsp;
+            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Consulta 7'" mat-raised-button
+                    color="primary" (click)="mostrarHeroeMasPoderosoByComic()">Buscar
+            </button>
+            <div *ngIf="comicFound"> 
+                <h4>El mejor heroe de ese comic es: <span style="color: red">{{mejorHeroeDelComic}}</span>.</h4>
+            </div>
+           
+        </div>
 
+        <div *ngIf="consultaSeleccionada=='Consulta 8'">
+            <h2 style="text-align: center">El villano con mas intelegencia es: <span style="color: red">{{villanoMasListo}}</span></h2>           
+        </div>
+
+        <div *ngIf="consultaSeleccionada=='Consulta 9'">
+            <h2 style="text-align: center">El héroe con menos inteligencia es: <span style="color: red">{{heroeMasTonto}}</span></h2>           
+        </div>
     </div>
     <div class="container" align="center">
         <div class="tim-title">

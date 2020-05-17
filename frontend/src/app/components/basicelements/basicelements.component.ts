@@ -41,6 +41,12 @@ export class BasicelementsComponent implements OnInit {
     cantidadComicsPersonajeConMasPeso;
     colorOjosPersonajeConMasPeso;
     pesoPersonajeConMasPeso;
+    mejorHeroeDelComic;
+    buscadorComic;
+    comicFound;
+
+    villanoMasListo;
+    heroeMasTonto;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
@@ -57,8 +63,8 @@ export class BasicelementsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.comicFound = false;
         this.consultas = ['Consulta 1', 'Consulta 2', 'Consulta 3', 'Consulta 4', 'Consulta 5', 'Consulta 6', 'Consulta 7', 'Consulta 8', 'Consulta 9', 'Consulta 10']
-
 
     }
 
@@ -174,6 +180,51 @@ export class BasicelementsComponent implements OnInit {
         })
     }
 
+    mostrarHeroesMalos(){
+        this.spinner.show();
+        this._characterService.getHeroesMalos().subscribe(data => {
+
+            this.data = data;
+            this.data.forEach(c => {
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length))
+            })
+            this.dataSourceFront.sort = this.sort;
+
+            this.dataSourceFront.data = this.rows;
+            this.dataSourceFront.paginator = this.paginator;
+            this.spinner.hide();
+        });
+    }
+
+    mostrarHeroeMasPoderosoByComic(){
+        this.spinner.show();
+
+        this._characterService.getHeroesPoderosoComic(this.buscadorComic).subscribe(data => {
+            this.mejorHeroeDelComic=data[0].name;
+            this.comicFound = true;
+            this.spinner.hide();
+        });
+    }
+
+    getVillanoMasListo(){
+        this.spinner.show();
+
+        this._characterService.getVillanoMasListo().subscribe(data => {
+            this.villanoMasListo=data[0].name;
+            this.spinner.hide();
+        });
+    }
+
+    getHeroeMasTonto(){
+        this.spinner.show();
+
+        this._characterService.getHeroeMasTonto().subscribe(data => {
+            console.log(data);
+            this.heroeMasTonto=data[0].name;
+            this.spinner.hide();
+        });
+    }
+
 
     llamarConsulta() {
         if (this.consultaSeleccionada == 'Consulta 1') {
@@ -186,6 +237,12 @@ export class BasicelementsComponent implements OnInit {
             this.mostrarPersonajeConMasPoderes();
         }else if (this.consultaSeleccionada == 'Consulta 5'){
             this.mostrarPersonajeConMasPeso();
+        }else if (this.consultaSeleccionada == 'Consulta 6'){
+            this.mostrarHeroesMalos();
+        }else if(this.consultaSeleccionada == 'Consulta 8'){
+            this.getVillanoMasListo();
+        }else if(this.consultaSeleccionada == 'Consulta 9'){
+            this.getHeroeMasTonto();
         }
     }
 
