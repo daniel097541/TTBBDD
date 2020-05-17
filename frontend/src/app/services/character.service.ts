@@ -23,4 +23,8 @@ export class CharacterService {
         return this.httpClient.get<any[]>(this.url + 'characters'+'/findMatchingName?name='+nombre);
     }
 
+    public getPersonajesFemeninosOrdenadosPorPoderes() {
+        return this.httpClient.get<any[]>(this.url + 'characters'+'/didYouJustAssumeMyGender');
+    }
+
 }
