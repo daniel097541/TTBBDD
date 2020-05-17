@@ -4,12 +4,14 @@ info:
   description: "TTBBDD API"
   version: "1.0.0"
   title: "TTBBDD API"
-host: "localhost:8080"
+host: "localhost:3000"
 tags:
   - name: "characters"
     description: "Charcters API"
   - name: "comics"
     description: "Comics API"
+  - name: "healthcheck"
+    description: "Healthcheck AWS API"
 schemes:
   - "http"
 paths:
@@ -508,6 +510,21 @@ paths:
           description: "Invalid status value"
       x-swagger-router-controller: "Comics"
     x-swagger-router-controller: "Comics"
+  /scheduled:
+    get:
+      tags:
+        - "healthcheck"
+      summary: "Healthcheck endpoint"
+      description: ""
+      operationId: "healthCheck"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+      x-swagger-router-controller: "Healthcheck"
+    x-swagger-router-controller: "Healthcheck"
 definitions:
   CharacterInfo:
     type: "object"
