@@ -411,6 +411,60 @@ class CharactersDAO extends BasicDAO {
         ];
         this.aggregate(pipeline, callback);
     }
+    
+    findAllVillainsThatMetCharacter(characterId, callback){
+        const pipeline = [
+            {
+                $match: {
+                    _id: characterId
+                }
+            },
+
+            {
+                $unwind: '$comics'
+            },
+
+            {
+                $lookup: {
+                    from: "characters",
+                    as: "comic_characters",
+                    let: {
+                        comic_id: '$comics',
+                        me: '$_id'
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $in: ['$$comic_id', '$comics']
+                                        },
+                                        {
+                                            $eq: ['$info.alignment', 'bad']
+                                        },
+                                        {
+                                            $ne: ['$_id', '$$me']
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                $group: {
+                    _id: '$_id',
+                    villains: {
+                        $addToSet: '$comic_characters'
+                    }
+                }
+            }
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
 }
 
 const instance = new CharactersDAO();
