@@ -4,7 +4,7 @@ info:
   description: "TTBBDD API"
   version: "1.0.0"
   title: "TTBBDD API"
-host: "localhost:3000"
+host: "localhost:8080"
 tags:
   - name: "characters"
     description: "Charcters API"

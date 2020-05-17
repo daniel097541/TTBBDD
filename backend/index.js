@@ -7,7 +7,7 @@ const fs = require('fs'),
 const app = require('connect')();
 const swaggerTools = require('swagger-tools');
 const jsyaml = require('js-yaml');
-const serverPort = 3000;
+const serverPort = 8080;
 const cors = require('cors');
 const express = require('express');
 
@@ -42,7 +42,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Serve angular app
   app.use(express.static(__dirname + '/public/dist'));
-  
+
   // Start the server
   http.createServer(app).listen(serverPort, function () {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
