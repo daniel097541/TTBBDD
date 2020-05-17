@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --outputPath ../backend/public/dist",
+    "build": "ng build --prod --outputPath ../backend/public/dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
