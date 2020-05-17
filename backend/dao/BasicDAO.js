@@ -19,14 +19,18 @@ class BasicDAO {
         this.model = model;
     }
 
+    handleResp(callback, err, data){
+        if(err){
+            callback(err, null);
+        }
+        else if(data){
+            callback(null, data);
+        }
+    }
+
     aggregate(pipeline, callback){
         this.model.aggregate(pipeline, (err, data) => {
-            if(err){
-                callback(err, null);
-            }
-            else if(data){
-                callback(null, data);
-            }
+            this.handleResp(callback, err, data);
         })
     }
 

@@ -11,7 +11,20 @@ class ComicsDAO extends BasicDAO {
         super(ComicsModel);
     }
 
-    findComicWithStrongestHeroes(callback){
+    getCount(callback) {
+        ComicsModel.collection.countDocuments((err, data) => {
+            this.handleResp(callback, err, data);
+        })
+    }
+
+    findMatchingName(name, callback){
+        const regex = new RegExp(name, 'i');
+        ComicsModel.find({'name': regex}, (err, characters) => {
+            this.handleResp(callback, err, characters);
+        })
+    }
+
+    findComicWithStrongestHeroes(callback) {
         console.log(`Getting comic with the strongest heroes!`);
         const pipeline = [
             {
@@ -52,7 +65,7 @@ class ComicsDAO extends BasicDAO {
             },
             {
                 $unwind: {
-                    path: '$total_comic_str' ,
+                    path: '$total_comic_str',
                     preserveNullAndEmptyArrays: false
                 }
             },
@@ -73,30 +86,6 @@ class ComicsDAO extends BasicDAO {
 
         this.aggregate(pipeline, callback);
     }
-
-    getAll(callback){
-        ComicsModel.collection.find({}, (err, data) => {
-            if(err){
-                callback(err);
-            }
-            else if (data){
-                callback(null, data);
-            }
-        })
-    }
-
-    metadataNumberComics(callback){
-        console.log('Metadata - Running query to find number of comics in DB')
-        ComicsModel.count({}, (err,data) => {
-            if(err){
-                callback(err);
-            }
-            else if (data){
-                callback(null, data);
-            }
-        });
-    }
-
 }
 
 const instance = new ComicsDAO();
