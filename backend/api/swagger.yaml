@@ -4,7 +4,7 @@ info:
   description: "TTBBDD API"
   version: "1.0.0"
   title: "TTBBDD API"
-host: "localhost:3000"
+host: "ec2-15-236-90-35.eu-west-3.compute.amazonaws.com:3000"
 tags:
   - name: "characters"
     description: "Charcters API"

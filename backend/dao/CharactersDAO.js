@@ -258,15 +258,6 @@ class CharactersDAO extends BasicDAO {
         });
     }
 
-    // METADATA QUERIES
-
-    metadataNumberCharacters(callback) {
-        console.log('Metadata - Running query to find number of characters in DB')
-        CharacterModel.countDocuments({}, (err, data) => {
-            this.handleResp(callback, err, data);
-        });
-    }
-
     metadataCharsCrossoverInfo(callback) {
         console.log('Metadata - Running query to find number of chars with crossover info in DB')
         CharacterModel.count({crossovers: {$ne: []}}, (err, data) => {

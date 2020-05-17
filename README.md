@@ -2,6 +2,9 @@
 Práctica de Tecnologías de Bases de Datos. Grupo 6.
 
 
+# Preview de la practica
+http://ec2-15-236-90-35.eu-west-3.compute.amazonaws.com:3000/#/home
+
 ## HOW TO
 
 Partiendo siempre de la raíz del proyecto.
