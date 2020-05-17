@@ -32,7 +32,7 @@
     "@swimlane/ngx-datatable": "^17.0.0",
     "bootstrap": "4.1.2",
     "core-js": "3.6.4",
-    "jquery": "3.2.1",
+    "jquery": "3.5.0",
     "jw-bootstrap-switch-ng2": "2.0.1",
     "ng2-nouislider": "1.7.12",
     "ngx-spinner": "^9.0.2",
