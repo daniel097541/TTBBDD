@@ -85,6 +85,18 @@ class ComicsDAO extends BasicDAO {
         })
     }
 
+    metadataNumberComics(callback){
+        console.log('Metadata - Running query to find number of comics in DB')
+        ComicsModel.count({}, (err,data) => {
+            if(err){
+                callback(err);
+            }
+            else if (data){
+                callback(null, data);
+            }
+        });
+    }
+
 }
 
 const instance = new ComicsDAO();
