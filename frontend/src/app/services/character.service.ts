@@ -46,4 +46,20 @@ export class CharacterService {
     public getHeroeMasTonto() {
         return this.httpClient.get<any[]>( '/characters' + '/findDumbestHero');
     }
+
+    public getTopWomen(){
+        return this.httpClient.get<any[]>( '/characters' + '/ranking' + '/topTenWomen');
+    }
+
+    public getTopPowerfull(){
+        return this.httpClient.get<any[]>( '/characters' + '/ranking' + '/top10Powerfull');
+    }
+
+    public getComicsByName(comicName: string){
+        return this.httpClient.get<any[]>( '/comics' + '/findMatchingName?name=' + comicName);
+    }
+
+    public getComicHeroesFuertes(){
+        return this.httpClient.get<any[]>( '/comics' + '/findComicWithStrongestHeroes');
+    }
 }

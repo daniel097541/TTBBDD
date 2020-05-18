@@ -324,14 +324,42 @@
         </div>        
         <div >
             <ngb-tabset [justify]="'center'" type="pills" class="nav-pills-info">
-                <ngb-tab title="BUENOS">
+                <ngb-tab title="FEMENINOS">
                     <ng-template ngbTabContent>
-                        BUENOS
+                        <table mat-table [dataSource]="dataSourceWomen" class="mat-elevation-z8" matSort
+                            style="width: 100%">
+
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="naparicionesComics">
+                                <th mat-header-cell *matHeaderCellDef >Nº de apariciones</th>
+                                <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsWomen"></tr>
+                            <tr mat-row *matRowDef=" let row; columns: displayedColumnsWomen"></tr>
+                        </table>
                     </ng-template>
                 </ngb-tab>
-                <ngb-tab title="NEUTRALES">
+                <ngb-tab title="MAS PODEROSOS">
                     <ng-template ngbTabContent>
-                        BBBB
+                        <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
+                            style="width: 100%">
+
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="cantidadPoderes">
+                                <th mat-header-cell *matHeaderCellDef >Cantidad de poderes</th>
+                                <td mat-cell *matCellDef="let element"> {{element.powers_amount}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                            <tr mat-row *matRowDef=" let row; columns: displayedColumns2"></tr>
+                        </table>
                     </ng-template>
                 </ngb-tab>
                 <ngb-tab title="VILLANOS">
@@ -340,6 +368,51 @@
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
+        </div>
+    </div>
+    <div class="container" align="center">
+        <div class="tim-title">
+            <h2>Informacion sobre comics</h2>
+        </div>   
+        <div>
+            <mat-form-field>
+                <mat-label>Seleccione Consulta Comics</mat-label>
+                <mat-select [(ngModel)]="consultaComicSeleccionada" (ngModelChange)="llamarConsultaComic()">
+                    <mat-option *ngFor="let consultaComic of consultasComic" [value]="consultaComic">
+                        {{consultaComic}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <br><br><br>
+        </div>  
+        <div class="container" align="center">
+            <div *ngIf="consultaComicSeleccionada=='Busqueda por nombre'">
+                <input atInput placeholder="Introduce id del comic"
+                   [(ngModel)]='comicNameSerach'>
+                <button style="margin-bottom: 3%" mat-raised-button
+                    color="primary" (click)="buscarComic()">Buscar
+                </button>
+                <div *ngIf="comicSearch">
+                    <table mat-table [dataSource]="dataSourceComic" class="mat-elevation-z8" matSort
+                        style="width: 100%">
+    
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                        </ng-container>
+                       <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
+                        <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
+                    </table>
+                    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                               showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>    
+            <div *ngIf="consultaComicSeleccionada=='Comic con heroes mas fuertes'">
+                <h2>El comic que tiene los hereos mas fuertes es <span style="color: red">{{comicHeoesFuertes}}</span></h2>
+            </div>
+           
         </div>
     </div>
 </div>

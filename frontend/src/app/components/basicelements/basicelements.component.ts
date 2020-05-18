@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ColumnMode} from '@swimlane/ngx-datatable';
 import {CharacterService} from '../../services/character.service';
 import {Character} from '../../models/Character';
+import {Comic} from '../../models/Comic';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -25,9 +26,19 @@ export class BasicelementsComponent implements OnInit {
     ColumnMode = ColumnMode;
     public dataSourceFront: MatTableDataSource<Character>;
     public dataSourceFront2: MatTableDataSource<Character2>;
+    public dataSourceWomen: MatTableDataSource<Character>;
+    public dataSourceComic: MatTableDataSource<Comic>;
+    dataWomen: Array<any> = [];
+    rowsWomen: Array<Character> = [];
+    rowsComics: Array<Comic> = [];
     nombreCharacter: string;
     consultas: Array<string>;
+    consultasComic: Array<string>;
     consultaSeleccionada;
+    consultaComicSeleccionada;
+    comicNameSerach;
+    comicSearch:boolean;
+    comicHeoesFuertes;
 
 
     cantidadComicsPersonajeMasPoderes;
@@ -54,18 +65,23 @@ export class BasicelementsComponent implements OnInit {
     // Columnas de las Tablas LVs
     public displayedColumns: string[] = ['nombre', 'naparicionesComics', 'cantidadPoderes', 'numeroCrossovers'];
     public displayedColumns2: string[] = ['nombre', 'cantidadPoderes'];
+    public displayedColumnsWomen: string [] = ['nombre','naparicionesComics' ]
+    public displayedColumnsComic: string [] = ['nombre']
 
     constructor(private _characterService: CharacterService,private spinner: NgxSpinnerService) {
         this.dataSourceFront = new MatTableDataSource();
         this.dataSourceFront2 = new MatTableDataSource();
-
-
+        this.dataSourceWomen = new MatTableDataSource();
+        this.dataSourceComic = new MatTableDataSource();
     }
 
     ngOnInit() {
         this.comicFound = false;
+        this.comicSearch = false;
         this.consultas = ['Consulta 1', 'Consulta 2', 'Consulta 3', 'Consulta 4', 'Consulta 5', 'Consulta 6', 'Consulta 7', 'Consulta 8', 'Consulta 9', 'Consulta 10']
-
+        this.consultasComic = ["Busqueda por nombre", "Comic con heroes mas fuertes"]
+        this.getTopTenWomen();
+        this.getTopPowerfull();
     }
 
 
@@ -219,12 +235,40 @@ export class BasicelementsComponent implements OnInit {
         this.spinner.show();
 
         this._characterService.getHeroeMasTonto().subscribe(data => {
-            console.log(data);
             this.heroeMasTonto=data[0].name;
             this.spinner.hide();
         });
     }
 
+    getTopTenWomen(){
+        this._characterService.getTopWomen().subscribe(data => {
+            console.log(data);
+            this.dataWomen = data;
+            this.dataWomen.forEach(c => {
+                this.rowsWomen.push(new Character(c.char_name, c.numberOfAppearances, 0, 0))
+            });
+            //this.dataSourceWomen.sort = this.sort;
+
+            this.dataSourceWomen.data = this.rowsWomen;
+            this.dataSourceWomen.paginator = this.paginator;
+        });
+    }
+
+    getTopPowerfull(){
+        this._characterService.getTopPowerfull().subscribe(data => {
+            console.log(data)
+            this.data = data;
+            this.data.forEach(c => {
+                this.rows2.push(new Character2(c.char_name, c.numberOfPowers))
+            })
+            this.dataSourceFront.sort = this.sort;
+
+            const sortState: Sort = {active: 'nombre', direction: 'asc'};
+            this.dataSourceFront2.data = this.rows2;
+            this.dataSourceFront2.paginator = this.paginator;
+            this.spinner.hide();
+        });
+    }
 
     llamarConsulta() {
         if (this.consultaSeleccionada == 'Consulta 1') {
@@ -246,4 +290,37 @@ export class BasicelementsComponent implements OnInit {
         }
     }
 
+    llamarConsultaComic(){
+        if(this.consultaComicSeleccionada == "Comic con heroes mas fuertes"){
+            this.getComicHeroesFuertes();
+        }
+    }  
+
+    buscarComic(){
+        this.spinner.show();
+        this.comicSearch = false;
+        this._characterService.getComicsByName(this.comicNameSerach).subscribe(data => {
+            this.comicSearch = true;
+            this.data = data;
+            this.data.forEach(c => {
+                this.rowsComics.push(new Comic(c.name));
+            })
+            const sortState: Sort = {active: 'nombre', direction: 'asc'};
+            this.sort.active = sortState.active;
+            this.sort.direction = sortState.direction;
+            this.sort.sortChange.emit(sortState);
+            this.dataSourceComic.data = this.rowsComics;
+            this.dataSourceComic.paginator = this.paginator;
+            this.spinner.hide();
+        });
+    }
+
+    getComicHeroesFuertes(){
+        this.spinner.show();
+
+        this._characterService.getComicHeroesFuertes().subscribe(data => {
+            this.comicHeoesFuertes=data[0]._id;
+            this.spinner.hide();
+        });
+    }
 }
