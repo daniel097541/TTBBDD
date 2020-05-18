@@ -388,7 +388,7 @@
         </div>  
         <div class="container" align="center">
             <div *ngIf="consultaComicSeleccionada=='Busqueda por nombre'">
-                <input atInput placeholder="Introduce id del comic"
+                <input atInput placeholder="Introduce nombre del comic"
                    [(ngModel)]='comicNameSerach'>
                 <button style="margin-bottom: 3%" mat-raised-button
                     color="primary" (click)="buscarComic()">Buscar
@@ -405,7 +405,7 @@
                         <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
                     </table>
                     <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
-                               showFirstLastButtons>
+                                   showFirstLastButtons>
                     </mat-paginator>
                 </div>
             </div>    

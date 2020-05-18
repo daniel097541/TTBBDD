@@ -310,9 +310,10 @@ export class BasicelementsComponent implements OnInit {
             this.sort.direction = sortState.direction;
             this.sort.sortChange.emit(sortState);
             this.dataSourceComic.data = this.rowsComics;
-            this.dataSourceComic.paginator = this.paginator;
+            setTimeout(() => this.dataSourceComic.paginator = this.paginator);
             this.spinner.hide();
         });
+
     }
 
     getComicHeroesFuertes(){
