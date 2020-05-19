@@ -249,6 +249,7 @@ class CharactersService extends BasicService{
      *
      * returns List
      **/
+    // CONSULTA 10: Los más poderosos
     top10Powerfull() {
         return new Promise( (resolve, reject) => {
             this.dao.rankingTop10Powerful((err, data) => {
