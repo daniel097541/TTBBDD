@@ -24,7 +24,8 @@ class ComicsDAO extends BasicDAO {
         })
     }
 
-    // CONSULTA 13:
+    // CONSULTA 13: El comic de los vigoréxicos
+    // De una muestra aleatoria de 1000 comics, obtiene el cómic que tiene los héroes más fuertes
     findComicWithStrongestHeroes(callback) {
         console.log(`Getting comic with the strongest heroes!`);
         const pipeline = [

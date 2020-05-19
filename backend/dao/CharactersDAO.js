@@ -258,7 +258,7 @@ class CharactersDAO extends BasicDAO {
 
 
     // CONSULTA 12: ¿Quién es el héroe con mejores estadísticas del cómic?
-    //
+    // Dado un comic, busca el héroe con mejores estadísticas
     findBestHeroInComic(comicId, callback) {
         console.log(`Running query: Find best hero in comic. !`)
         const pipeline = [
@@ -331,7 +331,8 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
-    // CONSULTA 14
+    // CONSULTA 14: Buscador de villanos
+    // Busca todos los villanos que comparten comic con un personaje
     findAllVillainsThatMetCharacter(characterId, callback){
         const pipeline = [
             {
@@ -395,7 +396,6 @@ class CharactersDAO extends BasicDAO {
         });
     }
 
-
     metadataCharsPersonalInfo(callback) {
         console.log('Metadata - Running query to find number of chars with personal info in DB')
         CharacterModel.countDocuments(
@@ -439,7 +439,6 @@ class CharactersDAO extends BasicDAO {
             });
     }
 
-    // TODO DIVIDE totalPower/countCharsWithPowers
     findAveragePowersPerChar(callback) {
         console.log('Metadata - Running query to find average number of powers per char')
         const pipeline = [
@@ -459,7 +458,6 @@ class CharactersDAO extends BasicDAO {
         this.aggregate(pipeline, callback);
     }
 
-    // TODO DIVIDE totalAppearances/countAppearances
     findAverageAppearancesPerChar(callback) {
         console.log('Metadata - Running query to find average number of appearances per char')
         const pipeline = [

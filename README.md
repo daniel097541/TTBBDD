@@ -20,7 +20,7 @@ Partiendo siempre de la raíz del proyecto.
 #### SENCILLAS
 * **CONSULTA 1: ¿Quién es el más gordo?:** ``Dame el personaje mas gordo de todos``
 * **CONSULTA 2: ¿Quién es el más alto?:** ``Dame el personaje mas alto de todos``
-* **CONSULTA 3: ¿Quién es el personaje más poderoso?:** ``Dame el héroe con más poderes``
+* **CONSULTA 3: ¿Quién es el héroe más poderoso?:** ``Dame el héroe con más poderes``
 * **CONSULTA 4: ¿Quién nos salvará del coronavirus?:** ``Busca todos los personajes que tienen DOCTOR en el nombre``
 * **CONSULTA 5: Las chicas más populares:** ``Top 10 de personajes femeninos con más apariciones``
 * **CONSULTA 6: Las chicas son guerreras:** ``Busca todos los personajes femeninos ordenados por la cantidad de poderes que tienen``
@@ -31,7 +31,7 @@ Partiendo siempre de la raíz del proyecto.
 * **CONSULTA 11: Los que más aparecen por alignment:** ``Top 5 de personajes que más apariciones tienen separados por su alignment``
 
 #### COMPLEJAS
-* **CONSULTA 12: ¿Quién es el héroe con mejores estadísticas del cómic?:** `` ``
+* **CONSULTA 12: ¿Quién es el héroe con mejores estadísticas del cómic?:** ``Dado un comic, busca el héroe con mejores estadísticas``
 * **CONSULTA 13: El comic de los vigoréxicos:** ``De una muestra aleatoria de 1000 comics, obtiene el cómic que tiene los héroes más fuertes`` 
 * **CONSULTA 14: Buscador de villanos:** ``Busca todos los villanos que comparten comic con un personaje``
 
