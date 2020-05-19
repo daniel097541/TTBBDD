@@ -213,7 +213,7 @@ export class BasicelementsComponent implements OnInit {
     }
 
     mostrarHeroeMasPoderosoByComic(){
-        if(this.buscadorComic){
+        if(this.buscadorComic && !isNaN(this.buscadorComic)){
             this.spinner.show();
         
             this._characterService.getHeroesPoderosoComic(this.buscadorComic).subscribe(data => {
