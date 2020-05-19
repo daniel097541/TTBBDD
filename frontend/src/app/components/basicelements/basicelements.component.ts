@@ -78,7 +78,7 @@ export class BasicelementsComponent implements OnInit {
     ngOnInit() {
         this.comicFound = false;
         this.comicSearch = false;
-        this.consultas = ['Consulta 1', 'Consulta 2', 'Consulta 3', 'Consulta 4', 'Consulta 5', 'Consulta 6', 'Consulta 7', 'Consulta 8', 'Consulta 9', 'Consulta 10']
+        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Heroinas mas poderosas', 'Personaje mas poderoso', 'Personaje con mas peso', 'Heroes como villanos', 'Mejor heroe del comic', 'Villano mas listo', 'Heroe menos inteligencia']
         this.consultasComic = ["Busqueda por nombre", "Comic con heroes mas fuertes"]
         this.getTopTenWomen();
         this.getTopPowerfull();
@@ -213,13 +213,17 @@ export class BasicelementsComponent implements OnInit {
     }
 
     mostrarHeroeMasPoderosoByComic(){
-        this.spinner.show();
-
-        this._characterService.getHeroesPoderosoComic(this.buscadorComic).subscribe(data => {
-            this.mejorHeroeDelComic=data[0].name;
-            this.comicFound = true;
-            this.spinner.hide();
-        });
+        if(this.buscadorComic){
+            this.spinner.show();
+        
+            this._characterService.getHeroesPoderosoComic(this.buscadorComic).subscribe(data => {
+                if(data && data.length > 0){
+                    this.mejorHeroeDelComic=data[0].name;
+                    this.comicFound = true;
+                }
+                this.spinner.hide();
+            });
+        }
     }
 
     getVillanoMasListo(){
@@ -271,21 +275,21 @@ export class BasicelementsComponent implements OnInit {
     }
 
     llamarConsulta() {
-        if (this.consultaSeleccionada == 'Consulta 1') {
+        if (this.consultaSeleccionada == 'Todos los heroes') {
             this.mostararCharacters();
-        } else if (this.consultaSeleccionada == 'Consulta 2') {
+        } else if (this.consultaSeleccionada == 'Heroe por nombre') {
             this.mostararCharactersByName();
-        } else if (this.consultaSeleccionada == 'Consulta 3') {
+        } else if (this.consultaSeleccionada == 'Heroinas mas poderosas') {
             this.mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes()
-        } else if (this.consultaSeleccionada == 'Consulta 4') {
+        } else if (this.consultaSeleccionada == 'Personaje mas poderoso') {
             this.mostrarPersonajeConMasPoderes();
-        }else if (this.consultaSeleccionada == 'Consulta 5'){
+        }else if (this.consultaSeleccionada == 'Personaje con mas peso'){
             this.mostrarPersonajeConMasPeso();
-        }else if (this.consultaSeleccionada == 'Consulta 6'){
+        }else if (this.consultaSeleccionada == 'Heroes como villanos'){
             this.mostrarHeroesMalos();
-        }else if(this.consultaSeleccionada == 'Consulta 8'){
+        }else if(this.consultaSeleccionada == 'Villano mas listo'){
             this.getVillanoMasListo();
-        }else if(this.consultaSeleccionada == 'Consulta 9'){
+        }else if(this.consultaSeleccionada == 'Heroe menos inteligencia'){
             this.getHeroeMasTonto();
         }
     }
@@ -298,6 +302,8 @@ export class BasicelementsComponent implements OnInit {
 
     buscarComic(){
         this.spinner.show();
+        this.dataSourceComic.data = []
+        this.rowsComics = [];
         this.comicSearch = false;
         this._characterService.getComicsByName(this.comicNameSerach).subscribe(data => {
             this.comicSearch = true;
