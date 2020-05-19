@@ -24,6 +24,7 @@ class ComicsDAO extends BasicDAO {
         })
     }
 
+    // CONSULTA 13:
     findComicWithStrongestHeroes(callback) {
         console.log(`Getting comic with the strongest heroes!`);
         const pipeline = [

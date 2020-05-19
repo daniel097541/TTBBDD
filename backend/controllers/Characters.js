@@ -158,6 +158,7 @@ module.exports.getAll = function getAll (req, res, next) {
     });
 };
 
+// CONSULTA 10: Los más poderosos
 module.exports.top10Powerfull = function top10Powerfull (req, res, next) {
   service.top10Powerfull()
     .then(function (response) {

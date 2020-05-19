@@ -80,7 +80,7 @@ class CharactersDAO extends BasicDAO {
         this.aggregate(pipeline, callback);
     }
 
-    // CONSULTA 5: ¿Quién nos salvará del coronavirus?
+    // CONSULTA 4: ¿Quién nos salvará del coronavirus?
     // Filtro en el nombre del personaje
     getMatchingName(name, callback) {
         const regex = new RegExp(name, 'i');
@@ -89,19 +89,35 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
-    // CONSULTA 6: LAS CHICAS SON GUERRERAS
+    // CONSULTA 5: Las chicas más populares
+    // Top 10 de personajes femeninos con más apariciones
+    rankingTop10Women(callback) {
+        console.log('Ranking - Running query to find top 10 women chars with more appearances in comics')
+        const pipeline = [
+            {$match: {"info.gender": {$eq: "female"}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
+                }
+            },
+            {$sort: {numberOfAppearances: -1}},
+            {$limit: 10}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    // CONSULTA 6: Las chicas son guerreras
     // Todos los personajes femeninos ordenadas por la cantidad de poderes que tienen
     didYouJustAssumeMyGender(callback) {
         console.log(`Did you just assume my gender?`);
         const pipeline = [
-
             // 1 - Filter by gender == female
             {
                 $match: {
                     'info.gender': 'female',
                 }
             },
-
             // 2 - Project to retrieve only id, name and power amount
             {
                 $project: {
@@ -114,7 +130,6 @@ class CharactersDAO extends BasicDAO {
                     }
                 }
             },
-
             // 3 - Sort by amount of powers, descending
             {
                 $sort: {
@@ -149,7 +164,101 @@ class CharactersDAO extends BasicDAO {
         this.aggregate(pipeline, callback);
     }
 
-    // CONSULTA 4:
+    // CONSULTA 8: El villano más listo
+    // Busca al personaje villano con más puntos de inteligencia
+    findSmartestVillain(callback) {
+        const pipeline = [
+            {
+                $match: {
+                    'info.alignment': 'bad'
+                }
+            },
+            {
+                $sort: {
+                    'stats.intelligence': -1
+                }
+            },
+            {
+                $limit: 1
+            },
+            {
+                $project: {
+                    _id: '$_id',
+                    name: '$name'
+                }
+            }
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    // CONSULTA 9: El héroe más tonto
+    // Busca al personaje héroe con menos puntos de inteligencia
+    findDumbestHero(callback) {
+        const pipeline = [
+            {
+                $match: {
+                    'info.alignment': 'good'
+                }
+            },
+            {
+                $sort: {
+                    'stats.intelligence': 1,
+                }
+            },
+            {
+                $limit: 1
+            },
+            {
+                $project: {
+                    _id: '$_id',
+                    name: '$name'
+                }
+            }
+        ];
+
+        this.aggregate(pipeline, callback);
+    }
+
+    // CONSULTA 10: Los más poderosos
+    // Top 10 de personajes más poderosos
+    rankingTop10Powerful(callback) {
+        console.log('Ranking - Running query to find Top 10 more powerful characters')
+        const pipeline = [
+            {$match: {powers: {$ne: []}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfPowers: {$cond: {if: {$isArray: "$powers"}, then: {$size: "$powers"}, else: 0}}
+                }
+            },
+            {$sort: {numberOfPowers: -1}},
+            {$limit: 10}
+        ];
+
+        this.aggregate(pipeline, callback);
+    }
+
+    // CONSULTA 11: Los que más aparecen por alignment
+    // Top 5 de personajes que más apariciones tienen separados por su alignment
+    rankingTop5(callback, alignment) {
+        console.log(`Ranking - Running query to find Top 5 chars with ${alignment} alignment with more appearances in comics`)
+        const pipeline = [
+            {$match: {"info.alignment": {$eq: alignment}}},
+            {
+                $project: {
+                    char_name: "$name",
+                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
+                }
+            },
+            {$sort: {numberOfAppearances: -1}},
+            {$limit: 5}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+
+    // CONSULTA 12: ¿Quién es el héroe con mejores estadísticas del cómic?
+    //
     findBestHeroInComic(comicId, callback) {
         console.log(`Running query: Find best hero in comic. !`)
         const pipeline = [
@@ -222,58 +331,63 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
-    findSmartestVillain(callback) {
+    // CONSULTA 14
+    findAllVillainsThatMetCharacter(characterId, callback){
         const pipeline = [
             {
                 $match: {
-                    'info.alignment': 'bad'
+                    _id: characterId
+                }
+            },
+
+            {
+                $unwind: '$comics'
+            },
+
+            {
+                $lookup: {
+                    from: "characters",
+                    as: "comic_characters",
+                    let: {
+                        comic_id: '$comics',
+                        me: '$_id'
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $in: ['$$comic_id', '$comics']
+                                        },
+                                        {
+                                            $eq: ['$info.alignment', 'bad']
+                                        },
+                                        {
+                                            $ne: ['$_id', '$$me']
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
                 }
             },
             {
-                $sort: {
-                    'stats.intelligence': -1
-                }
-            },
-            {
-                $limit: 1
-            },
-            {
-                $project: {
+                $group: {
                     _id: '$_id',
-                    name: '$name'
+                    villains: {
+                        $addToSet: '$comic_characters'
+                    }
                 }
             }
         ];
         this.aggregate(pipeline, callback);
     }
 
-    findDumbestHero(callback) {
-        const pipeline = [
-            {
-                $match: {
-                    'info.alignment': 'good'
-                }
-            },
-            {
-                $sort: {
-                    'stats.intelligence': 1,
-                }
-            },
-            {
-                $limit: 1
-            },
-            {
-                $project: {
-                    _id: '$_id',
-                    name: '$name'
-                }
-            }
-        ];
-
-        this.aggregate(pipeline, callback);
-    }
-
-
+    // *****************************************************
+    // METADATA QUERIES
+    // *****************************************************
     metadataCharsCrossoverInfo(callback) {
         console.log('Metadata - Running query to find number of chars with crossover info in DB')
         CharacterModel.count({crossovers: {$ne: []}}, (err, data) => {
@@ -370,111 +484,6 @@ class CharactersDAO extends BasicDAO {
 
         this.aggregate(pipeline, callback);
     }
-
-    // RANKING QUERIES
-
-    rankingTop10Women(callback) {
-        console.log('Ranking - Running query to find top 10 women chars with more appearances in comics')
-        const pipeline = [
-            {$match: {"info.gender": {$eq: "female"}}},
-            {
-                $project: {
-                    char_name: "$name",
-                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
-                }
-            },
-            {$sort: {numberOfAppearances: -1}},
-            {$limit: 10}
-        ];
-        this.aggregate(pipeline, callback);
-    }
-
-    rankingTop10Powerful(callback) {
-        console.log('Ranking - Running query to find Top 10 more powerful characters')
-        const pipeline = [
-            {$match: {powers: {$ne: []}}},
-            {
-                $project: {
-                    char_name: "$name",
-                    numberOfPowers: {$cond: {if: {$isArray: "$powers"}, then: {$size: "$powers"}, else: 0}}
-                }
-            },
-            {$sort: {numberOfPowers: -1}},
-            {$limit: 10}
-        ];
-
-        this.aggregate(pipeline, callback);
-    }
-
-    rankingTop5(callback, alignment) {
-        console.log(`Ranking - Running query to find Top 5 chars with ${alignment} alignment with more appearances in comics`)
-        const pipeline = [
-            {$match: {"info.alignment": {$eq: alignment}}},
-            {
-                $project: {
-                    char_name: "$name",
-                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
-                }
-            },
-            {$sort: {numberOfAppearances: -1}},
-            {$limit: 5}
-        ];
-        this.aggregate(pipeline, callback);
-    }
-    
-    findAllVillainsThatMetCharacter(characterId, callback){
-        const pipeline = [
-            {
-                $match: {
-                    _id: characterId
-                }
-            },
-
-            {
-                $unwind: '$comics'
-            },
-
-            {
-                $lookup: {
-                    from: "characters",
-                    as: "comic_characters",
-                    let: {
-                        comic_id: '$comics',
-                        me: '$_id'
-                    },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $and: [
-                                        {
-                                            $in: ['$$comic_id', '$comics']
-                                        },
-                                        {
-                                            $eq: ['$info.alignment', 'bad']
-                                        },
-                                        {
-                                            $ne: ['$_id', '$$me']
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                $group: {
-                    _id: '$_id',
-                    villains: {
-                        $addToSet: '$comic_characters'
-                    }
-                }
-            }
-        ];
-        this.aggregate(pipeline, callback);
-    }
-
 }
 
 const instance = new CharactersDAO();
