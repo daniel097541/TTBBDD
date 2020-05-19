@@ -30,30 +30,10 @@ Partiendo siempre de la raíz del proyecto.
 * **CONSULTA 10: Los más poderosos:** ``Top 10 de personajes más poderosos``
 * **CONSULTA 11: Los que más aparecen por alignment:** ``Top 5 de personajes que más apariciones tienen separados por su alignment``
 
-
 #### COMPLEJAS
 * **CONSULTA 12: ¿Quién es el héroe con mejores estadísticas del cómic?:** `` ``
 * **CONSULTA 13: El comic de los vigoréxicos:** ``De una muestra aleatoria de 1000 comics, obtiene el cómic que tiene los héroes más fuertes`` 
-
-
-* **Buscador de villanos:** ``Busca todos los villanos que comparten comic con un personaje``
-
-
-* **Mejor héroe vs mejor villano:** ``¿Quién ganaría si el villano mas poderoso se enfrentase al heroe mas poderoso?``
-* **Couple goals:** ``¿Quién es el personaje que más se ha encontrado con un héroe?``
-* **Amigos para siempre:** ``Dame los amigos (misma alineacion) que tiene un personaje en un comic``
-
-* **El comic de los vigorexicos:** ``Saca de una muestra aleatoria de 1000 comics, el que tiene los personajes con mas fuerza``
-
-#### COMPLEJAS
-* **CONSULTA 4: ¿Quién es el héroe con mejores estadísticas?:** ``Dame el héroe con mejores estadísticas de un comic``
-
-### RANKING QUERIES
-* **Top 10: Los personajes con más poderes:** ``Top 5 de personajes con más número de poderes ``
-* **Top 10: Las chicas más populares:** ``Top 10 de personajes femeninos con más apariciones``
-* **Top 5: Los héroes más populares:** ``Top 5 de héroes con más apariciones``
-* **Top 5: Los villanos más populares:** ``Top 5 de villanos con más apariciones``
-* **Top 5: Ni héroes ni villanos más populares:** ``Top 5 de personajes con alignment neutro con más apariciones``
+* **CONSULTA 14: Buscador de villanos:** ``Busca todos los villanos que comparten comic con un personaje``
 
 
 ### METADATA QUERIES
