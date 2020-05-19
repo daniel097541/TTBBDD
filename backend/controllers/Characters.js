@@ -73,6 +73,8 @@ module.exports.count = function count (req, res, next) {
     });
 };
 
+// CONSULTA 6: LAS CHICAS SON GUERRERAS
+// Todos los personajes femeninos ordenadas por la cantidad de poderes que tienen
 module.exports.didYouJustAssumeMyGender = function didYouJustAssumeMyGender (req, res, next) {
   service.didYouJustAssumeMyGender()
     .then(function (response) {
@@ -205,4 +207,14 @@ module.exports.whoIsRedBarclay = function whoIsRedBarclay (req, res, next) {
     .catch(function (response) {
       utils.writeJson(res, response);
     });
+};
+
+module.exports.whoIsTallestChar = function whoIsRedBarclay (req, res, next) {
+  service.whoIsTallestChar()
+      .then(function (response) {
+        utils.writeJson(res, response);
+      })
+      .catch(function (response) {
+        utils.writeJson(res, response);
+      })
 };

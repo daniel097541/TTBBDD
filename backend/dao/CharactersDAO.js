@@ -31,6 +31,57 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
+    // CONSULTA 1: ¿Quién es el más gordo?
+    // El personaje más gordo de todos
+    findRedBarclay(callback) {
+        console.log(`Running query to find red barclay!`)
+        const pipeline = [
+            {
+                $group: {_id: "$$ROOT", weight: {$max: "$info.weight"}}
+            },
+            {
+                $sort: {weight: -1}
+            },
+            {
+                $limit: 1
+            }
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    // CONSULTA 2: ¿Quién es el más alto?
+    // El personaje más alto de todos
+    findTallestChar(callback) {
+        console.log(`Running query to find red barclay!`)
+        const pipeline = [
+            {
+                $group: {_id: "$$ROOT", height: {$max: "$info.height"}}
+            },
+            {
+                $sort: {height: -1}
+            },
+            {
+                $limit: 1
+            }
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    // CONSULTA 3: ¿Quién es el héroe más poderoso?
+    // El héroe con más poderes.
+    findPeterPetrelli(callback) {
+        console.log(`Executing Peter Petrelli query!`)
+        const pipeline = [
+            { $match: { 'info.alignment': 'good' } },
+            {$project: {_id: "$$ROOT", len: {"$size": "$powers"}}},
+            {$sort: {len: -1}},
+            {$limit: 1}
+        ];
+        this.aggregate(pipeline, callback);
+    }
+
+    // CONSULTA 5: ¿Quién nos salvará del coronavirus?
+    // Filtro en el nombre del personaje
     getMatchingName(name, callback) {
         const regex = new RegExp(name, 'i');
         CharacterModel.find({'name': regex}, (err, characters) => {
@@ -38,14 +89,8 @@ class CharactersDAO extends BasicDAO {
         })
     }
 
-    findDoctors(callback) {
-        console.log(`Running query to find characters that have DOCTOR in the name`)
-
-        CharacterModel.find({"name": /.doctor.$/i}, (err, data) => {
-            this.handleResp(callback, err, data);
-        })
-    }
-
+    // CONSULTA 6: LAS CHICAS SON GUERRERAS
+    // Todos los personajes femeninos ordenadas por la cantidad de poderes que tienen
     didYouJustAssumeMyGender(callback) {
         console.log(`Did you just assume my gender?`);
         const pipeline = [
@@ -80,32 +125,8 @@ class CharactersDAO extends BasicDAO {
         this.aggregate(pipeline, callback);
     }
 
-    findPeterPetrelli(callback) {
-        console.log(`Executing peter petrelli query!`)
-        const pipeline = [
-            {$project: {_id: "$$ROOT", len: {"$size": "$powers"}}},
-            {$sort: {len: -1}},
-            {$limit: 1}
-        ];
-        this.aggregate(pipeline, callback);
-    }
-
-    findRedBarclay(callback) {
-        console.log(`Running query to find red barclay!`)
-        const pipeline = [
-            {
-                $group: {_id: "$$ROOT", weight: {$max: "$info.weight"}}
-            },
-            {
-                $sort: {weight: -1}
-            },
-            {
-                $limit: 1
-            }
-        ];
-        this.aggregate(pipeline, callback);
-    }
-
+    //CONSULTA 7: Malos héroes
+    // Busca todos los heroes que hayan sido villanos en un crossover
     findBadHeroes(callback) {
         const pipeline = [
 
@@ -128,6 +149,7 @@ class CharactersDAO extends BasicDAO {
         this.aggregate(pipeline, callback);
     }
 
+    // CONSULTA 4:
     findBestHeroInComic(comicId, callback) {
         console.log(`Running query: Find best hero in comic. !`)
         const pipeline = [
@@ -251,12 +273,6 @@ class CharactersDAO extends BasicDAO {
         this.aggregate(pipeline, callback);
     }
 
-    findDoctors(callback) {
-        console.log('Running query to find characters that have DOCTOR in the name')
-        CharacterModel.find({"name": /.*doctor.*$/i}, (err, data) => {
-            this.handleResp(callback, err, data);
-        });
-    }
 
     metadataCharsCrossoverInfo(callback) {
         console.log('Metadata - Running query to find number of chars with crossover info in DB')
@@ -265,12 +281,6 @@ class CharactersDAO extends BasicDAO {
         });
     }
 
-    metadataCharsCrossoverInfo(callback) {
-        console.log('Metadata - Running query to find number of chars with crossover info in DB')
-        CharacterModel.countDocuments({crossovers: {$ne: []}}, (err, data) => {
-            this.handleResp(callback, err, data);
-        });
-    }
 
     metadataCharsPersonalInfo(callback) {
         console.log('Metadata - Running query to find number of chars with personal info in DB')

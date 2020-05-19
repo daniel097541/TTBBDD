@@ -126,6 +126,8 @@ class CharactersService extends BasicService{
      *
      * returns List
      **/
+    // CONSULTA 6: LAS CHICAS SON GUERRERAS
+    // Todos los personajes femeninos ordenadas por la cantidad de poderes que tienen
     didYouJustAssumeMyGender() {
         return new Promise( (resolve, reject) => {
             this.dao.didYouJustAssumeMyGender((err, data) => {
@@ -309,6 +311,19 @@ class CharactersService extends BasicService{
     whoIsRedBarclay() {
         return new Promise( (resolve, reject) => {
             this.dao.findRedBarclay((err, data) => {
+                this.handleDaoResponse(resolve, reject, err, data);
+            })
+        });
+    }
+
+    /**
+     * Finds the tallest character
+     *
+     * returns Character
+     **/
+    whoIsTallestChar() {
+        return new Promise( (resolve, reject) => {
+            this.dao.findTallestChar((err, data) => {
                 this.handleDaoResponse(resolve, reject, err, data);
             })
         });
