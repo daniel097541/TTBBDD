@@ -369,9 +369,18 @@ class CharactersDAO extends BasicDAO {
                                     ]
                                 }
                             }
+                        },
+                        {
+                            $project: {
+                                _id: '$_id',
+                                name: '$name'
+                            }
                         }
                     ]
                 }
+            },
+            {
+                $unwind: '$comic_characters'
             },
             {
                 $group: {
@@ -484,120 +493,6 @@ class CharactersDAO extends BasicDAO {
 
         this.aggregate(pipeline, callback);
     }
-
-    // RANKING QUERIES
-
-    rankingTop10Women(callback) {
-        console.log('Ranking - Running query to find top 10 women chars with more appearances in comics')
-        const pipeline = [
-            {$match: {"info.gender": {$eq: "female"}}},
-            {
-                $project: {
-                    char_name: "$name",
-                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
-                }
-            },
-            {$sort: {numberOfAppearances: -1}},
-            {$limit: 10}
-        ];
-        this.aggregate(pipeline, callback);
-    }
-
-    rankingTop10Powerful(callback) {
-        console.log('Ranking - Running query to find Top 10 more powerful characters')
-        const pipeline = [
-            {$match: {powers: {$ne: []}}},
-            {
-                $project: {
-                    char_name: "$name",
-                    numberOfPowers: {$cond: {if: {$isArray: "$powers"}, then: {$size: "$powers"}, else: 0}}
-                }
-            },
-            {$sort: {numberOfPowers: -1}},
-            {$limit: 10}
-        ];
-
-        this.aggregate(pipeline, callback);
-    }
-
-    rankingTop5(callback, alignment) {
-        console.log(`Ranking - Running query to find Top 5 chars with ${alignment} alignment with more appearances in comics`)
-        const pipeline = [
-            {$match: {"info.alignment": {$eq: alignment}}},
-            {
-                $project: {
-                    char_name: "$name",
-                    numberOfAppearances: {$cond: {if: {$isArray: "$comics"}, then: {$size: "$comics"}, else: 0}}
-                }
-            },
-            {$sort: {numberOfAppearances: -1}},
-            {$limit: 5}
-        ];
-        this.aggregate(pipeline, callback);
-    }
-
-    findAllVillainsThatMetCharacter(characterId, callback){
-        const pipeline = [
-            {
-                $match: {
-                    _id: characterId
-                }
-            },
-
-            {
-                $unwind: '$comics'
-            },
-
-            {
-                $lookup: {
-                    from: "characters",
-                    as: "comic_characters",
-                    let: {
-                        comic_id: '$comics',
-                        me: '$_id'
-                    },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $and: [
-                                        {
-                                            $in: ['$$comic_id', '$comics']
-                                        },
-                                        {
-                                            $eq: ['$info.alignment', 'bad']
-                                        },
-                                        {
-                                            $ne: ['$_id', '$$me']
-                                        }
-                                    ]
-                                }
-                            }
-                        },
-                        {
-                            $project: {
-                                _id: '$_id',
-                                name: '$name'
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-              $unwind: '$comic_characters'
-            },
-            {
-                $group: {
-                    _id: '$_id',
-                    villains: {
-                        $addToSet: '$comic_characters'
-                    }
-                }
-            }
-        ];
-        this.aggregate(pipeline, callback);
-    }
-
 }
 
 const instance = new CharactersDAO();
