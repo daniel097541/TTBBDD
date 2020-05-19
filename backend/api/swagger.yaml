@@ -4,7 +4,8 @@ info:
   description: "TTBBDD API"
   version: "1.0.0"
   title: "TTBBDD API"
-host: "ec2-15-236-90-35.eu-west-3.compute.amazonaws.com:3000"
+#host: "ec2-15-236-90-35.eu-west-3.compute.amazonaws.com:3000"
+host: "localhost:3000"
 tags:
   - name: "characters"
     description: "Charcters API"
@@ -34,7 +35,6 @@ paths:
               $ref: "#/definitions/Character"
         "405":
           description: "Invalid input"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/findMatchingName:
     get:
@@ -60,7 +60,6 @@ paths:
               $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/findByName:
     get:
@@ -89,7 +88,6 @@ paths:
               $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/didYouJustAssumeMyGender:
     get:
@@ -110,7 +108,6 @@ paths:
               properties: {}
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/whoIsPeterPetrelli:
     get:
@@ -128,7 +125,6 @@ paths:
             $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/whoIsRedBarclay:
     get:
@@ -146,7 +142,6 @@ paths:
             $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/findBadHeroes:
     get:
@@ -166,7 +161,6 @@ paths:
               $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/findBestInComic:
     get:
@@ -190,7 +184,6 @@ paths:
             $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/findSmartestVillain:
     get:
@@ -211,7 +204,6 @@ paths:
               $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/findDumbestHero:
     get:
@@ -232,7 +224,6 @@ paths:
               $ref: "#/definitions/Character"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/metadata/count:
     get:
@@ -251,7 +242,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/metadata/charactersWithCrossovers:
     get:
@@ -270,7 +260,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/metadata/charactersWithInfo:
     get:
@@ -289,7 +278,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/metadata/charactersWithPowers:
     get:
@@ -308,7 +296,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/metadata/charactersWithStats:
     get:
@@ -327,7 +314,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/metadata/avgPowersPerCharacter:
     get:
@@ -346,7 +332,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/metadata/avgAppearancesPerCharacter:
     get:
@@ -365,7 +350,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/ranking/topTenWomen:
     get:
@@ -387,7 +371,6 @@ paths:
               properties: {}
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/ranking/top10Powerfull:
     get:
@@ -409,7 +392,6 @@ paths:
               properties: {}
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /characters/ranking/top5WithAlignment:
     get:
@@ -425,15 +407,7 @@ paths:
           in: "query"
           description: "Alignment values that need to be considered for filter"
           required: true
-          type: "array"
-          items:
-            type: "string"
-            default: "available"
-            enum:
-              - "good"
-              - "bad"
-              - "neutral"
-          collectionFormat: "multi"
+          type: "string"
       responses:
         "200":
           description: "successful operation"
@@ -444,7 +418,6 @@ paths:
               properties: {}
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Characters"
     x-swagger-router-controller: "Characters"
   /comics/findMatchingName:
     get:
@@ -470,8 +443,32 @@ paths:
               $ref: "#/definitions/Comic"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Comics"
     x-swagger-router-controller: "Comics"
+  /characters/findVillainsThatMetCharacter:
+    get:
+      tags:
+        - "characters"
+      summary: "Finds all the villains that met a character"
+      description: ""
+      operationId: "findVillainsThatMetCharacter"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "character_id"
+          in: "query"
+          description: "The id of the character"
+          required: true
+          type: "number"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Character"
+        "400":
+          description: "Invalid status value"
+    x-swagger-router-controller: "Characters"
   /comics/metadata/count:
     get:
       tags:
@@ -489,7 +486,6 @@ paths:
             type: "number"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Comics"
     x-swagger-router-controller: "Comics"
   /comics/findComicWithStrongestHeroes:
     get:
@@ -508,7 +504,6 @@ paths:
             type: "object"
         "400":
           description: "Invalid status value"
-      x-swagger-router-controller: "Comics"
     x-swagger-router-controller: "Comics"
   /scheduled:
     get:
@@ -523,7 +518,6 @@ paths:
       responses:
         "200":
           description: "successful operation"
-      x-swagger-router-controller: "Healthcheck"
     x-swagger-router-controller: "Healthcheck"
 definitions:
   CharacterInfo:

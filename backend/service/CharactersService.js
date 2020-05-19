@@ -281,6 +281,7 @@ class CharactersService extends BasicService{
      * returns List
      **/
     top5CharactersByAlignment(alignment) {
+        console.log(`Getting top 5 by alignment: ${alignment}`)
         return new Promise( (resolve, reject) => {
             this.dao.rankingTop5((err, data) => {
                 this.handleDaoResponse(resolve, reject, err, data);
@@ -329,6 +330,20 @@ class CharactersService extends BasicService{
         });
     }
 
+
+    /**
+     * Finds all the villains that met a character
+     *
+     * character_id The id of the character
+     * returns List
+     **/
+    findVillainsThatMetCharacter(character_id) {
+        return new Promise( (resolve, reject) => {
+            this.dao.findAllVillainsThatMetCharacter(character_id,(err, data) => {
+                this.handleDaoResponse(resolve, reject, err, data);
+            })
+        });
+    }
 
 }
 

@@ -179,7 +179,7 @@ module.exports.top10Women = function top10Women (req, res, next) {
 };
 
 module.exports.top5CharactersByAlignment = function top5CharactersByAlignment (req, res, next) {
-  var alignment = req.swagger.params['alignment'].value;
+  const alignment = req.swagger.params['alignment'].value;
   service.top5CharactersByAlignment(alignment)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -217,4 +217,15 @@ module.exports.whoIsTallestChar = function whoIsRedBarclay (req, res, next) {
       .catch(function (response) {
         utils.writeJson(res, response);
       })
+};
+
+module.exports.findVillainsThatMetCharacter = function findVillainsThatMetCharacter (req, res, next) {
+    const character_id = req.swagger.params['character_id'].value;
+    service.findVillainsThatMetCharacter(character_id)
+        .then(function (response) {
+            utils.writeJson(res, response);
+        })
+        .catch(function (response) {
+            utils.writeJson(res, response);
+        })
 };

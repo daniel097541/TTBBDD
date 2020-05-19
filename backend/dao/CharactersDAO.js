@@ -459,9 +459,18 @@ class CharactersDAO extends BasicDAO {
                                     ]
                                 }
                             }
+                        },
+                        {
+                            $project: {
+                                _id: '$_id',
+                                name: '$name'
+                            }
                         }
                     ]
                 }
+            },
+            {
+              $unwind: '$comic_characters'
             },
             {
                 $group: {
