@@ -230,3 +230,13 @@ module.exports.findVillainsThatMetCharacter = function findVillainsThatMetCharac
             utils.writeJson(res, response);
         })
 };
+
+module.exports.findTallestCharacter = function findTallestCharacter (req, res, next) {
+    service.findTallestCharacter()
+        .then(function (response) {
+            utils.writeJson(res, response);
+        })
+        .catch(function (response) {
+            utils.writeJson(res, response);
+        })
+};
