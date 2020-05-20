@@ -1,473 +1,317 @@
-<div class="section section-buttons">
-    <!--    <div class="container">-->
-    <!--        <div class="tim-title">-->
-    <!--            <h2>Basic Components</h2>-->
-    <!--        </div>-->
-    <!--        <div id="buttons">-->
-    <!--            <div class="tim-title">-->
-    <!--                <h3>Buttons-->
-    <!--                    <br/>-->
-    <!--                    <small>Pick your style</small>-->
-    <!--                </h3>-->
-    <!--            </div>-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-md-8">-->
-    <!--                    <button type="button" class="btn btn-danger">Default</button>-->
-    <!--                    <button type="button" class="btn btn-danger btn-round">Round</button>-->
-    <!--                    <button type="button" class="btn btn-danger btn-round"><i class="fa fa-heart"></i> With Icon</button>-->
-    <!--                    <button type="button" class="btn btn-danger btn-just-icon"><i class="fa fa-heart"></i></button>-->
-    <!--                    <button type="button" class="btn btn-danger btn-link">Simple</button>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="tim-title">-->
-    <!--                <h3><small>Pick your size</small></h3>-->
-    <!--            </div>-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-md-8">-->
-    <!--                    <button type="button" class="btn btn-outline-danger btn-sm">Small</button>-->
-    <!--                    <button type="button" class="btn btn-outline-danger">Regular</button>-->
-    <!--                    <button type="button" class="btn btn-outline-danger btn-lg">Large</button>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="tim-title">-->
-    <!--                <h3><small>Pick your color</small></h3>-->
-    <!--            </div>-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-md-8">-->
-    <!--                    <button type="button" class="btn btn-outline-default btn-round">Default</button><button type="button" class="btn btn-outline-primary btn-round">Primary</button>-->
-    <!--                    <button type="button" class="btn btn-outline-info btn-round">Info</button>-->
-    <!--                    <button type="button" class="btn btn-outline-success btn-round">Success</button>-->
-    <!--                    <button type="button" class="btn btn-outline-warning btn-round">Warning</button>-->
-    <!--                    <button type="button" class="btn btn-outline-danger btn-round">Danger</button>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <br/>-->
-    <!--            <div class="row">-->
-    <!--                <div class="col-md-8">-->
-    <!--                    <button type="button" class="btn btn-default btn-round">Default</button>-->
-    <!--                    <button type="button" class="btn btn-primary btn-round">Primary</button>-->
-    <!--                    <button type="button" class="btn btn-info btn-round">Info</button>-->
-    <!--                    <button type="button" class="btn btn-success btn-round">Success</button>-->
-    <!--                    <button type="button" class="btn btn-warning btn-round">Warning</button>-->
-    <!--                    <button type="button" class="btn btn-danger btn-round">Danger</button>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--            <br/>-->
-    <!--        <div class="tim-title">-->
-    <!--            <h3>Links</h3>-->
-    <!--        </div>-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-md-8">-->
-    <!--                <a href="#0" class="btn btn-link btn-default">Default</a>-->
-    <!--                <a href="#0" class="btn btn-link btn-primary">Primary</a>-->
-    <!--                <a href="#0" class="btn btn-link btn-success">Success</a>-->
-    <!--                <a href="#0" class="btn btn-link btn-info">Info</a>-->
-    <!--                <a href="#0" class="btn btn-link btn-warning">Warning</a>-->
-    <!--                <a href="#0" class="btn btn-link btn-danger">Danger</a>-->
-    <!--                <a href="#0" class="btn btn-link btn-neutral">Neutral</a>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <br/>-->
-    <!--        <div class="tim-title">-->
-    <!--            <h3>Inputs</h3>-->
-    <!--        </div>-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-sm-3">-->
-    <!--                <div class="form-group">-->
-    <!--                    <input type="text" class="form-control" placeholder="Default">-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-sm-3">-->
-    <!--                <div class="form-group has-success">-->
-    <!--                    <input type="text" class="form-control form-control-success" id="inputSuccess1" value="Success">-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-sm-3">-->
-    <!--                <div class="form-group has-danger">-->
-    <!--                    <input type="text" class="form-control form-control-danger" id="inputDanger1" value="Error">-->
-    <!--                    <div class="form-control-feedback">Sorry, that username's taken. Try another?</div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-sm-3">-->
-    <!--                <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">-->
-    <!--                    <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >-->
-    <!--                    <div class="input-group-append">-->
-    <!--                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <br/>-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-sm-6 col-lg-3">-->
-    <!--                <div class="tim-title">-->
-    <!--                    <h3>Checkboxes</h3>-->
-    <!--                </div>-->
-    <!--                <div class="form-check">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="checkbox" value="">-->
-    <!--                    Unchecked-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--                <div class="form-check">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="checkbox" value="" checked="">-->
-    <!--                    Checked-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--                <div class="form-check disabled">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="checkbox" value="" disabled="">-->
-    <!--                    Disabled unchecked-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--                <div class="form-check disabled">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="checkbox" value="" checked="" disabled="">-->
-    <!--                    Disabled checked-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-sm-6 col-lg-3">-->
-    <!--                <div class="tim-title">-->
-    <!--                    <h3>Radio Buttons</h3>-->
-    <!--                </div>-->
-    <!--                <div class="form-check-radio">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >-->
-    <!--                    Radio is off-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--                <div class="form-check-radio">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked="">-->
-    <!--                    Radio is on-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--                <div class="form-check-radio disabled">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios3" value="option3" disabled="">-->
-    <!--                    Disabled Radio is off-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--                <div class="form-check-radio disabled">-->
-    <!--                  <label class="form-check-label">-->
-    <!--                    <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios4" value="option3" checked disabled="">-->
-    <!--                    Disabled Radio is on-->
-    <!--                    <span class="form-check-sign"></span>-->
-    <!--                  </label>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="col-sm-6 col-lg-3">-->
-    <!--                <div class="tim-title">-->
-    <!--                    <h3>Toggle Buttons</h3>-->
-    <!--                </div>-->
-    <!--                <bSwitch-->
-    <!--                    [switch-on-color]="'primary'">-->
-    <!--                </bSwitch>-->
-    <!--                <bSwitch-->
-    <!--                    [switch-on-color]="'primary'"-->
-    <!--                    [(ngModel)]="state_default"> Toggle is off-->
-    <!--                </bSwitch>-->
-    <!--            </div>-->
-    <!--            <div class="col-sm-6 col-lg-3">-->
-    <!--                <div class="tim-title">-->
-    <!--                    <h3>Sliders</h3>-->
-    <!--                </div>-->
-    <!--                <nouislider [connect]="false" [min]="0" [max]="100" [step]="1" [(ngModel)]="simpleSlider" [tooltips]="false" class="slider"></nouislider>-->
-    <!--                <br>-->
-    <!--                <nouislider class="slider slider-info" [connect]="true" [min]="0" [max]="100" [step]="1" [(ngModel)]="doubleSlider" [tooltips]="false"></nouislider>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
-    <div class="container" align="center">
-        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Cargando datos... </p></ngx-spinner>
-
-        <div class="tim-title">
-            <h2>Consultas</h2>
-        </div>
-        <div>
-            <mat-form-field>
-                <mat-label>Seleccione Consulta</mat-label>
-                <mat-select [(ngModel)]="consultaSeleccionada" (ngModelChange)="llamarConsulta()">
-                    <mat-option *ngFor="let consulta of consultas" [value]="consulta">
-                        {{consulta}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <br><br><br>
-        </div>
-        <div *ngIf="consultaSeleccionada=='Todos los heroes' || consultaSeleccionada=='Heroe por nombre' || consultaSeleccionada=='Consulta 7'">
-
-
-            <h2 *ngIf="consultaSeleccionada=='Todos los heroes'" style="text-align: center">Esta es la consulta de todos los
-                superheroes</h2>
-
-            <h2 *ngIf="consultaSeleccionada=='Heroe por nombre'" style="text-align: center">Esta es la consulta de los
-                superheroes filtrada por nombre</h2>
-            
-            <h2 *ngIf="consultaSeleccionada=='Consulta 7'" style="text-align: center">Heroes con mas apariciones como 
-                villanos</h2>
-
-            <input *ngIf="consultaSeleccionada=='Heroe por nombre'" atInput placeholder="Introduce nombre personaje"
-                   [(ngModel)]='nombreCharacter'>
-            &nbsp;
-            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Heroe por nombre'" mat-raised-button
-                    color="primary" (click)="mostararCharactersByName()">Buscar
-            </button>
-
-
-            <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
-                   style="width: 100%">
-
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>   
-                <ng-container matColumnDef="nombre">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                </ng-container>
-                <ng-container matColumnDef="naparicionesComics">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de Apariciones en comics</th>
-                    <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
-                </ng-container>
-                <ng-container matColumnDef="cantidadPoderes">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>numero total de poderes</th>
-                    <td mat-cell *matCellDef="let element"> {{element.numeroPoderes}} </td>
-                </ng-container>
-                <ng-container matColumnDef="numeroCrossovers">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de crossovers</th>
-                    <td mat-cell *matCellDef="let element"> {{element.numeroCrossovers}} </td>
-                </ng-container>
-
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef=" let row; columns: displayedColumns"></tr>
-            </table>
-            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
-                           showFirstLastButtons>
-            </mat-paginator>
-
-        </div>
-
-        <div *ngIf="consultaSeleccionada=='Consulta 6'">
-            <h2 style="text-align: center">Esta es la consulta donde se muestran personajes femeninos ordenados por
-                cantidad de poderes</h2>
-
-            <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
-                   style="width: 100%">
-
-                <ng-container matColumnDef="nombre">
-                    <th mat-header-cell *matHeaderCellDef >Nombre</th>
-                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                </ng-container>
-                <ng-container matColumnDef="cantidadPoderes">
-                    <th mat-header-cell *matHeaderCellDef >Cantidad de poderes</th>
-                    <td mat-cell *matCellDef="let element"> {{element.powers_amount}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                <tr mat-row *matRowDef=" let row; columns: displayedColumns2"></tr>
-            </table>
-            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
-                           showFirstLastButtons>
-            </mat-paginator>
-        </div>
-
-        <div *ngIf="consultaSeleccionada=='Consulta 3'">
-            <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
-
-            <h4>El personaje con un total de <span style="color: red">{{cantidadPoderesPersonajeMasPoderes}}</span> poderes es <span style="color: red">{{nombrePersonajeMasPoderes}}</span> el cual tiene un colo de ojos <span style="color: blue">{{colorOjosPersonajeMasPoderes}}</span>, aparece en un total de <span style="color: red">{{cantidadComicsPersonajeMasPoderes}}</span> comics, perteneciente a la editorial <span style="color: red">{{editorialPersonajeMasPoderes}}</span></h4>
-
-        </div>
-
-        <div *ngIf="consultaSeleccionada=='Consulta 1'">
-            <h2 style="text-align: center">Esta es la consulta donde se muestra el Consulta 1</h2>
-
-            <h4>El Consulta 1 es <span style="color: red">{{nombrePersonajeConMasPeso}}</span> con un peso de  <span style="color: red">{{pesoPersonajeConMasPeso}}</span>, tiene un color de ojos <span style="color: blue">{{colorOjosPersonajeConMasPeso}}</span>, y aparece en un total de <span style="color: red">{{cantidadComicsPersonajeConMasPeso}}</span> comics.</h4>
-
-        </div>
-
-        <div *ngIf="consultaSeleccionada=='Consulta 12'">
-            <h2 style="text-align: center">Encuentra al mejor heroe de un comic (ej: 17486)</h2>
-            
-            <input atInput placeholder="Introduce id del comic"
-                   [(ngModel)]='buscadorComic'>
-            &nbsp;
-            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Consulta 12'" mat-raised-button
-                    color="primary" (click)="mostrarHeroeMasPoderosoByComic()">Buscar
-            </button>
-            <div *ngIf="comicFound"> 
-                <h4>El mejor heroe de ese comic es: <span style="color: red">{{mejorHeroeDelComic}}</span>.</h4>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box"
+             [fullScreen]="true"><p style="color: white"> Cargando datos... </p></ngx-spinner>
+<mat-tab-group class="section section-buttons">
+    <mat-tab label="Consultas sobre personajes">
+        <div class="container" align="center">
+            <div class="tim-title">
+                <h2>Consultas sobre personajes</h2>
             </div>
-           
-        </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Seleccione Consulta</mat-label>
+                    <mat-select [(ngModel)]="consultaSeleccionada" (ngModelChange)="llamarConsulta()">
+                        <mat-option *ngFor="let consulta of consultas" [value]="consulta">
+                            {{consulta}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-        <div *ngIf="consultaSeleccionada=='Consulta 8'">
-            <h2 style="text-align: center">El villano con mas intelegencia es: <span style="color: red">{{villanoMasListo}}</span></h2>           
-        </div>
+                <br><br><br>
+            </div>
+            <div *ngIf="consultaSeleccionada=='Todos los heroes' || consultaSeleccionada=='Heroe por nombre' || consultaSeleccionada=='Malos heroes'">
 
-        <div *ngIf="consultaSeleccionada=='Consulta 9'">
-            <h2 style="text-align: center">El héroe con menos inteligencia es: <span style="color: red">{{heroeMasTonto}}</span></h2>           
-        </div>
 
-        <div *ngIf="consultaSeleccionada=='Consulta 2'">
-            <h2 style="text-align: center">El héroe mas alto es: <span style="color: red">{{heroeMasAlto}}</span></h2>           
-        </div>
+                <h2 *ngIf="consultaSeleccionada=='Todos los heroes'" style="text-align: center">Esta es la consulta
+                    de
+                    todos los
+                    superheroes</h2>
 
-        <div *ngIf="consultaSeleccionada=='Consulta 14'">
-            <input atInput placeholder="Introduce id del heroe"
-                   [(ngModel)]='idHeroSelected'>
-            &nbsp;
-            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Consulta 14'" mat-raised-button
-                    color="primary" (click)="getVillanoId()">Buscar
-            </button>
-            <div *ngIf="villanosEncontrados">
-                <table mat-table [dataSource]="dataSourceVillanos" class="mat-elevation-z8" matSort
-                            style="width: 100%">
+                <h2 *ngIf="consultaSeleccionada=='Heroe por nombre'" style="text-align: center">Esta es la consulta
+                    de
+                    los
+                    superheroes filtrada por nombre</h2>
+
+                <h2 *ngIf="consultaSeleccionada=='Malos heroes'" style="text-align: center">Heroes con mas apariciones
+                    como
+                    villanos</h2>
+
+                <input *ngIf="consultaSeleccionada=='Heroe por nombre'" atInput
+                       placeholder="Introduce nombre personaje"
+                       [(ngModel)]='nombreCharacter'>
+                &nbsp;
+                <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Heroe por nombre'" mat-raised-button
+                        color="primary" (click)="mostararCharactersByName()">Buscar
+                </button>
+
+
+                <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
+                       style="width: 100%">
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
                     <ng-container matColumnDef="nombre">
-                        <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
                         <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                    </ng-container>                    
+                    </ng-container>
+                    <ng-container matColumnDef="naparicionesComics">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de Apariciones en comics</th>
+                        <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cantidadPoderes">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>numero total de poderes</th>
+                        <td mat-cell *matCellDef="let element"> {{element.numeroPoderes}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="numeroCrossovers">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de crossovers</th>
+                        <td mat-cell *matCellDef="let element"> {{element.numeroCrossovers}} </td>
+                    </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
-                    <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef=" let row; columns: displayedColumns"></tr>
                 </table>
+                <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                               showFirstLastButtons>
+                </mat-paginator>
+
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='Las chicas son guerreras'">
+                <h2 style="text-align: center">Esta es la consulta donde se muestran personajes femeninos ordenados
+                    por
+                    cantidad de poderes</h2>
+
+                <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
+                       style="width: 100%">
+
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cantidadPoderes">
+                        <th mat-header-cell *matHeaderCellDef>Cantidad de poderes</th>
+                        <td mat-cell *matCellDef="let element"> {{element.powers_amount}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <tr mat-row *matRowDef=" let row; columns: displayedColumns2"></tr>
+                </table>
+                <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                               showFirstLastButtons>
+                </mat-paginator>
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='Quien es el heroe más poderoso'">
+                <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
+
+                <h4>El personaje con un total de <span
+                        style="color: red">{{cantidadPoderesPersonajeMasPoderes}}</span>
+                    poderes es <span style="color: red">{{nombrePersonajeMasPoderes}}</span> el cual tiene un colo
+                    de
+                    ojos <span style="color: blue">{{colorOjosPersonajeMasPoderes}}</span>, aparece en un total de
+                    <span
+                            style="color: red">{{cantidadComicsPersonajeMasPoderes}}</span> comics, perteneciente a
+                    la
+                    editorial <span style="color: red">{{editorialPersonajeMasPoderes}}</span></h4>
+
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='Quien es el más gordo'">
+                <h2 style="text-align: center">Esta es la consulta donde se muestra el Consulta 1</h2>
+
+                <h4>El Consulta 1 es <span style="color: red">{{nombrePersonajeConMasPeso}}</span> con un peso de
+                    <span
+                            style="color: red">{{pesoPersonajeConMasPeso}}</span>, tiene un color de ojos <span
+                            style="color: blue">{{colorOjosPersonajeConMasPeso}}</span>, y aparece en un total de
+                    <span
+                            style="color: red">{{cantidadComicsPersonajeConMasPeso}}</span> comics.</h4>
+
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='El heroe con mejores estadísticas'">
+                <h2 style="text-align: center">Encuentra al mejor heroe de un comic (ej: 17486)</h2>
+
+                <input matInput placeholder="Introduce id del comic"
+                       [(ngModel)]='buscadorComic'>
+                &nbsp;
+                <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='El heroe con mejores estadísticas'" mat-raised-button
+                        color="primary" (click)="mostrarHeroeMasPoderosoByComic()">Buscar
+                </button>
+                <div *ngIf="comicFound">
+                    <h4>El mejor heroe de ese comic es: <span style="color: red">{{mejorHeroeDelComic}}</span>.</h4>
+                </div>
+
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='El villano más listo'">
+                <h2 style="text-align: center">El villano con mas intelegencia es: <span
+                        style="color: red">{{villanoMasListo}}</span></h2>
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='El heroe más tonto'">
+                <h2 style="text-align: center">El héroe con menos inteligencia es: <span
+                        style="color: red">{{heroeMasTonto}}</span></h2>
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='Quien es el más alto?'">
+                <h2 style="text-align: center">El héroe mas alto es: <span
+                        style="color: red">{{heroeMasAlto}}</span>
+                </h2>
+            </div>
+
+            <div *ngIf="consultaSeleccionada=='Buscador de villanos'">
+                <input atInput placeholder="Id del villano"
+                       [(ngModel)]='idHeroSelected'>
+                &nbsp;
+                <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Buscador de villanos'" mat-raised-button
+                        color="primary" (click)="getVillanoId()">Buscar
+                </button>
+                <div *ngIf="villanosEncontrados">
+                    <table mat-table [dataSource]="dataSourceVillanos" class="mat-elevation-z8" matSort
+                           style="width: 100%">
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
+                        <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container" align="center">
-        <div class="tim-title">
-            <h2>Top apariciones de personajes</h2>
-        </div>        
-        <div >
-            <ngb-tabset [justify]="'center'" type="pills" class="nav-pills-info">
-                <ngb-tab title="FEMENINOS">
-                    <ng-template ngbTabContent>
-                        <h4>(Consulta 5)</h4>
-                        <table mat-table [dataSource]="dataSourceWomen" class="mat-elevation-z8" matSort
-                            style="width: 100%">
+    </mat-tab>
+    <mat-tab label="Consultas Top de apariciones">
+        <div class="container" align="center">
+            <div class="tim-title">
+                <h2>Top apariciones de personajes</h2>
+            </div>
+            <div>
+                <ngb-tabset [justify]="'center'" type="pills" class="nav-pills-info">
+                    <ngb-tab title="FEMENINOS">
+                        <ng-template ngbTabContent>
+                            <h4>(Consulta 5)</h4>
+                            <table mat-table [dataSource]="dataSourceWomen" class="mat-elevation-z8" matSort
+                                   style="width: 100%">
 
-                            <ng-container matColumnDef="nombre">
-                                <th mat-header-cell *matHeaderCellDef >Nombre</th>
-                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="naparicionesComics">
-                                <th mat-header-cell *matHeaderCellDef >Nº de apariciones</th>
-                                <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumnsWomen"></tr>
-                            <tr mat-row *matRowDef=" let row; columns: displayedColumnsWomen"></tr>
-                        </table>
-                    </ng-template>
-                </ngb-tab>
-                <ngb-tab title="MAS PODEROSOS">
-                    <ng-template ngbTabContent>
-                        <h4>(Consulta 10)</h4>
-                        <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
-                            style="width: 100%">
-
-                            <ng-container matColumnDef="nombre">
-                                <th mat-header-cell *matHeaderCellDef >Nombre</th>
-                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="cantidadPoderes">
-                                <th mat-header-cell *matHeaderCellDef >Cantidad de poderes</th>
-                                <td mat-cell *matCellDef="let element"> {{element.powers_amount}} </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                            <tr mat-row *matRowDef=" let row; columns: displayedColumns2"></tr>
-                        </table>
-                    </ng-template>
-                </ngb-tab>
-                <ngb-tab title="BUENOS/MALOS">
-                    <ng-template ngbTabContent>
-                        <h4>(Consulta 11)</h4>
-                        <mat-form-field>
-                            <mat-label>Seleccione Consulta Comics</mat-label>
-                            <mat-select [(ngModel)]="alignmentSelected" (ngModelChange)="llamarConsultaAlignment()">
-                                <mat-option *ngFor="let alignment of selectAlignments" [value]="alignment.value">
-                                    {{alignment.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <div *ngIf="alignmentSelected">
-                            <table mat-table [dataSource]="dataSourceAlignment" class="mat-elevation-z8" matSort
-                            style="width: 100%">
                                 <ng-container matColumnDef="nombre">
-                                    <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
                                     <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="naparicionesComics">
-                                    <th mat-header-cell *matHeaderCellDef >Nº de apariciones</th>
+                                    <th mat-header-cell *matHeaderCellDef>Nº de apariciones</th>
                                     <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
                                 </ng-container>
 
                                 <tr mat-header-row *matHeaderRowDef="displayedColumnsWomen"></tr>
                                 <tr mat-row *matRowDef=" let row; columns: displayedColumnsWomen"></tr>
                             </table>
-                        </div>
-                    </ng-template>
-                </ngb-tab>
-            </ngb-tabset>
-        </div>
-    </div>
-    <div class="container" align="center">
-        <div class="tim-title">
-            <h2>Informacion sobre comics</h2>
-        </div>   
-        <div>
-            <mat-form-field>
-                <mat-label>Seleccione Consulta Comics</mat-label>
-                <mat-select [(ngModel)]="consultaComicSeleccionada" (ngModelChange)="llamarConsultaComic()">
-                    <mat-option *ngFor="let consultaComic of consultasComic" [value]="consultaComic">
-                        {{consultaComic}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="MAS PODEROSOS">
+                        <ng-template ngbTabContent>
+                            <h4>(Consulta 10)</h4>
+                            <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
+                                   style="width: 100%">
 
-            <br><br><br>
-        </div>  
-        <div class="container" align="center">
-            <div *ngIf="consultaComicSeleccionada=='Busqueda por nombre'">
-                <input atInput placeholder="Introduce nombre del comic"
-                   [(ngModel)]='comicNameSerach'>
-                <button style="margin-bottom: 3%" mat-raised-button
-                    color="primary" (click)="buscarComic()">Buscar
-                </button>
-                <div *ngIf="comicSearch">
-                    <table mat-table [dataSource]="dataSourceComic" class="mat-elevation-z8" matSort
-                        style="width: 100%">
-    
-                        <ng-container matColumnDef="nombre">
-                            <th mat-header-cell *matHeaderCellDef >Nombre</th>
-                            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                        </ng-container>
-                       <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
-                        <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
-                    </table>
-                    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
-                                   showFirstLastButtons>
-                    </mat-paginator>
-                </div>
-            </div>    
-            <div *ngIf="consultaComicSeleccionada=='Consulta 13'">
-                <h2>El comic que tiene los hereos mas fuertes es <span style="color: red">{{comicHeoesFuertes}}</span></h2>
+                                <ng-container matColumnDef="nombre">
+                                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="cantidadPoderes">
+                                    <th mat-header-cell *matHeaderCellDef>Cantidad de poderes</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.powers_amount}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                                <tr mat-row *matRowDef=" let row; columns: displayedColumns2"></tr>
+                            </table>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="BUENOS/MALOS">
+                        <ng-template ngbTabContent>
+                            <h4>(Consulta 11)</h4>
+                            <mat-form-field>
+                                <mat-label>Seleccione Consulta Comics</mat-label>
+                                <mat-select [(ngModel)]="alignmentSelected"
+                                            (ngModelChange)="llamarConsultaAlignment()">
+                                    <mat-option *ngFor="let alignment of selectAlignments"
+                                                [value]="alignment.value">
+                                        {{alignment.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="alignmentSelected">
+                                <table mat-table [dataSource]="dataSourceAlignment" class="mat-elevation-z8" matSort
+                                       style="width: 100%">
+                                    <ng-container matColumnDef="nombre">
+                                        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="naparicionesComics">
+                                        <th mat-header-cell *matHeaderCellDef>Nº de apariciones</th>
+                                        <td mat-cell
+                                            *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsWomen"></tr>
+                                    <tr mat-row *matRowDef=" let row; columns: displayedColumnsWomen"></tr>
+                                </table>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
             </div>
-           
         </div>
-    </div>
-</div>
+    </mat-tab>
+    <mat-tab label="Consultas sobre comics">
+        <div class="container" align="center">
+            <div class="tim-title">
+                <h2>Consultas sobre comics</h2>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Seleccione Consulta Comics</mat-label>
+                    <mat-select [(ngModel)]="consultaComicSeleccionada" (ngModelChange)="llamarConsultaComic()">
+                        <mat-option *ngFor="let consultaComic of consultasComic" [value]="consultaComic">
+                            {{consultaComic}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <br><br><br>
+            </div>
+            <div class="container" align="center">
+                <div *ngIf="consultaComicSeleccionada=='Busqueda por nombre'">
+                    <input atInput placeholder="Introduce el nombre"
+                           [(ngModel)]='comicNameSerach'>
+                    <button style="margin-bottom: 3%" mat-raised-button
+                            color="primary" (click)="buscarComic()">Buscar
+                    </button>
+                    <div *ngIf="comicSearch">
+                        <table mat-table [dataSource]="dataSourceComic" class="mat-elevation-z8" matSort
+                               style="width: 100%">
+
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
+                            <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
+                        </table>
+                        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                                       showFirstLastButtons>
+                        </mat-paginator>
+                    </div>
+                </div>
+                <div *ngIf="consultaComicSeleccionada=='El comic de los vigorexicos'">
+                    <h2>El comic que tiene los heroes mas fuertes es <span
+                            style="color: red">{{comicHeoesFuertes}}</span></h2>
+                </div>
+
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

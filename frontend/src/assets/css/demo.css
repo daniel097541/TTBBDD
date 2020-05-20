@@ -12,6 +12,9 @@
 
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  */
+.mat-tab-labels {
+    justify-content: center !important;
+}
 .tim-row {
     margin-bottom: 20px;
 }

@@ -10,8 +10,6 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
 import {FooterComponent} from './shared/footer/footer.component';
 
 import {ComponentsModule} from './components/components.module';
-import {ExamplesModule} from './examples/examples.module';
-import {ColumnMode} from '@swimlane/ngx-datatable';
 import {CharacterService} from './services/character.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -23,9 +21,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {InterceptorService} from './services/interceptor.service';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
-// @ts-ignore
 @NgModule({
     declarations: [
         AppComponent,
@@ -38,7 +36,6 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         FormsModule,
         RouterModule,
         ComponentsModule,
-        ExamplesModule,
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
@@ -49,7 +46,8 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         MatFormFieldModule,
         MatSelectModule,
         ReactiveFormsModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        MatTabsModule
     ],
     providers: [CharacterService,
         {

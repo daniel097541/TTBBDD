@@ -68,6 +68,8 @@ export class BasicelementsComponent implements OnInit {
     villanoMasListo;
     heroeMasTonto;
 
+    queries;
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -90,8 +92,9 @@ export class BasicelementsComponent implements OnInit {
         this.comicFound = false;
         this.comicSearch = false;
         this.villanosEncontrados = false;
-        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Consulta 6', 'Consulta 3', 'Consulta 1', 'Consulta 7', 'Consulta 12', 'Consulta 8', 'Consulta 9', 'Consulta 14', 'Consulta 2']
-        this.consultasComic = ["Busqueda por nombre", "Consulta 13"];
+        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Las chicas son guerreras', 'Quien es el heroe más poderoso', 'Quien es el más gordo',
+            'Malos heroes', 'El heroe con mejores estadísticas', 'El villano más listo', 'El heroe más tonto', 'Buscador de villanos', 'Quien es el más alto?']
+        this.consultasComic = ["Busqueda por nombre", "El comic de los vigorexicos"];
         this.selectAlignments = [{name: "Buenos", value: "good"},{name: "Neutrales", value: "neutral"},{name: "Malos", value: "bad"}];
         this.getTopTenWomen();
         this.getTopPowerfull();
@@ -106,7 +109,7 @@ export class BasicelementsComponent implements OnInit {
             console.log(data)
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, 0))
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, c._id))
             })
             this.dataSourceFront.sort = this.sort;
 
@@ -292,25 +295,25 @@ export class BasicelementsComponent implements OnInit {
             this.mostararCharacters();
         } else if (this.consultaSeleccionada == 'Heroe por nombre') {
             this.mostararCharactersByName();
-        } else if (this.consultaSeleccionada == 'Consulta 6') {
+        } else if (this.consultaSeleccionada == 'Las chicas son guerreras') {
             this.mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes()
-        } else if (this.consultaSeleccionada == 'Consulta 3') {
+        } else if (this.consultaSeleccionada == 'Quien es el heroe más poderoso') {
             this.mostrarPersonajeConMasPoderes();
-        }else if (this.consultaSeleccionada == 'Consulta 1'){
+        }else if (this.consultaSeleccionada == 'Quien es el más gordo'){
             this.mostrarPersonajeConMasPeso();
-        }else if (this.consultaSeleccionada == 'Consulta 7'){
+        }else if (this.consultaSeleccionada == 'Malos heroes'){
             this.mostrarHeroesMalos();
-        }else if(this.consultaSeleccionada == 'Consulta 8'){
+        }else if(this.consultaSeleccionada == 'El villano más listo'){
             this.getVillanoMasListo();
-        }else if(this.consultaSeleccionada == 'Consulta 9'){
+        }else if(this.consultaSeleccionada == 'El heroe más tonto'){
             this.getHeroeMasTonto();
-        }else if(this.consultaSeleccionada == 'Consulta 2'){
+        }else if(this.consultaSeleccionada == 'Quien es el más alto?'){
             this.getHeroeMasAlto();
         }
     }
 
     llamarConsultaComic(){
-        if(this.consultaComicSeleccionada == "Consulta 13"){
+        if(this.consultaComicSeleccionada == "El comic de los vigorexicos"){
             this.getComicHeroesFuertes();
         }
     }  
