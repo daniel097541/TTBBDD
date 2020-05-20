@@ -322,6 +322,10 @@
             <h2 style="text-align: center">El héroe con menos inteligencia es: <span style="color: red">{{heroeMasTonto}}</span></h2>           
         </div>
 
+        <div *ngIf="consultaSeleccionada=='Consulta 2'">
+            <h2 style="text-align: center">El héroe mas alto es: <span style="color: red">{{heroeMasAlto}}</span></h2>           
+        </div>
+
         <div *ngIf="consultaSeleccionada=='Consulta 14'">
             <input atInput placeholder="Introduce id del heroe"
                    [(ngModel)]='idHeroSelected'>

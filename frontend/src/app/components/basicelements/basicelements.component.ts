@@ -44,6 +44,7 @@ export class BasicelementsComponent implements OnInit {
     comicSearch:boolean;
     comicHeoesFuertes;
     alignmentSelected: string;
+    heroeMasAlto:string;
 
 
     cantidadComicsPersonajeMasPoderes;
@@ -89,7 +90,7 @@ export class BasicelementsComponent implements OnInit {
         this.comicFound = false;
         this.comicSearch = false;
         this.villanosEncontrados = false;
-        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Consulta 6', 'Consulta 3', 'Consulta 1', 'Consulta 7', 'Consulta 12', 'Consulta 8', 'Consulta 9', 'Consulta 14']
+        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Consulta 6', 'Consulta 3', 'Consulta 1', 'Consulta 7', 'Consulta 12', 'Consulta 8', 'Consulta 9', 'Consulta 14', 'Consulta 2']
         this.consultasComic = ["Busqueda por nombre", "Consulta 13"];
         this.selectAlignments = [{name: "Buenos", value: "good"},{name: "Neutrales", value: "neutral"},{name: "Malos", value: "bad"}];
         this.getTopTenWomen();
@@ -303,6 +304,8 @@ export class BasicelementsComponent implements OnInit {
             this.getVillanoMasListo();
         }else if(this.consultaSeleccionada == 'Consulta 9'){
             this.getHeroeMasTonto();
+        }else if(this.consultaSeleccionada == 'Consulta 2'){
+            this.getHeroeMasAlto();
         }
     }
 
@@ -378,6 +381,15 @@ export class BasicelementsComponent implements OnInit {
             this.villanosEncontrados = true;
             this.dataSourceVillanos.data = this.rowsVillanos;
             setTimeout(() => this.dataSourceVillanos.paginator = this.paginator);
+            this.spinner.hide();
+        });
+    }
+
+    getHeroeMasAlto(){
+        this.spinner.show();
+
+        this._characterService.getHeroeMasAlto().subscribe(data => {
+            this.heroeMasAlto =data[0]._id.name;
             this.spinner.hide();
         });
     }

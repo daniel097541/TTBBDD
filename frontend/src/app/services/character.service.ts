@@ -70,4 +70,8 @@ export class CharacterService {
     public getVillanosId(id: string){
         return this.httpClient.get<any[]>( '/characters' + '/findVillainsThatMetCharacter?character_id=' + id);
     }
+
+    public getHeroeMasAlto(){
+        return this.httpClient.get<any[]>( '/characters' + '/findTallestCharacter');
+    }
 }
