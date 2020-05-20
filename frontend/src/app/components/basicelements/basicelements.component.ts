@@ -28,9 +28,11 @@ export class BasicelementsComponent implements OnInit {
     public dataSourceFront2: MatTableDataSource<Character2>;
     public dataSourceWomen: MatTableDataSource<Character>;
     public dataSourceComic: MatTableDataSource<Comic>;
+    public dataSourceAlignment: MatTableDataSource<Character>;
     dataWomen: Array<any> = [];
     rowsWomen: Array<Character> = [];
     rowsComics: Array<Comic> = [];
+    rowsAlignment: Array<Character> = [];
     nombreCharacter: string;
     consultas: Array<string>;
     consultasComic: Array<string>;
@@ -39,6 +41,7 @@ export class BasicelementsComponent implements OnInit {
     comicNameSerach;
     comicSearch:boolean;
     comicHeoesFuertes;
+    alignmentSelected: string;
 
 
     cantidadComicsPersonajeMasPoderes;
@@ -47,6 +50,7 @@ export class BasicelementsComponent implements OnInit {
     colorPeloPersonajeMasPoderes;
     nombrePersonajeMasPoderes;
     cantidadPoderesPersonajeMasPoderes;
+    selectAlignments;
 
     nombrePersonajeConMasPeso;
     cantidadComicsPersonajeConMasPeso;
@@ -73,13 +77,15 @@ export class BasicelementsComponent implements OnInit {
         this.dataSourceFront2 = new MatTableDataSource();
         this.dataSourceWomen = new MatTableDataSource();
         this.dataSourceComic = new MatTableDataSource();
+        this.dataSourceAlignment = new MatTableDataSource();
     }
 
     ngOnInit() {
         this.comicFound = false;
         this.comicSearch = false;
-        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Heroinas mas poderosas', 'Personaje mas poderoso', 'Personaje con mas peso', 'Heroes como villanos', 'Mejor heroe del comic', 'Villano mas listo', 'Heroe menos inteligencia']
-        this.consultasComic = ["Busqueda por nombre", "Comic con heroes mas fuertes"]
+        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Consulta 6', 'Consulta 3', 'Consulta 1', 'Consulta 7', 'Consulta 12', 'Consulta 8', 'Consulta 9']
+        this.consultasComic = ["Busqueda por nombre", "Consulta 13"];
+        this.selectAlignments = [{name: "Buenos", value: "good"},{name: "Neutrales", value: "neutral"},{name: "Malos", value: "bad"}];
         this.getTopTenWomen();
         this.getTopPowerfull();
     }
@@ -279,23 +285,23 @@ export class BasicelementsComponent implements OnInit {
             this.mostararCharacters();
         } else if (this.consultaSeleccionada == 'Heroe por nombre') {
             this.mostararCharactersByName();
-        } else if (this.consultaSeleccionada == 'Heroinas mas poderosas') {
+        } else if (this.consultaSeleccionada == 'Consulta 6') {
             this.mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes()
-        } else if (this.consultaSeleccionada == 'Personaje mas poderoso') {
+        } else if (this.consultaSeleccionada == 'Consulta 3') {
             this.mostrarPersonajeConMasPoderes();
-        }else if (this.consultaSeleccionada == 'Personaje con mas peso'){
+        }else if (this.consultaSeleccionada == 'Consulta 1'){
             this.mostrarPersonajeConMasPeso();
-        }else if (this.consultaSeleccionada == 'Heroes como villanos'){
+        }else if (this.consultaSeleccionada == 'Consulta 7'){
             this.mostrarHeroesMalos();
-        }else if(this.consultaSeleccionada == 'Villano mas listo'){
+        }else if(this.consultaSeleccionada == 'Consulta 8'){
             this.getVillanoMasListo();
-        }else if(this.consultaSeleccionada == 'Heroe menos inteligencia'){
+        }else if(this.consultaSeleccionada == 'Consulta 9'){
             this.getHeroeMasTonto();
         }
     }
 
     llamarConsultaComic(){
-        if(this.consultaComicSeleccionada == "Comic con heroes mas fuertes"){
+        if(this.consultaComicSeleccionada == "Consulta 13"){
             this.getComicHeroesFuertes();
         }
     }  
@@ -327,6 +333,24 @@ export class BasicelementsComponent implements OnInit {
 
         this._characterService.getComicHeroesFuertes().subscribe(data => {
             this.comicHeoesFuertes=data[0]._id;
+            this.spinner.hide();
+        });
+    }
+
+    llamarConsultaAlignment(){
+        this.spinner.show();
+        this.dataSourceAlignment.data = [];
+        this.rowsAlignment = [];
+        this._characterService.getTopByAlignment(this.alignmentSelected).subscribe(data => {
+            console.log(data);
+            this.data = data;
+            this.data.forEach(c => {
+                this.rowsAlignment.push(new Character(c.char_name, c.numberOfAppearances, 0, 0))
+            });
+            //this.dataSourceWomen.sort = this.sort;
+
+            this.dataSourceAlignment.data = this.rowsAlignment;
+            this.dataSourceWomen.paginator = this.paginator;
             this.spinner.hide();
         });
     }

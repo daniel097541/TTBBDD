@@ -207,7 +207,7 @@
 
             <br><br><br>
         </div>
-        <div *ngIf="consultaSeleccionada=='Todos los heroes' || consultaSeleccionada=='Heroe por nombre' || consultaSeleccionada=='Heroes como villanos'">
+        <div *ngIf="consultaSeleccionada=='Todos los heroes' || consultaSeleccionada=='Heroe por nombre' || consultaSeleccionada=='Consulta 7'">
 
 
             <h2 *ngIf="consultaSeleccionada=='Todos los heroes'" style="text-align: center">Esta es la consulta de todos los
@@ -216,7 +216,7 @@
             <h2 *ngIf="consultaSeleccionada=='Heroe por nombre'" style="text-align: center">Esta es la consulta de los
                 superheroes filtrada por nombre</h2>
             
-            <h2 *ngIf="consultaSeleccionada=='Heroes como villanos'" style="text-align: center">Heroes con mas apariciones como 
+            <h2 *ngIf="consultaSeleccionada=='Consulta 7'" style="text-align: center">Heroes con mas apariciones como 
                 villanos</h2>
 
             <input *ngIf="consultaSeleccionada=='Heroe por nombre'" atInput placeholder="Introduce nombre personaje"
@@ -257,7 +257,7 @@
 
         </div>
 
-        <div *ngIf="consultaSeleccionada=='Heroinas mas poderosas'">
+        <div *ngIf="consultaSeleccionada=='Consulta 6'">
             <h2 style="text-align: center">Esta es la consulta donde se muestran personajes femeninos ordenados por
                 cantidad de poderes</h2>
 
@@ -281,27 +281,27 @@
             </mat-paginator>
         </div>
 
-        <div *ngIf="consultaSeleccionada=='Personaje mas poderoso'">
+        <div *ngIf="consultaSeleccionada=='Consulta 3'">
             <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
 
             <h4>El personaje con un total de <span style="color: red">{{cantidadPoderesPersonajeMasPoderes}}</span> poderes es <span style="color: red">{{nombrePersonajeMasPoderes}}</span> el cual tiene un colo de ojos <span style="color: blue">{{colorOjosPersonajeMasPoderes}}</span>, aparece en un total de <span style="color: red">{{cantidadComicsPersonajeMasPoderes}}</span> comics, perteneciente a la editorial <span style="color: red">{{editorialPersonajeMasPoderes}}</span></h4>
 
         </div>
 
-        <div *ngIf="consultaSeleccionada=='Personaje con mas peso'">
-            <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas peso</h2>
+        <div *ngIf="consultaSeleccionada=='Consulta 1'">
+            <h2 style="text-align: center">Esta es la consulta donde se muestra el Consulta 1</h2>
 
-            <h4>El personaje con mas peso es <span style="color: red">{{nombrePersonajeConMasPeso}}</span> con un peso de  <span style="color: red">{{pesoPersonajeConMasPeso}}</span>, tiene un color de ojos <span style="color: blue">{{colorOjosPersonajeConMasPeso}}</span>, y aparece en un total de <span style="color: red">{{cantidadComicsPersonajeConMasPeso}}</span> comics.</h4>
+            <h4>El Consulta 1 es <span style="color: red">{{nombrePersonajeConMasPeso}}</span> con un peso de  <span style="color: red">{{pesoPersonajeConMasPeso}}</span>, tiene un color de ojos <span style="color: blue">{{colorOjosPersonajeConMasPeso}}</span>, y aparece en un total de <span style="color: red">{{cantidadComicsPersonajeConMasPeso}}</span> comics.</h4>
 
         </div>
 
-        <div *ngIf="consultaSeleccionada=='Mejor heroe del comic'">
+        <div *ngIf="consultaSeleccionada=='Consulta 12'">
             <h2 style="text-align: center">Encuentra al mejor heroe de un comic (ej: 17486)</h2>
             
             <input atInput placeholder="Introduce id del comic"
                    [(ngModel)]='buscadorComic'>
             &nbsp;
-            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Mejor heroe del comic'" mat-raised-button
+            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Consulta 12'" mat-raised-button
                     color="primary" (click)="mostrarHeroeMasPoderosoByComic()">Buscar
             </button>
             <div *ngIf="comicFound"> 
@@ -310,11 +310,11 @@
            
         </div>
 
-        <div *ngIf="consultaSeleccionada=='Villano mas listo'">
+        <div *ngIf="consultaSeleccionada=='Consulta 8'">
             <h2 style="text-align: center">El villano con mas intelegencia es: <span style="color: red">{{villanoMasListo}}</span></h2>           
         </div>
 
-        <div *ngIf="consultaSeleccionada=='Heroe menos inteligencia'">
+        <div *ngIf="consultaSeleccionada=='Consulta 9'">
             <h2 style="text-align: center">El héroe con menos inteligencia es: <span style="color: red">{{heroeMasTonto}}</span></h2>           
         </div>
     </div>
@@ -326,6 +326,7 @@
             <ngb-tabset [justify]="'center'" type="pills" class="nav-pills-info">
                 <ngb-tab title="FEMENINOS">
                     <ng-template ngbTabContent>
+                        <h4>(Consulta 5)</h4>
                         <table mat-table [dataSource]="dataSourceWomen" class="mat-elevation-z8" matSort
                             style="width: 100%">
 
@@ -345,6 +346,7 @@
                 </ngb-tab>
                 <ngb-tab title="MAS PODEROSOS">
                     <ng-template ngbTabContent>
+                        <h4>(Consulta 10)</h4>
                         <table mat-table [dataSource]="dataSourceFront2" class="mat-elevation-z8" matSort
                             style="width: 100%">
 
@@ -362,9 +364,33 @@
                         </table>
                     </ng-template>
                 </ngb-tab>
-                <ngb-tab title="VILLANOS">
+                <ngb-tab title="BUENOS/MALOS">
                     <ng-template ngbTabContent>
-                        CCCC
+                        <h4>(Consulta 11)</h4>
+                        <mat-form-field>
+                            <mat-label>Seleccione Consulta Comics</mat-label>
+                            <mat-select [(ngModel)]="alignmentSelected" (ngModelChange)="llamarConsultaAlignment()">
+                                <mat-option *ngFor="let alignment of selectAlignments" [value]="alignment.value">
+                                    {{alignment.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="alignmentSelected">
+                            <table mat-table [dataSource]="dataSourceAlignment" class="mat-elevation-z8" matSort
+                            style="width: 100%">
+                                <ng-container matColumnDef="nombre">
+                                    <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="naparicionesComics">
+                                    <th mat-header-cell *matHeaderCellDef >Nº de apariciones</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsWomen"></tr>
+                                <tr mat-row *matRowDef=" let row; columns: displayedColumnsWomen"></tr>
+                            </table>
+                        </div>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>

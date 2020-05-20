@@ -62,4 +62,8 @@ export class CharacterService {
     public getComicHeroesFuertes(){
         return this.httpClient.get<any[]>( '/comics' + '/findComicWithStrongestHeroes');
     }
+
+    public getTopByAlignment(alignment: string){
+        return this.httpClient.get<any[]>( '/characters' + '/ranking' + '/top5WithAlignment?alignment=' + alignment);
+    }
 }
