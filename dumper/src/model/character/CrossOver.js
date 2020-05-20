@@ -1,6 +1,6 @@
 const DynamicModel = require('../basic/DynamicModel');
-const DC = 'Earth-616';
-const marvel = 'New Earth';
+const DC = 'New Earth';
+const marvel = 'Earth-616';
 
 class CrossOver extends DynamicModel {
 
