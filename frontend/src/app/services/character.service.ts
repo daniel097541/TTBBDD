@@ -66,4 +66,8 @@ export class CharacterService {
     public getTopByAlignment(alignment: string){
         return this.httpClient.get<any[]>( '/characters' + '/ranking' + '/top5WithAlignment?alignment=' + alignment);
     }
+
+    public getVillanosId(id: string){
+        return this.httpClient.get<any[]>( '/characters' + '/findVillainsThatMetCharacter?character_id=' + id);
+    }
 }

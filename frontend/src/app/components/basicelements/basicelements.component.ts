@@ -29,10 +29,12 @@ export class BasicelementsComponent implements OnInit {
     public dataSourceWomen: MatTableDataSource<Character>;
     public dataSourceComic: MatTableDataSource<Comic>;
     public dataSourceAlignment: MatTableDataSource<Character>;
+    public dataSourceVillanos: MatTableDataSource<Character>;
     dataWomen: Array<any> = [];
     rowsWomen: Array<Character> = [];
     rowsComics: Array<Comic> = [];
     rowsAlignment: Array<Character> = [];
+    rowsVillanos: Array<Character> = [];
     nombreCharacter: string;
     consultas: Array<string>;
     consultasComic: Array<string>;
@@ -51,6 +53,7 @@ export class BasicelementsComponent implements OnInit {
     nombrePersonajeMasPoderes;
     cantidadPoderesPersonajeMasPoderes;
     selectAlignments;
+    idHeroSelected;
 
     nombrePersonajeConMasPeso;
     cantidadComicsPersonajeConMasPeso;
@@ -59,6 +62,7 @@ export class BasicelementsComponent implements OnInit {
     mejorHeroeDelComic;
     buscadorComic;
     comicFound;
+    villanosEncontrados: boolean;
 
     villanoMasListo;
     heroeMasTonto;
@@ -67,7 +71,7 @@ export class BasicelementsComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     // Columnas de las Tablas LVs
-    public displayedColumns: string[] = ['nombre', 'naparicionesComics', 'cantidadPoderes', 'numeroCrossovers'];
+    public displayedColumns: string[] = ['id','nombre', 'naparicionesComics', 'cantidadPoderes', 'numeroCrossovers'];
     public displayedColumns2: string[] = ['nombre', 'cantidadPoderes'];
     public displayedColumnsWomen: string [] = ['nombre','naparicionesComics' ]
     public displayedColumnsComic: string [] = ['nombre']
@@ -78,12 +82,14 @@ export class BasicelementsComponent implements OnInit {
         this.dataSourceWomen = new MatTableDataSource();
         this.dataSourceComic = new MatTableDataSource();
         this.dataSourceAlignment = new MatTableDataSource();
+        this.dataSourceVillanos = new MatTableDataSource();
     }
 
     ngOnInit() {
         this.comicFound = false;
         this.comicSearch = false;
-        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Consulta 6', 'Consulta 3', 'Consulta 1', 'Consulta 7', 'Consulta 12', 'Consulta 8', 'Consulta 9']
+        this.villanosEncontrados = false;
+        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Consulta 6', 'Consulta 3', 'Consulta 1', 'Consulta 7', 'Consulta 12', 'Consulta 8', 'Consulta 9', 'Consulta 14']
         this.consultasComic = ["Busqueda por nombre", "Consulta 13"];
         this.selectAlignments = [{name: "Buenos", value: "good"},{name: "Neutrales", value: "neutral"},{name: "Malos", value: "bad"}];
         this.getTopTenWomen();
@@ -99,7 +105,7 @@ export class BasicelementsComponent implements OnInit {
             console.log(data)
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length))
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, 0))
             })
             this.dataSourceFront.sort = this.sort;
 
@@ -119,7 +125,7 @@ export class BasicelementsComponent implements OnInit {
             console.log(data)
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length))
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, c._id))
             })
             this.dataSourceFront.sort = this.sort;
 
@@ -208,7 +214,7 @@ export class BasicelementsComponent implements OnInit {
 
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length))
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length,0))
             })
             this.dataSourceFront.sort = this.sort;
 
@@ -255,7 +261,7 @@ export class BasicelementsComponent implements OnInit {
             console.log(data);
             this.dataWomen = data;
             this.dataWomen.forEach(c => {
-                this.rowsWomen.push(new Character(c.char_name, c.numberOfAppearances, 0, 0))
+                this.rowsWomen.push(new Character(c.char_name, c.numberOfAppearances, 0, 0,0))
             });
             //this.dataSourceWomen.sort = this.sort;
 
@@ -345,12 +351,33 @@ export class BasicelementsComponent implements OnInit {
             console.log(data);
             this.data = data;
             this.data.forEach(c => {
-                this.rowsAlignment.push(new Character(c.char_name, c.numberOfAppearances, 0, 0))
+                this.rowsAlignment.push(new Character(c.char_name, c.numberOfAppearances, 0, 0,0))
             });
             //this.dataSourceWomen.sort = this.sort;
 
             this.dataSourceAlignment.data = this.rowsAlignment;
             this.dataSourceWomen.paginator = this.paginator;
+            this.spinner.hide();
+        });
+    }
+
+    getVillanoId(){
+        this.spinner.show();
+        this.dataSourceVillanos.data = [];
+        this.rowsVillanos = [];
+        this.villanosEncontrados = false;
+        this._characterService.getVillanosId(this.idHeroSelected).subscribe(data => {
+            console.log(data);
+            this.data = data;
+            if(data.length > 0 && data[0].villains){
+                this.data[0].villains.forEach(c => {
+                    this.rowsVillanos.push(new Character(c.name, 0, 0, 0,0))
+                });
+            }
+            //this.dataSourceWomen.sort = this.sort;
+            this.villanosEncontrados = true;
+            this.dataSourceVillanos.data = this.rowsVillanos;
+            setTimeout(() => this.dataSourceVillanos.paginator = this.paginator);
             this.spinner.hide();
         });
     }

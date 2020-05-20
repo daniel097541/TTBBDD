@@ -230,6 +230,10 @@
             <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
                    style="width: 100%">
 
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>   
                 <ng-container matColumnDef="nombre">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
                     <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
@@ -316,6 +320,27 @@
 
         <div *ngIf="consultaSeleccionada=='Consulta 9'">
             <h2 style="text-align: center">El héroe con menos inteligencia es: <span style="color: red">{{heroeMasTonto}}</span></h2>           
+        </div>
+
+        <div *ngIf="consultaSeleccionada=='Consulta 14'">
+            <input atInput placeholder="Introduce id del heroe"
+                   [(ngModel)]='idHeroSelected'>
+            &nbsp;
+            <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Consulta 14'" mat-raised-button
+                    color="primary" (click)="getVillanoId()">Buscar
+            </button>
+            <div *ngIf="villanosEncontrados">
+                <table mat-table [dataSource]="dataSourceVillanos" class="mat-elevation-z8" matSort
+                            style="width: 100%">
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef >Nombre</th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                    </ng-container>                    
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
+                    <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
+                </table>
+            </div>
         </div>
     </div>
     <div class="container" align="center">
@@ -435,7 +460,7 @@
                     </mat-paginator>
                 </div>
             </div>    
-            <div *ngIf="consultaComicSeleccionada=='Comic con heroes mas fuertes'">
+            <div *ngIf="consultaComicSeleccionada=='Consulta 13'">
                 <h2>El comic que tiene los hereos mas fuertes es <span style="color: red">{{comicHeoesFuertes}}</span></h2>
             </div>
            
