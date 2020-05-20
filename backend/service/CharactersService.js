@@ -346,6 +346,19 @@ class CharactersService extends BasicService{
         });
     }
 
+    /**
+     * Finds the tallest character
+     *
+     * returns Character
+     **/
+    findTallestCharacter() {
+        return new Promise( (resolve, reject) => {
+            this.dao.findTallestChar((err, data) => {
+                this.handleDaoResponse(resolve, reject, err, data);
+            })
+        });
+    }
+
 }
 
 const instance = new CharactersService();

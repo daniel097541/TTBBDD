@@ -52,7 +52,7 @@ class CharactersDAO extends BasicDAO {
     // CONSULTA 2: ¿Quién es el más alto?
     // El personaje más alto de todos
     findTallestChar(callback) {
-        console.log(`Running query to find red barclay!`)
+        console.log(`Running query to find the tallest character!`)
         const pipeline = [
             {
                 $group: {_id: "$$ROOT", height: {$max: "$info.height"}}
