@@ -7,7 +7,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Character2} from 'app/models/Character2';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -25,6 +25,7 @@ export class BasicelementsComponent implements OnInit {
     rows2: Array<Character2> = [];
     ColumnMode = ColumnMode;
     public dataSourceFront: MatTableDataSource<Character>;
+    public dataSourceBuscador: MatTableDataSource<Character>;
     public dataSourceFront2: MatTableDataSource<Character2>;
     public dataSourceWomen: MatTableDataSource<Character>;
     public dataSourceComic: MatTableDataSource<Comic>;
@@ -41,10 +42,10 @@ export class BasicelementsComponent implements OnInit {
     consultaSeleccionada;
     consultaComicSeleccionada;
     comicNameSerach;
-    comicSearch:boolean;
+    comicSearch: boolean;
     comicHeoesFuertes;
     alignmentSelected: string;
-    heroeMasAlto:string;
+    heroeMasAlto: string;
 
 
     cantidadComicsPersonajeMasPoderes;
@@ -74,12 +75,13 @@ export class BasicelementsComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     // Columnas de las Tablas LVs
-    public displayedColumns: string[] = ['id','nombre', 'naparicionesComics', 'cantidadPoderes', 'numeroCrossovers'];
+    public displayedColumns: string[] = ['id', 'nombre', 'naparicionesComics', 'cantidadPoderes', 'numeroCrossovers'];
     public displayedColumns2: string[] = ['nombre', 'cantidadPoderes'];
-    public displayedColumnsWomen: string [] = ['nombre','naparicionesComics' ]
-    public displayedColumnsComic: string [] = ['nombre']
+    public displayedColumnsWomen: string [] = ['nombre', 'naparicionesComics'];
+    public displayedColumnsComic: string [] = ['nombre'];
 
-    constructor(private _characterService: CharacterService,private spinner: NgxSpinnerService) {
+    constructor(private _characterService: CharacterService, private spinner: NgxSpinnerService) {
+        this.dataSourceBuscador = new MatTableDataSource<Character>();
         this.dataSourceFront = new MatTableDataSource();
         this.dataSourceFront2 = new MatTableDataSource();
         this.dataSourceWomen = new MatTableDataSource();
@@ -92,10 +94,10 @@ export class BasicelementsComponent implements OnInit {
         this.comicFound = false;
         this.comicSearch = false;
         this.villanosEncontrados = false;
-        this.consultas = ['Todos los heroes', 'Heroe por nombre', 'Las chicas son guerreras', 'Quien es el heroe más poderoso', 'Quien es el más gordo',
-            'Malos heroes', 'El heroe con mejores estadísticas', 'El villano más listo', 'El heroe más tonto', 'Buscador de villanos', 'Quien es el más alto?']
-        this.consultasComic = ["Busqueda por nombre", "El comic de los vigorexicos"];
-        this.selectAlignments = [{name: "Buenos", value: "good"},{name: "Neutrales", value: "neutral"},{name: "Malos", value: "bad"}];
+        this.consultas = ['Todos los heroes', 'Las chicas son guerreras', 'Quién es el heroe más poderoso', 'Quién es el más gordo',
+            'Malos heroes', 'El heroe con mejores estadísticas', 'El villano más listo', 'El heroe más tonto', 'Buscador de villanos', 'Quién es el más alto?'];
+        this.consultasComic = ['El comic de los Vigoréxicos'];
+        this.selectAlignments = [{name: 'Buenos', value: 'good'}, {name: 'Neutrales', value: 'neutral'}, {name: 'Malos', value: 'bad'}];
         this.getTopTenWomen();
         this.getTopPowerfull();
     }
@@ -103,63 +105,63 @@ export class BasicelementsComponent implements OnInit {
 
     mostararCharacters() {
         this.spinner.show();
-        this.dataSourceFront.data = []
+        this.dataSourceFront.data = [];
         this.rows = [];
         this._characterService.getCharacters().subscribe(data => {
-            console.log(data)
+            console.log(data);
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, c._id))
-            })
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, c._id));
+            });
             this.dataSourceFront.sort = this.sort;
 
             const sortState: Sort = {active: 'nombre', direction: 'asc'};
             this.dataSourceFront.data = this.rows;
             this.dataSourceFront.paginator = this.paginator;
-                this.spinner.hide();
+            this.spinner.hide();
 
-        })
+        });
     }
 
     mostararCharactersByName() {
         this.spinner.show();
-        this.dataSourceFront.data = []
+        this.dataSourceBuscador.data = [];
         this.rows = [];
         this._characterService.getCharactersByNombre(this.nombreCharacter).subscribe(data => {
-            console.log(data)
+            console.log(data);
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, c._id))
-            })
-            this.dataSourceFront.sort = this.sort;
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, c._id));
+            });
+            this.dataSourceBuscador.sort = this.sort;
 
             const sortState: Sort = {active: 'nombre', direction: 'asc'};
             this.sort.active = sortState.active;
             this.sort.direction = sortState.direction;
             this.sort.sortChange.emit(sortState);
-            this.dataSourceFront.data = this.rows;
-            this.dataSourceFront.paginator = this.paginator;
+            this.dataSourceBuscador.data = this.rows;
+            this.dataSourceBuscador.paginator = this.paginator;
             this.spinner.hide();
-        })
+        });
     }
 
     mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes() {
         this.spinner.show();
-        this.dataSourceFront2.data = []
+        this.dataSourceFront2.data = [];
         this.rows2 = [];
         this._characterService.getPersonajesFemeninosOrdenadosPorPoderes().subscribe(data => {
-            console.log(data)
+            console.log(data);
             this.data = data;
             this.data.forEach(c => {
-                this.rows2.push(new Character2(c.name, c.powers_amount))
-            })
+                this.rows2.push(new Character2(c.name, c.powers_amount));
+            });
             this.dataSourceFront.sort = this.sort;
 
             const sortState: Sort = {active: 'nombre', direction: 'asc'};
             this.dataSourceFront2.data = this.rows2;
             this.dataSourceFront2.paginator = this.paginator;
             this.spinner.hide();
-        })
+        });
     }
 
     mostrarPersonajeConMasPoderes() {
@@ -172,13 +174,13 @@ export class BasicelementsComponent implements OnInit {
             // @ts-ignore
             this.editorialPersonajeMasPoderes = data[0]._id.info.publisher;
             // @ts-ignore
-            this.colorPeloPersonajeMasPoderes = data[0]._id.info.hair_color
+            this.colorPeloPersonajeMasPoderes = data[0]._id.info.hair_color;
             // @ts-ignore
             this.nombrePersonajeMasPoderes = data[0]._id.name;
             // @ts-ignore
             this.cantidadPoderesPersonajeMasPoderes = data[0]._id.powers.length;
             this.spinner.hide();
-        })
+        });
     }
 
     mostrarPersonajeMasGordo() {
@@ -191,35 +193,35 @@ export class BasicelementsComponent implements OnInit {
             // @ts-ignore
             this.editorialPersonajeMasPoderes = data[0]._id.info.publisher;
             // @ts-ignore
-            this.colorPeloPersonajeMasPoderes = data[0]._id.info.hair_color
+            this.colorPeloPersonajeMasPoderes = data[0]._id.info.hair_color;
             // @ts-ignore
             this.nombrePersonajeMasPoderes = data[0]._id.name;
             // @ts-ignore
             this.cantidadPoderesPersonajeMasPoderes = data[0]._id.powers.length;
             this.spinner.hide();
-        })
+        });
     }
 
-    mostrarPersonajeConMasPeso(){
+    mostrarPersonajeConMasPeso() {
         this.spinner.show();
         this._characterService.getPersonajeMasGordo().subscribe(data => {
 
-            this.nombrePersonajeConMasPeso=data[0]._id.name;
-            this.cantidadComicsPersonajeConMasPeso=data[0]._id.comics.length;
-            this.colorOjosPersonajeConMasPeso=data[0]._id.info.eye_color;
-            this.pesoPersonajeConMasPeso=data[0].weight;
+            this.nombrePersonajeConMasPeso = data[0]._id.name;
+            this.cantidadComicsPersonajeConMasPeso = data[0]._id.comics.length;
+            this.colorOjosPersonajeConMasPeso = data[0]._id.info.eye_color;
+            this.pesoPersonajeConMasPeso = data[0].weight;
             this.spinner.hide();
-        })
+        });
     }
 
-    mostrarHeroesMalos(){
+    mostrarHeroesMalos() {
         this.spinner.show();
         this._characterService.getHeroesMalos().subscribe(data => {
 
             this.data = data;
             this.data.forEach(c => {
-                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length,0))
-            })
+                this.rows.push(new Character(c.name, c.comics.length, c.powers.length, c.crossovers.length, c._id));
+            });
             this.dataSourceFront.sort = this.sort;
 
             this.dataSourceFront.data = this.rows;
@@ -228,13 +230,13 @@ export class BasicelementsComponent implements OnInit {
         });
     }
 
-    mostrarHeroeMasPoderosoByComic(){
-        if(this.buscadorComic && !isNaN(this.buscadorComic)){
+    mostrarHeroeMasPoderosoByComic() {
+        if (this.buscadorComic && !isNaN(this.buscadorComic)) {
             this.spinner.show();
-        
+
             this._characterService.getHeroesPoderosoComic(this.buscadorComic).subscribe(data => {
-                if(data && data.length > 0){
-                    this.mejorHeroeDelComic=data[0].name;
+                if (data && data.length > 0) {
+                    this.mejorHeroeDelComic = data[0].name;
                     this.comicFound = true;
                 }
                 this.spinner.hide();
@@ -242,30 +244,30 @@ export class BasicelementsComponent implements OnInit {
         }
     }
 
-    getVillanoMasListo(){
+    getVillanoMasListo() {
         this.spinner.show();
 
         this._characterService.getVillanoMasListo().subscribe(data => {
-            this.villanoMasListo=data[0].name;
+            this.villanoMasListo = data[0].name;
             this.spinner.hide();
         });
     }
 
-    getHeroeMasTonto(){
+    getHeroeMasTonto() {
         this.spinner.show();
 
         this._characterService.getHeroeMasTonto().subscribe(data => {
-            this.heroeMasTonto=data[0].name;
+            this.heroeMasTonto = data[0].name;
             this.spinner.hide();
         });
     }
 
-    getTopTenWomen(){
+    getTopTenWomen() {
         this._characterService.getTopWomen().subscribe(data => {
             console.log(data);
             this.dataWomen = data;
             this.dataWomen.forEach(c => {
-                this.rowsWomen.push(new Character(c.char_name, c.numberOfAppearances, 0, 0,0))
+                this.rowsWomen.push(new Character(c.char_name, c.numberOfAppearances, 0, 0, 0));
             });
             //this.dataSourceWomen.sort = this.sort;
 
@@ -274,13 +276,13 @@ export class BasicelementsComponent implements OnInit {
         });
     }
 
-    getTopPowerfull(){
+    getTopPowerfull() {
         this._characterService.getTopPowerfull().subscribe(data => {
-            console.log(data)
+            console.log(data);
             this.data = data;
             this.data.forEach(c => {
-                this.rows2.push(new Character2(c.char_name, c.numberOfPowers))
-            })
+                this.rows2.push(new Character2(c.char_name, c.numberOfPowers));
+            });
             this.dataSourceFront.sort = this.sort;
 
             const sortState: Sort = {active: 'nombre', direction: 'asc'};
@@ -296,31 +298,31 @@ export class BasicelementsComponent implements OnInit {
         } else if (this.consultaSeleccionada == 'Heroe por nombre') {
             this.mostararCharactersByName();
         } else if (this.consultaSeleccionada == 'Las chicas son guerreras') {
-            this.mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes()
-        } else if (this.consultaSeleccionada == 'Quien es el heroe más poderoso') {
+            this.mostrarPersonajesFemeninosOrdenadosPorCantidadDePoderes();
+        } else if (this.consultaSeleccionada == 'Quién es el heroe más poderoso') {
             this.mostrarPersonajeConMasPoderes();
-        }else if (this.consultaSeleccionada == 'Quien es el más gordo'){
+        } else if (this.consultaSeleccionada == 'Quién es el más gordo') {
             this.mostrarPersonajeConMasPeso();
-        }else if (this.consultaSeleccionada == 'Malos heroes'){
+        } else if (this.consultaSeleccionada == 'Malos heroes') {
             this.mostrarHeroesMalos();
-        }else if(this.consultaSeleccionada == 'El villano más listo'){
+        } else if (this.consultaSeleccionada == 'El villano más listo') {
             this.getVillanoMasListo();
-        }else if(this.consultaSeleccionada == 'El heroe más tonto'){
+        } else if (this.consultaSeleccionada == 'El heroe más tonto') {
             this.getHeroeMasTonto();
-        }else if(this.consultaSeleccionada == 'Quien es el más alto?'){
+        } else if (this.consultaSeleccionada == 'Quién es el más alto?') {
             this.getHeroeMasAlto();
         }
     }
 
-    llamarConsultaComic(){
-        if(this.consultaComicSeleccionada == "El comic de los vigorexicos"){
+    llamarConsultaComic() {
+        if (this.consultaComicSeleccionada == 'El comic de los Vigoréxicos') {
             this.getComicHeroesFuertes();
         }
-    }  
+    }
 
-    buscarComic(){
+    buscarComic() {
         this.spinner.show();
-        this.dataSourceComic.data = []
+        this.dataSourceComic.data = [];
         this.rowsComics = [];
         this.comicSearch = false;
         this._characterService.getComicsByName(this.comicNameSerach).subscribe(data => {
@@ -328,7 +330,7 @@ export class BasicelementsComponent implements OnInit {
             this.data = data;
             this.data.forEach(c => {
                 this.rowsComics.push(new Comic(c.name));
-            })
+            });
             const sortState: Sort = {active: 'nombre', direction: 'asc'};
             this.sort.active = sortState.active;
             this.sort.direction = sortState.direction;
@@ -340,16 +342,16 @@ export class BasicelementsComponent implements OnInit {
 
     }
 
-    getComicHeroesFuertes(){
+    getComicHeroesFuertes() {
         this.spinner.show();
 
         this._characterService.getComicHeroesFuertes().subscribe(data => {
-            this.comicHeoesFuertes=data[0]._id;
+            this.comicHeoesFuertes = data[0]._id;
             this.spinner.hide();
         });
     }
 
-    llamarConsultaAlignment(){
+    llamarConsultaAlignment() {
         this.spinner.show();
         this.dataSourceAlignment.data = [];
         this.rowsAlignment = [];
@@ -357,7 +359,7 @@ export class BasicelementsComponent implements OnInit {
             console.log(data);
             this.data = data;
             this.data.forEach(c => {
-                this.rowsAlignment.push(new Character(c.char_name, c.numberOfAppearances, 0, 0,0))
+                this.rowsAlignment.push(new Character(c.char_name, c.numberOfAppearances, 0, 0, 0));
             });
             //this.dataSourceWomen.sort = this.sort;
 
@@ -367,7 +369,7 @@ export class BasicelementsComponent implements OnInit {
         });
     }
 
-    getVillanoId(){
+    getVillanoId() {
         this.spinner.show();
         this.dataSourceVillanos.data = [];
         this.rowsVillanos = [];
@@ -375,9 +377,9 @@ export class BasicelementsComponent implements OnInit {
         this._characterService.getVillanosId(this.idHeroSelected).subscribe(data => {
             console.log(data);
             this.data = data;
-            if(data.length > 0 && data[0].villains){
+            if (data.length > 0 && data[0].villains) {
                 this.data[0].villains.forEach(c => {
-                    this.rowsVillanos.push(new Character(c.name, 0, 0, 0,0))
+                    this.rowsVillanos.push(new Character(c.name, 0, 0, 0, 0));
                 });
             }
             //this.dataSourceWomen.sort = this.sort;
@@ -388,11 +390,11 @@ export class BasicelementsComponent implements OnInit {
         });
     }
 
-    getHeroeMasAlto(){
+    getHeroeMasAlto() {
         this.spinner.show();
 
         this._characterService.getHeroeMasAlto().subscribe(data => {
-            this.heroeMasAlto =data[0]._id.name;
+            this.heroeMasAlto = data[0]._id.name;
             this.spinner.hide();
         });
     }

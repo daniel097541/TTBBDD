@@ -1,6 +1,87 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box"
              [fullScreen]="true"><p style="color: white"> Cargando datos... </p></ngx-spinner>
 <mat-tab-group class="section section-buttons">
+    <mat-tab label="Buscador de personajes">
+        <div class="container" align="center">
+            <div class="tim-title">
+                <h2>Buscador de personajes</h2>
+            </div>
+
+            <input matInput
+                   placeholder="Introduce el nombre"
+                   [(ngModel)]='nombreCharacter'>
+            &nbsp;
+            <button style="margin-bottom: 3%" mat-raised-button
+                    color="primary" (click)="mostararCharactersByName()">Buscar
+            </button>
+
+            <table mat-table [dataSource]="dataSourceBuscador" class="mat-elevation-z8" matSort
+                   style="width: 100%">
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                </ng-container>
+                <ng-container matColumnDef="naparicionesComics">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de Apariciones en comics</th>
+                    <td mat-cell *matCellDef="let element"> {{element.aparicionesEnComics}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cantidadPoderes">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>numero total de poderes</th>
+                    <td mat-cell *matCellDef="let element"> {{element.numeroPoderes}} </td>
+                </ng-container>
+                <ng-container matColumnDef="numeroCrossovers">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad de crossovers</th>
+                    <td mat-cell *matCellDef="let element"> {{element.numeroCrossovers}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef=" let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                           showFirstLastButtons>
+            </mat-paginator>
+
+        </div>
+    </mat-tab>
+    <mat-tab label="Buscador de comics">
+        <div class="container" align="center">
+            <div class="tim-title">
+                <h2>Buscador de comics</h2>
+            </div>
+
+
+            <div>
+                <input atInput placeholder="Introduce el nombre"
+                       [(ngModel)]='comicNameSerach'>
+                <button style="margin-bottom: 3%" mat-raised-button
+                        color="primary" (click)="buscarComic()">Buscar
+                </button>
+                <div *ngIf="comicSearch">
+                    <table mat-table [dataSource]="dataSourceComic" class="mat-elevation-z8" matSort
+                           style="width: 100%">
+
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
+                        <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
+                    </table>
+                    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
+                                   showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>
+
+
+        </div>
+    </mat-tab>
     <mat-tab label="Consultas sobre personajes">
         <div class="container" align="center">
             <div class="tim-title">
@@ -26,22 +107,9 @@
                     todos los
                     superheroes</h2>
 
-                <h2 *ngIf="consultaSeleccionada=='Heroe por nombre'" style="text-align: center">Esta es la consulta
-                    de
-                    los
-                    superheroes filtrada por nombre</h2>
-
                 <h2 *ngIf="consultaSeleccionada=='Malos heroes'" style="text-align: center">Heroes con mas apariciones
                     como
                     villanos</h2>
-
-                <input *ngIf="consultaSeleccionada=='Heroe por nombre'" atInput
-                       placeholder="Introduce nombre personaje"
-                       [(ngModel)]='nombreCharacter'>
-                &nbsp;
-                <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='Heroe por nombre'" mat-raised-button
-                        color="primary" (click)="mostararCharactersByName()">Buscar
-                </button>
 
 
                 <table mat-table [dataSource]="dataSourceFront" class="mat-elevation-z8" matSort
@@ -103,7 +171,7 @@
                 </mat-paginator>
             </div>
 
-            <div *ngIf="consultaSeleccionada=='Quien es el heroe más poderoso'">
+            <div *ngIf="consultaSeleccionada=='Quién es el heroe más poderoso'">
                 <h2 style="text-align: center">Esta es la consulta donde se muestra el personaje con mas podres</h2>
 
                 <h4>El personaje con un total de <span
@@ -118,7 +186,7 @@
 
             </div>
 
-            <div *ngIf="consultaSeleccionada=='Quien es el más gordo'">
+            <div *ngIf="consultaSeleccionada=='Quién es el más gordo'">
                 <h2 style="text-align: center">Esta es la consulta donde se muestra el Consulta 1</h2>
 
                 <h4>El Consulta 1 es <span style="color: red">{{nombrePersonajeConMasPeso}}</span> con un peso de
@@ -136,7 +204,8 @@
                 <input matInput placeholder="Introduce id del comic"
                        [(ngModel)]='buscadorComic'>
                 &nbsp;
-                <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='El heroe con mejores estadísticas'" mat-raised-button
+                <button style="margin-bottom: 3%" *ngIf="consultaSeleccionada=='El heroe con mejores estadísticas'"
+                        mat-raised-button
                         color="primary" (click)="mostrarHeroeMasPoderosoByComic()">Buscar
                 </button>
                 <div *ngIf="comicFound">
@@ -155,7 +224,7 @@
                         style="color: red">{{heroeMasTonto}}</span></h2>
             </div>
 
-            <div *ngIf="consultaSeleccionada=='Quien es el más alto?'">
+            <div *ngIf="consultaSeleccionada=='Quién es el más alto?'">
                 <h2 style="text-align: center">El héroe mas alto es: <span
                         style="color: red">{{heroeMasAlto}}</span>
                 </h2>
@@ -284,30 +353,8 @@
                 <br><br><br>
             </div>
             <div class="container" align="center">
-                <div *ngIf="consultaComicSeleccionada=='Busqueda por nombre'">
-                    <input atInput placeholder="Introduce el nombre"
-                           [(ngModel)]='comicNameSerach'>
-                    <button style="margin-bottom: 3%" mat-raised-button
-                            color="primary" (click)="buscarComic()">Buscar
-                    </button>
-                    <div *ngIf="comicSearch">
-                        <table mat-table [dataSource]="dataSourceComic" class="mat-elevation-z8" matSort
-                               style="width: 100%">
-
-                            <ng-container matColumnDef="nombre">
-                                <th mat-header-cell *matHeaderCellDef>Nombre</th>
-                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                            </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="displayedColumnsComic"></tr>
-                            <tr mat-row *matRowDef=" let row; columns: displayedColumnsComic"></tr>
-                        </table>
-                        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, totalRecursos]"
-                                       showFirstLastButtons>
-                        </mat-paginator>
-                    </div>
-                </div>
-                <div *ngIf="consultaComicSeleccionada=='El comic de los vigorexicos'">
-                    <h2>El comic que tiene los heroes mas fuertes es <span
+                <div *ngIf="consultaComicSeleccionada=='El comic de los Vigoréxicos'">
+                    <h2>El comic que tiene los heroes mas fuertes, de una muestra de 1000 comics aleatorios, es: <span
                             style="color: red">{{comicHeoesFuertes}}</span></h2>
                 </div>
 
